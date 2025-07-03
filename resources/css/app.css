@@ -9,14 +9,14 @@
 
 @font-face {
   font-family: 'Gotham';
-  src: url('/fonts/GOTHAM-BLACK.TTF') format('TTF');
+  src: url('../../public/css/fonts/Gotham-Black.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Gotham';
-  src: url('/fonts/GOTHAM-BOLD.TTF') format('TTF');
+  src: url('../../public/css/fonts/Gotham-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
 }
@@ -199,4 +199,8 @@
   .hover\:text-brand:hover {
     color: var(--brand);
   }
+}
+
+body {
+  font-family: 'Gotham-Black', 'Gotham-Bold', sans-serif;
 }

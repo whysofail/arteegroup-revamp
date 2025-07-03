@@ -10,7 +10,7 @@ const logos = [
 
 export default function AboutUs() {
     return (
-        <section className="px-6 py-16 text-white">
+        <section className="py-16 text-white">
             <div className="mx-auto max-w-7xl px-8">
                 <div className="mb-10 grid gap-4 grid-cols-5">
                     {/* Title di kiri (1 kolom penuh) */}
