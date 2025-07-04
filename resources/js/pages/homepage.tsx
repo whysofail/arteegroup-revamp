@@ -1,25 +1,42 @@
 // resources/js/Pages/Homepage.tsx
 
+import HeroBlock from '@/components/block/hero-block';
 import AboutUs from '@/components/homepage/AboutUs';
 import ClientLogos from '@/components/homepage/ClientLogos';
-import Footer from '@/components/homepage/Footer';
-import HeroSection from '@/components/homepage/HeroSection';
-import Navbar from '@/components/homepage/Navbar';
 import OurWorks from '@/components/homepage/OurWorks';
+import AppLayout from '@/layouts/app-layout';
+import { IBlock } from '@/types/blocks.type';
+import { Head } from '@inertiajs/react';
 
-export default function Home() {
-    return (
-        <div className="font-gotham bg-black">
-            <Navbar />
-            <HeroSection />
-            <AboutUs />
-            <ClientLogos />
-            <OurWorks />
-            <div className="mb-4 h-px w-full bg-[#4B4B4B]" />
-            <Footer />
-        </div>
-    );
+interface HomepageProps {
+    seo?: {
+        title?: string;
+        description?: string;
+        image?: string | null;
+    };
+    blocks: IBlock[];
 }
+
+const Homepage = ({ seo, blocks }: HomepageProps) => {
+    return (
+        <>
+            <Head title={seo?.title || 'Arteegroup - Homepage'}>
+                <meta name="description" content={seo?.description || 'Welcome to Arteegroup, your partner in digital innovation.'} />
+                {seo?.image && <meta property="og:image" content={seo.image} />}
+            </Head>
+            <div className="font-gotham bg-black">
+                <HeroBlock data={blocks.find((block) => block.type === 'hero')?.data || {}} />
+                <AboutUs />
+                <ClientLogos />
+                <OurWorks />
+                <div className="mb-4 h-px w-full bg-[#4B4B4B]" />
+            </div>
+        </>
+    );
+};
+Homepage.layout = (page: React.ReactNode) => <AppLayout children={page} />;
+export default Homepage;
+
 // resources/js/Pages/Homepage.tsx
 
 // export default function Homepage({ seo, blocks }) {

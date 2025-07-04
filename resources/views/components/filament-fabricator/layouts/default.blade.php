@@ -1,8 +1,18 @@
 @props(['page'])
-<x-filament-fabricator::layouts.base :title="$page->title">
-    {{-- Header Here --}}
 
-    <x-filament-fabricator::page-blocks :blocks="$page->blocks" />
+@php
+    session([
+        'preview_data' => [
+            'seo' => [
+                'title' => $page['seo_title'] ?? '',
+                'description' => $page['seo_description'] ?? '',
+                'image' => $page['seo_image'] ?? null,
+            ],
+            'blocks' => is_string($page['blocks'] ?? null) ? json_decode($page['blocks'], true) : $page['blocks'] ?? [],
+        ],
+    ]);
+@endphp
 
-    {{-- Footer Here --}}
-</x-filament-fabricator::layouts.base>
+<script>
+    window.location.href = "{{ route('page.preview', ['slug' => $page['slug'] ?? 'preview']) }}?preview=1";
+</script>

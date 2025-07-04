@@ -3,8 +3,7 @@ export interface IBlock {
     data?: Record<string, unknown>;
 }
 
-export interface IHeroBlock extends IBlock {
-    type: 'hero';
+export interface IHeroBlock {
     data: {
         title?: string;
         subtitle?: string;

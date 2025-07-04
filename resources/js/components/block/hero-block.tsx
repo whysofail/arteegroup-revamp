@@ -1,26 +1,44 @@
-import { type HeroBlock as HeroBlockProps } from '@/types/blocks.type';
+import { getRelativePath } from '@/lib/get-relative-path';
+import { type IHeroBlock } from '@/types/blocks.type';
 import React from 'react';
 
-const HeroBlock: React.FC<HeroBlockProps> = ({ data }) => {
-    const { title, subtitle, image, cta_text, cta_url, background_url } = data;
+const isVideo = (url: string | undefined): boolean => {
+    if (!url) return false;
+    return /\.(mp4|webm|ogg)$/i.test(url);
+};
+
+const HeroBlock: React.FC<IHeroBlock> = ({ data }) => {
+    const { title, subtitle, cta_text, cta_url, background_url } = data;
 
     return (
-        <section className="relative bg-white px-6 py-20 text-center">
-            {background_url && <img src={background_url} alt="Background" className="absolute inset-0 z-0 h-full w-full object-cover opacity-30" />}
+        <section className="relative flex h-screen items-center justify-center overflow-hidden">
+            {background_url &&
+                (isVideo(background_url) ? (
+                    <video
+                        src={getRelativePath(background_url)}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="absolute inset-0 z-0 h-full w-full object-cover"
+                    />
+                ) : (
+                    <img src={background_url} alt="Background" className="absolute inset-0 z-0 h-full w-full object-cover" />
+                ))}
 
-            <div className="relative z-10 mx-auto max-w-3xl">
-                <h1 className="text-4xl font-bold text-gray-900 md:text-5xl">{title}</h1>
-                {subtitle && <p className="mt-4 text-lg text-gray-700 md:text-xl">{subtitle}</p>}
-                {cta_text && cta_url && (
-                    <a href={cta_url} className="mt-6 inline-block rounded-lg bg-blue-600 px-6 py-3 text-white transition hover:bg-blue-700">
-                        {cta_text}
-                    </a>
-                )}
-                {image && (
-                    <div className="mt-6">
-                        <img src={image} alt="Hero Image" className="mx-auto max-h-64 w-auto" />
-                    </div>
-                )}
+            <div className="absolute bottom-24 left-0 z-10 w-full">
+                <div className="mx-auto max-w-7xl px-8 text-white">
+                    {title && <h1 className="mb-4 max-w-xl text-4xl font-bold drop-shadow-md">{title}</h1>}
+                    {subtitle && <p className="mb-6 text-lg drop-shadow-sm">{subtitle}</p>}
+                    {cta_text && cta_url && (
+                        <a
+                            href={cta_url}
+                            className="bg-brand inline-block rounded-full px-6 py-3 text-white transition hover:bg-white hover:text-black"
+                        >
+                            {cta_text}
+                        </a>
+                    )}
+                </div>
             </div>
         </section>
     );

@@ -10,7 +10,10 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Builder;
 use Illuminate\Support\Facades\Storage;
 use App\Filament\Fabricator\PageBlocks\Hero;
+use App\Models\Homepage as ModelsHomepage;
 use Filament\Forms\Components\Grid;
+use Filament\Notifications\Notification;
+
 
 
 
@@ -20,18 +23,28 @@ class Homepage extends Page
     protected static string $view = 'filament.pages.homepage';
 
     public array $data = [];
+    public array $blocks = [];
+    public string $seo_title = '';
+    public string $seo_description = '';
+    public $seo_image = null;
 
     public function mount(): void
     {
-        if (Storage::exists('homepage.json')) {
-            $this->form->fill(json_decode(Storage::get('homepage.json'), true));
-        } else {
-            $this->form->fill([
-                'seo_title' => 'Welcome to Our Site',
-                'seo_description' => 'Company profile site description...',
-                'hero_title' => 'We Build Awesome Things',
-            ]);
-        }
+
+        $homepage = ModelsHomepage::firstOrCreate(['id' => 1]);
+        $this->data = $homepage->blocks ?? [];
+        $this->blocks = $homepage->blocks ?? [];
+        $this->seo_title = $homepage->seo_title ?? '';
+        $this->seo_description = $homepage->seo_description ?? '';
+        $this->seo_image = $homepage->seo_image ? Storage::url($homepage->
+            seo_image) : null;
+
+        $this->form->fill([
+            'seo_title' => 'Welcome to Our Site',
+            'seo_description' => 'Company profile site description...',
+            'hero_title' => 'We Build Awesome Things',
+        ]);
+
     }
 
     protected function getFormSchema(): array
@@ -76,7 +89,34 @@ class Homepage extends Page
 
     public function submit(): void
     {
-        Storage::put('homepage.json', json_encode($this->form->getState(), JSON_PRETTY_PRINT));
-        $this->notify('success', 'Homepage content saved!');
+        $state = $this->form->getState();
+
+        $blocks = collect($state['blocks'])->map(function ($block) {
+            if ($block['type'] === 'hero') {
+                $data = $block['data'];
+                $block['data'] = $data;
+            }
+
+            return $block;
+        })->toArray();
+
+
+        ModelsHomepage::updateOrCreate(
+            ['id' => 1],
+            [
+                'seo_title' => $state['seo_title'],
+                'seo_description' => $state['seo_description'],
+                'seo_image' => $state['seo_image'] ? Storage::putFile('seo', $state['seo_image']) : null,
+                'blocks' => $blocks,
+            ]
+        );
+
+        Notification::make()
+            ->title('Homepage updated successfully!')
+            ->success()
+            ->send();
+
+        $this->dispatch('refresh');
     }
+
 }
