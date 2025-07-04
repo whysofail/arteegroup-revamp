@@ -1,7 +1,6 @@
 import Footer from '@/components/homepage/Footer';
 import Navbar from '@/components/homepage/Navbar';
 import { Separator } from '@/components/ui/separator';
-import AppLayoutTemplate from '@/layouts/app/app-sidebar-layout';
 import { type BreadcrumbItem } from '@/types';
 import { type ReactNode } from 'react';
 
@@ -11,10 +10,10 @@ interface AppLayoutProps {
 }
 
 export default ({ children, breadcrumbs, ...props }: AppLayoutProps) => (
-    <AppLayoutTemplate breadcrumbs={breadcrumbs} {...props}>
+    <>
         <Navbar />
         {children}
         <Separator />
         <Footer />
-    </AppLayoutTemplate>
+    </>
 );

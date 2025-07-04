@@ -28,7 +28,6 @@ export default function ClientLogos() {
     return (
         <section className="mx-auto mb-24 max-w-7xl px-8">
             <p className="mb-8 text-center text-lg text-white">Our Clients:</p>
-
             <div
                 ref={containerRef}
                 className="relative overflow-hidden"

@@ -29,7 +29,6 @@ const Homepage = ({ seo, blocks }: HomepageProps) => {
                 <AboutUs />
                 <ClientLogos />
                 <OurWorks />
-                <div className="mb-4 h-px w-full bg-[#4B4B4B]" />
             </div>
         </>
     );
