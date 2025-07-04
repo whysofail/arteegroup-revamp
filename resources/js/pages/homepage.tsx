@@ -6,25 +6,6 @@ import Footer from '@/components/homepage/Footer';
 import HeroSection from '@/components/homepage/HeroSection';
 import Navbar from '@/components/homepage/Navbar';
 import OurWorks from '@/components/homepage/OurWorks';
-import { Head } from '@inertiajs/react';
-
-export default function Homepage({ seo, blocks }) {
-    return (
-        <>
-            <Head title={seo?.title}>
-                <meta name="description" content={seo?.description} />
-                {seo?.image && <meta property="og:image" content={seo.image} />}
-            </Head>
-
-            <main>
-                {/* Debug props */}
-                <pre>{JSON.stringify({ seo, blocks }, null, 2)}</pre>
-
-                {/* Render blocks */}
-            </main>
-        </>
-    );
-}
 
 export default function Home() {
     return (
@@ -41,20 +22,20 @@ export default function Home() {
 }
 // resources/js/Pages/Homepage.tsx
 
-export default function Homepage({ seo, blocks }) {
-    return (
-        <>
-            <Head title={seo?.title}>
-                <meta name="description" content={seo?.description} />
-                {seo?.image && <meta property="og:image" content={seo.image} />}
-            </Head>
+// export default function Homepage({ seo, blocks }) {
+//     return (
+//         <>
+//             <Head title={seo?.title}>
+//                 <meta name="description" content={seo?.description} />
+//                 {seo?.image && <meta property="og:image" content={seo.image} />}
+//             </Head>
 
-            <main>
-                {/* Debug props */}
-                <pre>{JSON.stringify({ seo, blocks }, null, 2)}</pre>
+//             <main>
+//                 {/* Debug props */}
+//                 <pre>{JSON.stringify({ seo, blocks }, null, 2)}</pre>
 
-                {/* Render blocks */}
-            </main>
-        </>
-    );
-}
+//                 {/* Render blocks */}
+//             </main>
+//         </>
+//     );
+// }
