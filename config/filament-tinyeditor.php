@@ -15,15 +15,16 @@ return [
     /**
      * change darkMode: 'auto'|'force'|'class'|'media'|false|'custom'
      */
-    'darkMode' => 'force',
+    'darkMode' => 'auto',
 
     /** cutsom */
     'skins' => [
         // oxide, oxide-dark, tinymce-5, tinymce-5-dark
-        'ui' => 'oxide-dark',
+        'ui' => 'tinymce-5',
 
         // dark, default, document, tinymce-5, tinymce-5-dark, writer
-        'content' => 'dark'
+        'content' => 'document'
+
     ],
 
     'profiles' => [
@@ -31,6 +32,7 @@ return [
             'plugins' => 'accordion autoresize codesample directionality advlist link image lists preview pagebreak searchreplace wordcount code fullscreen insertdatetime media table emoticons',
             'toolbar' => 'undo redo removeformat | fontfamily fontsize fontsizeinput font_size_formats styles | bold italic underline | rtl ltr | alignjustify alignleft aligncenter alignright | numlist bullist outdent indent | forecolor backcolor | blockquote table toc hr | image link media codesample emoticons | wordcount fullscreen',
             'upload_directory' => null,
+
         ],
 
         'simple' => [
