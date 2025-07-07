@@ -21,6 +21,7 @@ class WYSIWYG extends PageBlock
                         'bold',
                         'bulletList',
                         'codeBlock',
+                        'color', // Add this to enable font color selection
                         'h1',
                         'h2',
                         'h3',

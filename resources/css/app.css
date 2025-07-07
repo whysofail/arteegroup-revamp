@@ -1,103 +1,25 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@plugin 'tailwindcss-animate';
-
-@source '../views';
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-
-@custom-variant dark (&:is(.dark *));
-
+/* Custom font-face definitions */
 @font-face {
-  font-family: 'Gotham';
-  src: url('../../public/css/fonts/Gotham-Black.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
+    font-family: 'Gotham';
+    src: url('../../public/css/fonts/Gotham-Black.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
 }
 
 @font-face {
-  font-family: 'Gotham';
-  src: url('../../public/css/fonts/Gotham-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
+    font-family: 'Gotham';
+    src: url('../../public/css/fonts/Gotham-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
 }
 
-@theme {
-  --color-primary: var(--brand);
-  --color-primary-foreground: white;
-}
-
-@theme {
-    --font-sans:
-        'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-
-    --radius-lg: var(--radius);
-    --radius-md: calc(var(--radius) - 2px);
-    --radius-sm: calc(var(--radius) - 4px);
-
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
-
-    --color-card: var(--card);
-    --color-card-foreground: var(--card-foreground);
-
-    --color-popover: var(--popover);
-    --color-popover-foreground: var(--popover-foreground);
-
-    --color-primary: var(--primary);
-    --color-primary-foreground: var(--primary-foreground);
-
-    --color-secondary: var(--secondary);
-    --color-secondary-foreground: var(--secondary-foreground);
-
-    --color-muted: var(--muted);
-    --color-muted-foreground: var(--muted-foreground);
-
-    --color-accent: var(--accent);
-    --color-accent-foreground: var(--accent-foreground);
-
-    --color-destructive: var(--destructive);
-    --color-destructive-foreground: var(--destructive-foreground);
-
-    --color-border: var(--border);
-    --color-input: var(--input);
-    --color-ring: var(--ring);
-
-    --color-chart-1: var(--chart-1);
-    --color-chart-2: var(--chart-2);
-    --color-chart-3: var(--chart-3);
-    --color-chart-4: var(--chart-4);
-    --color-chart-5: var(--chart-5);
-
-    --color-sidebar: var(--sidebar);
-    --color-sidebar-foreground: var(--sidebar-foreground);
-    --color-sidebar-primary: var(--sidebar-primary);
-    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-    --color-sidebar-border: var(--sidebar-border);
-    --color-sidebar-ring: var(--sidebar-ring);
-}
-
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-@layer base {
-    *,
-    ::after,
-    ::before,
-    ::backdrop,
-    ::file-selector-button {
-        border-color: var(--color-gray-200, currentColor);
-    }
-}
-
+/* Light mode root variables */
 :root {
-    --brand: #F48035;
+    --brand: #f48035;
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
     --card: oklch(1 0 0);
@@ -133,8 +55,9 @@
     --sidebar-ring: oklch(0.87 0 0);
 }
 
+/* Dark mode override */
 .dark {
-    --brand: #F48035;
+    --brand: #f48035;
     --background: oklch(0.145 0 0);
     --foreground: oklch(0.985 0 0);
     --card: oklch(0.145 0 0);
@@ -170,37 +93,56 @@
 }
 
 @layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+
     * {
         @apply border-border;
     }
 
     body {
         @apply bg-background text-foreground;
+        font-family: 'Gotham-Black', 'Gotham-Bold', sans-serif;
     }
 }
 
+/* Custom utilities */
+/* Custom utility classes */
 @layer utilities {
-  .bg-brand {
-    background-color: var(--brand);
-  }
+    .bg-background {
+        background-color: var(--background);
+    }
 
-  .text-brand {
-    color: var(--brand);
-  }
+    .text-foreground {
+        color: var(--foreground);
+    }
 
-  .border-brand {
-    border-color: var(--brand);
-  }
+    .border-border {
+        border-color: var(--border);
+    }
 
-  .hover\:bg-brand:hover {
-    background-color: var(--brand);
-  }
+    .bg-brand {
+        background-color: var(--brand);
+    }
 
-  .hover\:text-brand:hover {
-    color: var(--brand);
-  }
-}
+    .text-brand {
+        color: var(--brand);
+    }
 
-body {
-  font-family: 'Gotham-Black', 'Gotham-Bold', sans-serif;
+    .border-brand {
+        border-color: var(--brand);
+    }
+
+    .hover\:bg-brand:hover {
+        background-color: var(--brand);
+    }
+
+    .hover\:text-brand:hover {
+        color: var(--brand);
+    }
 }

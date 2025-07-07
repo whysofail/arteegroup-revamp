@@ -62,6 +62,8 @@ class AdminPanelProvider extends PanelProvider
 
 
                 // Add your plugins here
-            ]);
+            ])->viteTheme(
+                'resources/css/filament/admin/theme.css'
+            );
     }
 }
