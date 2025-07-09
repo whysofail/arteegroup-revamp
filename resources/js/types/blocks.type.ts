@@ -12,3 +12,12 @@ export interface IHeroBlock {
         background_url?: string;
     };
 }
+
+export interface IDivision {
+    data: {
+        title?: string;
+        slug?: string;
+        name?: string;
+        color?: string;
+    };
+}

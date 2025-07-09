@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->text('seo_description')->nullable();
             $table->string('seo_image')->nullable();
             $table->string('name');
+            $table->string('color');
             $table->json('blocks')->nullable();
             $table->string('slug')->unique()->nullable();
             $table->text('custom_css')->nullable();

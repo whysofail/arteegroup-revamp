@@ -10,13 +10,14 @@ class HomepageController extends Controller
 {
     public function index()
     {
-        $homepage = Homepage::firstOrFail();
+        $homepage = Homepage::first();
 
         return Inertia::render('homepage', [
             'seo' => [
-                'title' => $homepage->seo_title,
-                'description' => $homepage->seo_description,
-                'image' => $homepage->seo_image,
+                'title' => $homepage->seo_title ?? 
+                    'Arteegroup - Homepage',
+                'description' => $homepage->seo_description ?? 'Welcome to Arteegroup, your partner in digital innovation.',
+                'image' => $homepage->seo_image ?? '',
             ],
             'blocks' => $homepage->blocks ?? [],
         ]);

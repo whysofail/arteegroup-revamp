@@ -1,11 +1,11 @@
 import { Link } from '@inertiajs/react';
 
 const logos = [
-    { src: '/cikalbakal.png', bgColor: '#F7A93B', alt: 'Cikal Bakal', href: '#' },
-    { src: '/hirukpikuk.png', bgColor: '#0D615B', alt: 'Hiruk Pikuk', href: '#' },
-    { src: '/soraksorai.png', bgColor: '#302149', alt: 'Sorak Sorai', href: '#' },
-    { src: '/serbaserbi.png', bgColor: '#D5CDC2', alt: 'Serba Serbi', href: '#' },
-    { src: '/kotakkatik.png', bgColor: '#E1E1E1', alt: 'Kotak Katik', href: '#' },
+    { src: '/cikalbakal.png', bgColor: '#F7A93B', alt: 'Cikal Bakal', href: 'division/cikal-bakal' },
+    { src: '/hirukpikuk.png', bgColor: '#0D615B', alt: 'Hiruk Pikuk', href: 'division/hiruk-pikuk' },
+    { src: '/soraksorai.png', bgColor: '#302149', alt: 'Sorak Sorai', href: 'division/sorak-sorai' },
+    { src: '/serbaserbi.png', bgColor: '#D5CDC2', alt: 'Serba Serbi', href: 'division/serba-serbi' },
+    { src: '/kotakkatik.png', bgColor: '#E1E1E1', alt: 'Kotak Katik', href: 'division/kotak-katik' },
 ];
 
 export default function AboutUs() {

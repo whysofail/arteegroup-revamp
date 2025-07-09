@@ -1,11 +1,17 @@
 <?php
 
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [HomepageController::class, 'index'])->name('homepage');
+
+Route::get('/division/{slug}', [DivisionController::class, 'show'])
+    ->name('division')
+    ->where('slug', '[a-zA-Z0-9\-]+');
+
 Route::get('/preview/{slug}', [PageController::class, 'preview'])
     ->name('page.preview')
     ->where('slug', '[a-zA-Z0-9\-]+');
