@@ -2,14 +2,14 @@ import { getRelativePath } from '@/lib/get-relative-path';
 import { HeroDivisionProps } from '@/types/blocks.type';
 import React from 'react';
 
-// const logo = {
-//     src: '/cikalbakal.png',
-//     bgColor: '#F7A93B',
-//     alt: 'Cikal Bakal',
-// };
+interface HeroDivisionProps {
+    data: IHeroBlock['data'] & IDivision['data'];
+    color?: string;
+    name?: string;
+}
 
-const HeroDivisionBlock: React.FC<HeroDivisionProps> = ({ data, color, name }) => {
-    const { title, subtitle, cta_text, cta_url, background_url } = data ?? {};
+const HeroDivisionSection: React.FC<HeroDivisionProps> = ({ data, color, name }) => {
+    const { title, subtitle, cta_text, cta_url, background_url } = data;
 
     return (
         <section className="flex min-h-screen flex-col items-center justify-center px-6 text-center" style={{ backgroundColor: color }}>
