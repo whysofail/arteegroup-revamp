@@ -55,7 +55,7 @@ class HandleInertiaRequests extends Middleware
             'works' => Cache::remember('shared_works', 60, function () {
                 return Work::with('division')
                     ->orderByDesc('updated_at')
-                    ->take(10)
+                    ->take(5)
                     ->get();
             }),
         ]);
