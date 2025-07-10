@@ -1,8 +1,6 @@
 import { getRelativePath } from '@/lib/get-relative-path';
 import { IDivision, IHeroBlock } from '@/types/blocks.type';
 
-import React from 'react';
-
 interface HeroDivisionProps {
     data: IHeroBlock['data'] & IDivision['data'];
     color?: string;

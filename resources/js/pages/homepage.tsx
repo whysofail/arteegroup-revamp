@@ -1,8 +1,8 @@
 // resources/js/Pages/Homepage.tsx
 
-import { RenderBlock } from '@/components/block';
-import DivisionBlock from '@/components/block/division-block';
-import SectionParagraphBlock from '@/components/block/sectionparagraph-block';
+import HeroBlock from '@/components/block/hero-block';
+import AboutUs from '@/components/homepage/AboutUs';
+import ClientLogos from '@/components/homepage/ClientLogos';
 import OurWorks from '@/components/homepage/OurWorks';
 import AppLayout from '@/layouts/app-layout';
 import { IBlock } from '@/types/blocks.type';
@@ -22,45 +22,21 @@ interface HomepageProps {
         campaign_name?: string;
         campaign_description?: string;
     }[];
-    divisions?: {
-        name?: string;
-        slug?: string;
-        color?: string;
-        background_url?: string;
-    }[];
 }
 
-const Homepage = ({ seo, blocks, works, divisions }: HomepageProps) => {
-    // For DRY rendering of blocks
-    // const hasBlock = (type: string) => blocks.some((block) => block.type === type);
-
+const Homepage = ({ seo, blocks, works }: HomepageProps) => {
     return (
         <>
             <Head title={seo?.title || 'Arteegroup - Homepage'}>
                 <meta name="description" content={seo?.description || 'Welcome to Arteegroup, your partner in digital innovation.'} />
                 {seo?.image && <meta property="og:image" content={seo.image} />}
             </Head>
-
-            <main className="font-gotham">
-                {/* For DRY rendering of blocks */}
-                {/* {!hasBlock('section-paragraph') && <SectionParagraphBlock />} */}
-
-                <RenderBlock type="hero" data={blocks.find((block) => block.type === 'hero')?.data || {}} />
-                <div className="mx-auto max-w-7xl md:px-12">
-                    {blocks
-                        .filter((block) => block.type !== 'hero' && block.type !== 'image-marquee')
-                        .map((block, i) => (
-                            <div key={i}>
-                                <RenderBlock type={block.type} data={block.data} />
-                            </div>
-                        ))}
-
-                    {!blocks.some((block) => block.type === 'section-paragraph') && <SectionParagraphBlock />}
-                    <DivisionBlock divisions={divisions} />
-                    <RenderBlock type="image-marquee" data={blocks.find((block) => block.type === 'image-marquee')?.data || {}} />
-                    <OurWorks works={works} />
-                </div>
-            </main>
+            <div className="font-gotham bg-black">
+                <HeroBlock data={blocks.find((block) => block.type === 'hero')?.data || {}} />
+                <AboutUs />
+                <ClientLogos />
+                <OurWorks works={works} />
+            </div>
         </>
     );
 };

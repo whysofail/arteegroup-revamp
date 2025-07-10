@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import { getRelativePath } from '@/lib/get-relative-path';
+import { useEffect, useState } from 'react';
 
 interface OurWorksProps {
     works: {
@@ -22,7 +22,7 @@ const OurWorks: React.FC<OurWorksProps> = ({ works }) => {
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
-    const maxVisible = isMobile ? (showAll ? 5 : 2) : (showAll ? 10 : 4);
+    const maxVisible = isMobile ? (showAll ? 5 : 2) : showAll ? 10 : 4;
     const displayedWorks = works.slice(0, Math.min(maxVisible, works.length));
 
     const shouldShowButton = isMobile ? works.length > 2 : works.length > 4;
@@ -60,6 +60,6 @@ const OurWorks: React.FC<OurWorksProps> = ({ works }) => {
             )}
         </section>
     );
-}
+};
 
 export default OurWorks;
