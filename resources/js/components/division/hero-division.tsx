@@ -2,12 +2,6 @@ import { type IHeroBlock, IDivision } from '@/types/blocks.type';
 import { getRelativePath } from '@/lib/get-relative-path';
 import React from 'react';
 
-// const logo = {
-//     src: '/cikalbakal.png',
-//     bgColor: '#F7A93B',
-//     alt: 'Cikal Bakal',
-// };
-
 interface HeroDivisionProps {
     data: IHeroBlock['data'] & IDivision['data'];
     color?: string;

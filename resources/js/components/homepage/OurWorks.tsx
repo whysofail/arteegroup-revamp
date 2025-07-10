@@ -1,45 +1,17 @@
 import { useEffect, useState } from 'react';
+import { getRelativePath } from '@/lib/get-relative-path';
 
-interface WorkItem {
-    brand: string;
-    category: string;
-    title: string;
-    desc: string;
-    image: string;
+interface OurWorksProps {
+    works: {
+        campaign_image?: string;
+        name?: string;
+        campaign?: string;
+        campaign_name?: string;
+        campaign_description?: string;
+    }[];
 }
 
-const works: WorkItem[] = [
-    {
-        brand: 'Royal by Belfoods',
-        category: 'Campaign',
-        title: 'Rival become Viral',
-        desc: 'We create a “grand entrance” for Dian Sastrowardoyo as Royal’s Brand Ambassador. When we already get all the attention, and people...',
-        image: '/rivalbecomeviral.png',
-    },
-    {
-        brand: 'MR.DIY',
-        category: 'Activity Campaign',
-        title: 'Urusan Cuan',
-        desc: 'Audience engagement and loyalty program will never be the same.',
-        image: '/urusancuan.jpg',
-    },
-    {
-        brand: 'Royal by Belfoods',
-        category: 'Campaign',
-        title: 'Rival become Viral',
-        desc: 'We create a “grand entrance” for Dian Sastrowardoyo as Royal’s Brand Ambassador. When we already get all the attention, and people...',
-        image: '/rivalbecomeviral.png',
-    },
-    {
-        brand: 'MR.DIY',
-        category: 'Activity Campaign',
-        title: 'Urusan Cuan',
-        desc: 'Audience engagement and loyalty program will never be the same.',
-        image: '/urusancuan.jpg',
-    },
-];
-
-export default function OurWorks() {
+const OurWorks: React.FC<OurWorksProps> = ({ works }) => {
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
@@ -58,12 +30,12 @@ export default function OurWorks() {
             <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
                 {displayedWorks.map((work, idx) => (
                     <div key={idx}>
-                        <img src={work.image} alt={work.title} className="mb-3 h-[165px] w-full rounded-xl md:h-[329.85px]" />
+                        <img src={getRelativePath(work.campaign_image ?? '')} alt={work.name} className="mb-3 h-[165px] w-full rounded-xl md:h-[329.85px]" />
                         <div className="mb-1 text-xs font-light text-white">
-                            {work.brand} <span className="ml-2 text-zinc-400">{work.category}</span>
+                            {work.name} <span className="ml-2 text-zinc-400">{work.campaign}</span>
                         </div>
-                        <h3 className="mb-1 font-bold text-white">{work.title}</h3>
-                        <p className="text-sm text-zinc-400">{work.desc}</p>
+                        <h3 className="mb-1 font-bold text-white">{work.campaign_name}</h3>
+                        <p className="text-sm text-zinc-400">{work.campaign_description}</p>
                     </div>
                 ))}
             </div>
@@ -79,3 +51,5 @@ export default function OurWorks() {
         </section>
     );
 }
+
+export default OurWorks;

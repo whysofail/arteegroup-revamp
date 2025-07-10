@@ -15,9 +15,16 @@ interface HomepageProps {
         image?: string | null;
     };
     blocks: IBlock[];
+    works: {
+        campaign_image?: string;
+        name?: string;
+        campaign?: string;
+        campaign_name?: string;
+        campaign_description?: string;
+    }[];
 }
 
-const Homepage = ({ seo, blocks }: HomepageProps) => {
+const Homepage = ({ seo, blocks, works }: HomepageProps) => {
     return (
         <>
             <Head title={seo?.title || 'Arteegroup - Homepage'}>
@@ -28,7 +35,7 @@ const Homepage = ({ seo, blocks }: HomepageProps) => {
                 <HeroBlock data={blocks.find((block) => block.type === 'hero')?.data || {}} />
                 <AboutUs />
                 <ClientLogos />
-                <OurWorks />
+                <OurWorks works={works} />
             </div>
         </>
     );

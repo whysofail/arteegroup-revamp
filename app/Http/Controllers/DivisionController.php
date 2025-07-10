@@ -24,6 +24,10 @@ class DivisionController extends Controller
                 'image' => $divisions->seo_image ?? '',
             ],
             'blocks' => $divisions->blocks ?? [],
+            'works' => $divisions->works()
+            ->orderByDesc('updated_at')
+            ->take(5)
+            ->get(['campaign_image', 'name', 'campaign', 'campaign_name', 'campaign_description']),
         ]);
     }
 }
