@@ -1,11 +1,11 @@
-import HeroDivisionSection from '@/components/division/hero-division';
+import HeroDivisionSection from '@/components/block/hero-division-block';
 import OurWorks from '@/components/division/our-works';
 import Project from '@/components/division/project';
 import AppLayout from '@/layouts/app-layout';
 import { IBlock } from '@/types/blocks.type';
 import { Head } from '@inertiajs/react';
 
-interface DivisionProps {
+export interface DivisionProps {
     title?: string;
     slug?: string;
     name?: string;
@@ -18,8 +18,7 @@ interface DivisionProps {
     blocks: IBlock[];
 }
 
-const Division = ({ seo, blocks, color, name  }: DivisionProps) => {
-
+const Division = ({ seo, blocks, color, name }: DivisionProps) => {
     return (
         <>
             <Head title={seo?.title || 'Arteegroup - Division'}>

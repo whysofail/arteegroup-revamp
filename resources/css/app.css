@@ -109,6 +109,7 @@
         @apply bg-background text-foreground;
         font-family: 'Gotham-Black', 'Gotham-Bold', sans-serif;
     }
+    /* In your global CSS or a component-level CSS module */
 }
 
 /* Custom utilities */

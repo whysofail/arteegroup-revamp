@@ -8,7 +8,7 @@ const isVideo = (url: string | undefined): boolean => {
 };
 
 const HeroBlock: React.FC<IHeroBlock> = ({ data }) => {
-    const { title, subtitle, cta_text, cta_url, background_url } = data;
+    const { title, subtitle, cta_text, cta_url, background_url } = data ?? {};
 
     const fallbackTitle = 'Create impact through meaningful and loud ideas, with a solid result';
     const fallbackCTA = 'Explore our work';
@@ -27,7 +27,11 @@ const HeroBlock: React.FC<IHeroBlock> = ({ data }) => {
                     className="absolute inset-0 z-0 h-full w-full object-cover"
                 />
             ) : (
-                <img src={getRelativePath(background_url ?? fallbackBackground)} alt="Background" className="absolute inset-0 z-0 h-full w-full object-cover" />
+                <img
+                    src={getRelativePath(background_url ?? fallbackBackground)}
+                    alt="Background"
+                    className="absolute inset-0 z-0 h-full w-full object-cover"
+                />
             )}
 
             <div className="absolute bottom-10 left-0 z-10 w-full sm:bottom-24">

@@ -10,6 +10,9 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Builder;
 use Illuminate\Support\Facades\Storage;
 use App\Filament\Fabricator\PageBlocks\Hero;
+use App\Filament\Fabricator\PageBlocks\ImageMarquee;
+use App\Filament\Fabricator\PageBlocks\SectionParagaph;
+use App\Filament\Fabricator\PageBlocks\WYSIWYG;
 use App\Models\Homepage as ModelsHomepage;
 use Filament\Forms\Components\Grid;
 use Filament\Notifications\Notification;
@@ -61,6 +64,8 @@ class Homepage extends Page
                                 Builder::make('blocks')
                                     ->blocks([
                                         Hero::getBlockSchema(),
+                                        SectionParagaph::getBlockSchema(),
+                                        ImageMarquee::getBlockSchema()
                                         // Add more blocks...
                                     ]),
                             ]),
