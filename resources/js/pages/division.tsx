@@ -1,4 +1,4 @@
-import HeroDivisionSection from '@/components/division/hero-division';
+import HeroDivisionSection from '@/components/block/hero-division-block';
 import OurWorks from '@/components/division/our-works';
 import Project from '@/components/division/project';
 import AppLayout from '@/layouts/app-layout';

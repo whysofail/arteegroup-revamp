@@ -1,6 +1,6 @@
 // resources/js/Pages/Homepage.tsx
 
-import HeroBlock from '@/components/block/hero-block';
+import { RenderBlock } from '@/components/block';
 import AboutUs from '@/components/homepage/AboutUs';
 import ClientLogos from '@/components/homepage/ClientLogos';
 import OurWorks from '@/components/homepage/OurWorks';
@@ -25,40 +25,34 @@ interface HomepageProps {
 }
 
 const Homepage = ({ seo, blocks, works }: HomepageProps) => {
+    console.log('Rendering Homepage with blocks:', blocks);
+    const hasHeroBlock = blocks.some((block) => block.type === 'hero');
+
     return (
         <>
             <Head title={seo?.title || 'Arteegroup - Homepage'}>
                 <meta name="description" content={seo?.description || 'Welcome to Arteegroup, your partner in digital innovation.'} />
                 {seo?.image && <meta property="og:image" content={seo.image} />}
             </Head>
-            <div className="font-gotham bg-black">
-                <HeroBlock data={blocks.find((block) => block.type === 'hero')?.data || {}} />
-                <AboutUs />
-                <ClientLogos />
-                <OurWorks works={works} />
-            </div>
+
+            <main className="font-gotham">
+                {/* ✅ Only render fallback HeroBlock if it's missing */}
+                {!hasHeroBlock && <RenderBlock type="hero" />}
+                <div className="mx-auto max-w-7xl px-12">
+                    {blocks.map((block, i) => (
+                        <div key={i}>
+                            <RenderBlock type={block.type} data={block.data} />
+                        </div>
+                    ))}
+
+                    <AboutUs />
+                    <ClientLogos />
+                    <OurWorks works={works} />
+                </div>
+            </main>
         </>
     );
 };
+
 Homepage.layout = (page: React.ReactNode) => <AppLayout children={page} />;
 export default Homepage;
-
-// resources/js/Pages/Homepage.tsx
-
-// export default function Homepage({ seo, blocks }) {
-//     return (
-//         <>
-//             <Head title={seo?.title}>
-//                 <meta name="description" content={seo?.description} />
-//                 {seo?.image && <meta property="og:image" content={seo.image} />}
-//             </Head>
-
-//             <main>
-//                 {/* Debug props */}
-//                 <pre>{JSON.stringify({ seo, blocks }, null, 2)}</pre>
-
-//                 {/* Render blocks */}
-//             </main>
-//         </>
-//     );
-// }

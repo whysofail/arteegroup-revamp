@@ -1,20 +1,22 @@
-import { type IHeroBlock, IDivision } from '@/types/blocks.type';
 import { getRelativePath } from '@/lib/get-relative-path';
+import { HeroDivisionProps } from '@/types/blocks.type';
 import React from 'react';
 
-interface HeroDivisionProps {
-    data: IHeroBlock['data'] & IDivision['data'];
-    color?: string;
-    name?: string;
-}
-
-const HeroDivisionSection: React.FC<HeroDivisionProps> = ({ data, color, name }) => {
-    const { title, subtitle, cta_text, cta_url, background_url } = data;
+const HeroDivisionBlock: React.FC<HeroDivisionProps> = ({ data, color, name }) => {
+    const { title, subtitle, cta_text, cta_url, background_url } = data ?? {};
 
     return (
         <section className="flex min-h-screen flex-col items-center justify-center px-6 text-center" style={{ backgroundColor: color }}>
             {/* Logo */}
-            {background_url && <img src={getRelativePath(background_url)} alt={name} className="mb-12 h-72" draggable={false} onContextMenu={(e) => e.preventDefault()} />}
+            {background_url && (
+                <img
+                    src={getRelativePath(background_url)}
+                    alt={name}
+                    className="mb-12 h-72"
+                    draggable={false}
+                    onContextMenu={(e) => e.preventDefault()}
+                />
+            )}
 
             {/* Description */}
             {title && <p className="text-md mb-12 max-w-2xl leading-relaxed text-[#1E2738]">{title}</p>}
@@ -33,4 +35,4 @@ const HeroDivisionSection: React.FC<HeroDivisionProps> = ({ data, color, name })
     );
 };
 
-export default HeroDivisionSection;
+export default HeroDivisionBlock;

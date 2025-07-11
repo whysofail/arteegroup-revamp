@@ -1,21 +1,30 @@
-// components/block/index.tsx
 import type { IBlock } from '@/types/blocks.type';
-import { lazy, Suspense } from 'react';
 
-// Glob import
-const modules = import.meta.glob('./*-block.tsx');
+// Static imports for all blocks
 
-// Wrapper component that resolves the lazy component at runtime
-export function RenderBlock({ type, data }: { type: string; data?: IBlock['data'] }) {
-    const file = Object.keys(modules).find((key) => key.endsWith(`${type}-block.tsx`));
+import HeroBlock from './hero-block';
+import HeroDivisionBlock from './hero-division-block';
+import SectionWithTitleBlock from './sectionparagraph-block';
+import SeparatorBlock from './separator-block';
+import WysiwygBlock from './wyswyg-block';
 
-    if (!file) return null;
+// Add all other blocks here...
 
-    const LazyComponent = lazy(modules[file] as () => Promise<{ default: React.ComponentType<{ data?: IBlock['data'] }> }>);
+// Map types to components
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const components: Record<string, React.ComponentType<any>> = {
+    hero: HeroBlock,
+    heroDivision: HeroDivisionBlock,
+    'section-paragraph': SectionWithTitleBlock,
+    separator: SeparatorBlock,
+    wysiwyg: WysiwygBlock,
 
-    return (
-        <Suspense fallback={<div>Loading {type}...</div>}>
-            <LazyComponent data={data} />
-        </Suspense>
-    );
-}
+    // Add more as needed...
+};
+
+export const RenderBlock = ({ type, data }: { type: string; data?: IBlock['data'] }) => {
+    const Component = components[type];
+    if (!Component) return null;
+
+    return <Component data={data ?? {}} />;
+};

@@ -21,8 +21,8 @@ export default function AboutUs() {
                     </div>
 
                     {/* Deskripsi sejajar mulai dari kolom ke-2 */}
-                    <div className="mt-4 mb-10 md:col-span-4 md:mt-0 md:text-justify">
-                        <h2 className="text-xl leading-snug font-bold md:text-3xl">
+                    <div className="mb-10 mt-4 md:col-span-4 md:mt-0 md:text-justify">
+                        <h2 className="text-xl font-bold leading-snug md:text-3xl">
                             In the mystical city of Jakarta,
                             <br className="md:hidden" /> a group of talented magicians united with a shared goal: to transform digital marketing.
                         </h2>

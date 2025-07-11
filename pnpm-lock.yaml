@@ -160,7 +160,7 @@ importers:
         specifier: ^0.6.11
         version: 0.6.13(prettier-plugin-organize-imports@4.1.0(prettier@3.6.2)(typescript@5.8.3))(prettier@3.6.2)
       tailwindcss:
-        specifier: ^3.4.1
+        specifier: ^3.4.17
         version: 3.4.17
       typescript-eslint:
         specifier: ^8.23.0
