@@ -14,7 +14,7 @@ export interface IHeroBlock {
 }
 
 export interface IDivision {
-    data: {
+    data?: {
         title?: string;
         slug?: string;
         name?: string;
@@ -26,6 +26,13 @@ export interface HeroDivisionProps {
     data?: IHeroBlock['data'] & IDivision['data'];
     color?: string;
     name?: string;
+    slug?: string;
+    blocks?: {
+        type?: string;
+        data?: {
+            background_url?: string;
+        };
+    }[];
 }
 
 export interface ISectionParagraphBlock {
@@ -44,7 +51,7 @@ export interface IWysiwygBlock {
 
 export interface IImageMarqueeBlock {
     data?: {
-        images?: string[]; // array of image URLs
+        images?: { image: string; }[]; // Array of image URLs
         speed?: number; // scroll duration in seconds, default 20
     };
 }

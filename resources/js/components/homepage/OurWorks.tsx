@@ -13,6 +13,7 @@ interface OurWorksProps {
 
 const OurWorks: React.FC<OurWorksProps> = ({ works }) => {
     const [isMobile, setIsMobile] = useState(false);
+    const [showAll, setShowAll] = useState(false);
 
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -21,7 +22,10 @@ const OurWorks: React.FC<OurWorksProps> = ({ works }) => {
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
-    const displayedWorks = isMobile ? works.slice(0, 2) : works;
+    const maxVisible = isMobile ? (showAll ? 5 : 2) : (showAll ? 10 : 4);
+    const displayedWorks = works.slice(0, Math.min(maxVisible, works.length));
+
+    const shouldShowButton = isMobile ? works.length > 2 : works.length > 4;
 
     return (
         <section className="mx-auto mb-20 max-w-7xl px-8" id="#work">
@@ -30,7 +34,11 @@ const OurWorks: React.FC<OurWorksProps> = ({ works }) => {
             <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
                 {displayedWorks.map((work, idx) => (
                     <div key={idx}>
-                        <img src={getRelativePath(work.campaign_image ?? '')} alt={work.name} className="mb-3 h-[165px] w-full rounded-xl md:h-[329.85px]" />
+                        <img
+                            src={getRelativePath(work.campaign_image ?? '')}
+                            alt={work.name}
+                            className="mb-3 h-[165px] w-full rounded-xl md:h-[329.85px]"
+                        />
                         <div className="mb-1 text-xs font-light text-white">
                             {work.name} <span className="ml-2 text-zinc-400">{work.campaign}</span>
                         </div>
@@ -40,14 +48,16 @@ const OurWorks: React.FC<OurWorksProps> = ({ works }) => {
                 ))}
             </div>
 
-            <div className="mt-12 grid justify-center">
-                <a
-                    href="#works"
-                    className="bg-brand rounded-full px-6 py-2 text-sm font-medium text-white transition hover:bg-white hover:text-black"
-                >
-                    View more
-                </a>
-            </div>
+            {shouldShowButton && (
+                <div className="mt-12 grid justify-center">
+                    <button
+                        onClick={() => setShowAll(!showAll)}
+                        className="bg-brand rounded-full px-6 py-2 text-sm font-medium text-white transition hover:bg-white hover:text-black"
+                    >
+                        {showAll ? 'Show less' : 'View more'}
+                    </button>
+                </div>
+            )}
         </section>
     );
 }

@@ -11,6 +11,8 @@ interface HeroDivisionProps {
 const HeroDivisionSection: React.FC<HeroDivisionProps> = ({ data, color, name }) => {
     const { title, subtitle, cta_text, cta_url, background_url } = data;
 
+    console.log('HeroDivisionBlock', data, color, name);
+
     return (
         <section className="flex min-h-screen flex-col items-center justify-center px-6 text-center" style={{ backgroundColor: color }}>
             {/* Logo */}
