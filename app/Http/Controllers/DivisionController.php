@@ -26,7 +26,7 @@ class DivisionController extends Controller
             'blocks' => $divisions->blocks ?? [],
             'works' => $divisions->works()
                 ->orderByDesc('updated_at')
-                ->take(5)
+                ->take(10)
                 ->get(['campaign_image', 'name', 'campaign', 'campaign_name', 'campaign_description']),
         ]);
     }
