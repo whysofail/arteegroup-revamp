@@ -22,12 +22,6 @@ interface HomepageProps {
         color?: string;
         background_url?: string;
     }[];
-    divisions?: {
-        name?: string;
-        slug?: string;
-        color?: string;
-        background_url?: string;
-    }[];
 }
 
 const Homepage = ({ seo, blocks, works, divisions }: HomepageProps) => {

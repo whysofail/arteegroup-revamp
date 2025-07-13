@@ -16,6 +16,8 @@ const HeroDivisionBlock: React.FC<HeroDivisionProps> = ({ data, color, name }) =
 
     console.log('HeroDivisionBlock', data, color, name);
 
+    console.log('HeroDivisionBlock', data, color, name);
+
     return (
         <section className="flex min-h-screen flex-col items-center justify-center px-6 text-center" style={{ backgroundColor: color }}>
             {/* Logo */}
