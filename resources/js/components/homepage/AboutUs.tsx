@@ -21,8 +21,8 @@ export default function AboutUs() {
                     </div>
 
                     {/* Deskripsi sejajar mulai dari kolom ke-2 */}
-                    <div className="mb-10 mt-4 md:col-span-4 md:mt-0 md:text-justify">
-                        <h2 className="text-xl font-bold leading-snug md:text-3xl">
+                    <div className="mt-4 mb-10 md:col-span-4 md:mt-0 md:text-justify">
+                        <h2 className="text-xl leading-snug font-bold md:text-3xl">
                             In the mystical city of Jakarta,
                             <br className="md:hidden" /> a group of talented magicians united with a shared goal: to transform digital marketing.
                         </h2>
@@ -34,16 +34,13 @@ export default function AboutUs() {
                         </p>
                     </div>
                 </div>
-
-                {/* Logo Desktop */}
-
-                {/* Logo Mobile */}
+                
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-5">
                     {logos.map((logo, i) => (
                         <Link
                             key={i}
                             href={logo.href}
-                            className="flex h-36 items-center justify-center rounded-xl grayscale transition hover:scale-105 hover:grayscale-0 sm:aspect-square sm:h-56"
+                            className="flex h-36 items-center justify-center rounded-xl grayscale transition hover:scale-95 hover:grayscale-0 sm:aspect-square sm:h-auto"
                             style={{ backgroundColor: logo.bgColor }}
                         >
                             <img src={logo.src} alt={logo.alt} className="max-h-24" />

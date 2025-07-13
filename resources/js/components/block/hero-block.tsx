@@ -35,7 +35,7 @@ const HeroBlock: React.FC<IHeroBlock> = ({ data }) => {
             )}
 
             <div className="absolute bottom-10 left-0 z-10 w-full sm:bottom-24">
-                <div className="mx-auto max-w-7xl px-6 sm:px-8">
+                <div className="mx-auto max-w-7xl px-8 md:px-20">
                     <h1 className="mb-4 max-w-md text-base leading-relaxed text-white drop-shadow-md sm:max-w-lg sm:text-lg md:max-w-xl md:text-4xl md:leading-snug">
                         {title ?? fallbackTitle}
                     </h1>
