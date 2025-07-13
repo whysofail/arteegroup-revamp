@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Work;
-use App\Models\Division;
 use Inertia\Inertia;
 
 class WorkController extends Controller
@@ -13,7 +11,7 @@ class WorkController extends Controller
     {
         $work = Work::get(['campaign_image', 'name', 'campaign', 'campaign_name', 'campaign_description'])
             ->orderByDesc('updated_at')
-            ->take(4)
+            ->take(10)
             ->get();
 
         return Inertia::render('homepage', [
