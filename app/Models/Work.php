@@ -15,7 +15,7 @@ class Work extends Model implements HasMedia
     protected $casts = [
         'blocks' => 'array',
     ];
-    
+
     protected static function booted()
     {
         static::saving(function ($model) {
