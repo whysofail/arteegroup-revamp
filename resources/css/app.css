@@ -103,6 +103,7 @@
 
     * {
         @apply border-border;
+        @apply scroll-smooth;
     }
 
     body {
