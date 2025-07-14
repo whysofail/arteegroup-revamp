@@ -18,10 +18,10 @@ use Filament\Forms\Components\TextInput;
 use App\Filament\Resources\WorkResource\RelationManagers\WorksRelationManager;
 use Filament\Forms\Components\Group;
 use App\Helpers\FormSchemaHelper;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Grid;
-
 
 class WorkResource extends Resource
 {
@@ -59,6 +59,21 @@ class WorkResource extends Resource
                                 TextInput::make('campaign_description')
                                     ->label('Campaign Description')
                                     ->required(),
+                                Checkbox::make('is_highlighted')
+                                    ->label('Highlight this campaign')
+                                    ->helperText('Only one campaign can be highlighted at a time.')
+                                    ->disabled(function (?Work $record) {
+                                        // cheeck if there is already one highlighted campaign but not including the current record
+                                        $highlighted = Work::where('is_highlighted', true);
+
+                                        // if edit, don't count yourself
+                                        if ($record) {
+                                            $highlighted->where('id', '!=', $record->id);
+                                        }
+
+                                        return $highlighted->exists();
+                                    })
+                                    ->dehydrated(true),
                                 FileUpload::make('campaign_image')
                                     ->label('Campaign Image')
                                     ->acceptedFileTypes(['image/*'])

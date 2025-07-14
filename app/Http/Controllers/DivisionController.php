@@ -27,7 +27,7 @@ class DivisionController extends Controller
             'works' => $divisions->works()
                 ->orderByDesc('updated_at')
                 ->take(10)
-                ->get(['campaign_image', 'name', 'campaign', 'campaign_name', 'campaign_description']),
+                ->get(['campaign_image', 'name', 'campaign', 'campaign_name', 'campaign_description', 'is_highlighted']),
         ]);
     }
 }
