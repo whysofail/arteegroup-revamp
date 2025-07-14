@@ -24,7 +24,6 @@ interface DivisionProps {
 }
 
 const Division = ({ seo, blocks, color, name, works }: DivisionProps) => {
-
     return (
         <>
             <Head title={seo?.title || 'Arteegroup - Division'}>

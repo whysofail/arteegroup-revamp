@@ -42,7 +42,6 @@ const Homepage = ({ seo, blocks, works, divisions }: HomepageProps) => {
             </Head>
 
             <main className="font-gotham">
-                
                 {/* For DRY rendering of blocks */}
                 {/* {!hasBlock('section-paragraph') && <SectionParagraphBlock />} */}
 

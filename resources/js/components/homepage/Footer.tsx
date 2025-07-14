@@ -20,7 +20,7 @@ export default function Footer() {
                         </h2>
                     </div>
                     <div className="flex flex-col items-center gap-4 text-center md:flex-row md:gap-8 md:text-start">
-                        <img src="/artee-logo.png" alt="artee logo" className="mb-4 h-8 md:mt-0.5 md:mb-0" />
+                        <img src="/artee-logo.png" alt="artee logo" className="mb-4 h-8 md:mb-0 md:mt-0.5" />
                         <p className="text-xs leading-relaxed text-white md:text-sm">
                             a group of <span className="text-brand font-semibold">talented magicians</span> united with
                             <br />a shared goal to transform digital marketing.
@@ -45,7 +45,7 @@ export default function Footer() {
                                 </a>
                             </label>
                         </div>
-                        <div className="sm:col-span-2">
+                        <div className="sm:col-span-2" id="get-in-touch">
                             <Button className="bg-brand w-full rounded-full text-white transition hover:bg-white hover:text-black">
                                 Get in touch
                             </Button>

@@ -1,86 +1,103 @@
-import { Button } from '@/components/ui/button';
+'use client';
+
 import { Link } from '@inertiajs/react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
+import { Button } from '../ui/button';
+import type { NavItemsProps } from '../ui/resizable-navbar';
+import {
+    HoveredLink,
+    MobileNav,
+    MobileNavHeader,
+    MobileNavMenu,
+    MobileNavToggle,
+    Navbar,
+    NavbarLogo,
+    NavBody,
+    NavItems,
+} from '../ui/resizable-navbar';
 
-export default function Navbar() {
-    const [isOpen, setIsOpen] = useState(false);
+type NavbarProps = {
+    logo?: string;
+    item?: NavItemsProps['items'];
+};
 
-    const navLinks = [
-        { name: 'About', href: '#' },
-        { name: 'Work', href: '#' },
-        { name: 'Culture', href: '#' },
-        { name: 'Contact', href: '#' },
+export default function Navigation({ logo, item }: NavbarProps) {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    // Define the navigation items
+    // If `item` is provided, use it; otherwise, use the default items
+    const navItems = item || [
+        {
+            name: 'About',
+            link: '#about',
+        },
+        {
+            name: 'Works',
+            link: '#works',
+        },
+        {
+            name: 'Products',
+            dropdown: (
+                <div className="flex flex-col space-y-4 text-sm">
+                    <HoveredLink href="https://algochurn.com">Algochurn</HoveredLink>
+                    <HoveredLink href="https://tailwindmasterkit.com">Tailwind Master Kit</HoveredLink>
+                    <HoveredLink href="https://gomoonbeam.com">Moonbeam</HoveredLink>
+                    <HoveredLink href="https://userogue.com">Rogue</HoveredLink>
+                </div>
+            ),
+        },
+        {
+            name: 'Services',
+            dropdown: (
+                <div className="flex flex-col space-y-4 text-sm">
+                    <HoveredLink href="/web-dev">Web Development</HoveredLink>
+                    <HoveredLink href="/interface-design">Interface Design</HoveredLink>
+                    <HoveredLink href="/seo">Search Engine Optimization</HoveredLink>
+                    <HoveredLink href="/branding">Branding</HoveredLink>
+                </div>
+            ),
+        },
+        {
+            name: 'Contact',
+            link: '#contact',
+        },
     ];
 
     return (
-        <header className="absolute top-0 right-0 left-0 z-50 bg-transparent py-4">
-            <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8">
-                {/* Logo */}
-                <img src="/artee-logo.png" alt="artee" className="h-6 sm:h-7 md:h-8" />
-
-                {/* Desktop Nav */}
-                <nav className="hidden items-center space-x-6 text-white md:flex">
-                    {navLinks.map((link, i) => (
-                        <Link key={i} href={link.href} className="hover:text-brand transition hover:underline">
-                            {link.name}
-                        </Link>
-                    ))}
-                </nav>
-
-                {/* CTA Button - Desktop Only */}
-                <div className="hidden md:block">
+        <Navbar>
+            {/* Desktop Navigation */}
+            <NavBody>
+                <NavbarLogo logo={logo} />
+                <NavItems items={navItems} />
+                <div className="z-20 hidden md:block">
                     <Button
                         variant="outline"
                         className="border-brand text-brand rounded-full bg-transparent transition hover:bg-white hover:text-black"
                     >
-                        Get in Touch
+                        <Link href="#get-in-touch">Get in Touch</Link>
                     </Button>
                 </div>
+            </NavBody>
 
-                {/* Hamburger Icon - Mobile */}
-                <div className="md:hidden">
-                    <button className="hover:text-brand text-white transition" onClick={() => setIsOpen(true)} aria-label="Open Menu">
-                        <Menu className="h-6 w-6" />
-                    </button>
-                </div>
-            </div>
-
-            {/* Mobile Menu Overlay */}
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial={{ x: '100%' }}
-                        animate={{ x: 0 }}
-                        exit={{ x: '100%' }}
-                        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                        className="fixed inset-0 z-50 bg-black px-6 py-8"
-                    >
-                        <div className="flex items-center justify-between">
-                            <img src="/artee-logo.png" alt="artee" className="h-6" />
-                            <button className="hover:text-brand text-white transition" onClick={() => setIsOpen(false)} aria-label="Close Menu">
-                                <X className="h-6 w-6" />
-                            </button>
-                        </div>
-
-                        <div className="mt-10 flex flex-col space-y-6 text-lg text-white">
-                            {navLinks.map((link, i) => (
-                                <Link key={i} href={link.href} className="hover:text-brand transition" onClick={() => setIsOpen(false)}>
-                                    {link.name}
-                                </Link>
-                            ))}
-                            <Button
-                                variant="outline"
-                                className="border-brand text-brand mt-6 w-full rounded-full bg-transparent transition hover:bg-white hover:text-black"
-                                onClick={() => setIsOpen(false)}
-                            >
-                                Get in Touch
-                            </Button>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </header>
+            {/* Mobile Navigation */}
+            <MobileNav>
+                <MobileNavHeader>
+                    <NavbarLogo logo={logo} />
+                    <MobileNavToggle isOpen={isMobileMenuOpen} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} />
+                </MobileNavHeader>
+                <MobileNavMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)}>
+                    {navItems.map((item, idx) => (
+                        <a
+                            key={idx}
+                            href={item.link || '#'}
+                            className="block px-2 py-1 text-neutral-600 dark:text-neutral-300"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                            {item.name}
+                        </a>
+                    ))}
+                </MobileNavMenu>
+            </MobileNav>
+        </Navbar>
     );
 }

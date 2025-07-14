@@ -1,9 +1,16 @@
 import { getRelativePath } from '@/lib/get-relative-path';
-import { HeroDivisionProps } from '@/types/blocks.type';
+import { IDivision, IHeroBlock } from '@/types/blocks.type';
+
 import React from 'react';
 
+interface HeroDivisionProps {
+    data: IHeroBlock['data'] & IDivision['data'];
+    color?: string;
+    name?: string;
+}
+
 const HeroDivisionBlock: React.FC<HeroDivisionProps> = ({ data, color, name }) => {
-    const { title, subtitle, cta_text, cta_url, background_url } = data ?? {};
+    const { title, subtitle, cta_text, cta_url, background_url } = data || {};
 
     console.log('HeroDivisionBlock', data, color, name);
 
