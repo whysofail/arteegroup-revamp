@@ -14,6 +14,24 @@ class Work extends Model implements HasMedia
     protected $casts = [
         'blocks' => 'array',
     ];
+    
+    protected static function booted()
+    {
+        static::saving(function ($model) {
+            if ($model->is_highlighted) {
+                $query = Work::where('is_highlighted', true)
+                    ->where('division_id', $model->division_id);
+
+                if ($model->id) {
+                    $query->where('id', '!=', $model->id);
+                }
+
+                if ($query->exists()) {
+                    throw new \Exception('Another campaign is already highlighted for this division. Please uncheck it first.');
+                }
+            }
+        });
+    }
 
     public function division()
     {
@@ -24,5 +42,4 @@ class Work extends Model implements HasMedia
     {
         return 'slug';
     }
-
 }
