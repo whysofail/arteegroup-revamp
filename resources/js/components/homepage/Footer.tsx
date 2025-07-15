@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
 import { useForm } from '@inertiajs/react';
 import { useState } from 'react';
 import { FaEnvelope, FaFacebook, FaGlobe, FaInstagram, FaTiktok } from 'react-icons/fa';
-import { useToast } from '@/hooks/use-toast';
 import { route } from 'ziggy-js';
 
 export default function Footer() {
