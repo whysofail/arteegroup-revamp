@@ -21,7 +21,7 @@ class ContactAutoReply extends Mailable
 
     public function build()
     {
-        return $this->from('mail.from.address', 'Artee Team')
+        return $this->from(config('mail.from.address'), 'Artee Team')
             ->subject('Thanks for getting in touch!')
             ->markdown('emails.contact.reply');
     }
