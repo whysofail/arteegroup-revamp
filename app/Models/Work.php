@@ -28,7 +28,9 @@ class Work extends Model implements HasMedia
                 }
 
                 if ($query->exists()) {
-                    throw new \Exception('Another campaign is already highlighted for this division. Please uncheck it first.');
+                    throw ValidationException::withMessages([
+                        'is_highlighted' => 'Another campaign is already highlighted for this division.',
+                    ]);
                 }
             }
         });
