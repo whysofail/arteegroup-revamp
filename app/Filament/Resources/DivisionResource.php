@@ -100,6 +100,7 @@ class DivisionResource extends Resource
     {
         return [
             RelationManagers\WorksRelationManager::class,
+            RelationManagers\DivisionContactRelationManager::class,
         ];
     }
 

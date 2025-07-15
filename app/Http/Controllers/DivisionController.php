@@ -14,6 +14,7 @@ class DivisionController extends Controller
         }
 
         return inertia('division', [
+            'divisionId' => $divisions->id ?? '',
             'title' => $divisions->title ?? '',
             'slug' => $divisions->slug ?? '',
             'name' => $divisions->name ?? '',

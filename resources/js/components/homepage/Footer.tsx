@@ -68,7 +68,7 @@ export default function Footer() {
 
                 {/* RIGHT SIDE */}
                 <div className="flex flex-col justify-between gap-8">
-                    <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 text-sm sm:grid-cols-2">
+                    <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 text-xs sm:grid-cols-2">
                         <div>
                             <Input
                                 placeholder="Your name"

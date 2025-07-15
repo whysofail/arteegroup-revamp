@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ContactResource\Pages;
-use App\Filament\Resources\ContactResource\RelationManagers;
-use App\Models\Contact;
+use App\Filament\Resources\DivisionContactResource\Pages;
+use App\Filament\Resources\DivisionContactResource\RelationManagers;
+use App\Models\DivisionContact;
 use Filament\Forms;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Form;
@@ -14,11 +14,18 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ContactResource extends Resource
+class DivisionContactResource extends Resource
 {
-    protected static ?string $model = Contact::class;
+    protected static ?string $model = DivisionContact::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-bottom-center-text';
+    public static ?string $navigationGroup = 'Organization';
+
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false; // hide from sidebar
+    }
 
     public static function form(Form $form): Form
     {
@@ -26,6 +33,13 @@ class ContactResource extends Resource
             ->schema([
                 Group::make(
                     [
+                        Forms\Components\Placeholder::make('service')
+                            ->label('Service')
+                            ->content(fn($record) => implode(', ', $record->service ?? [])),
+                        Forms\Components\TextInput::make('Budget')
+                            ->label('Budget')
+                            ->disabled()
+                            ->required(),
                         Forms\Components\TextInput::make('name')
                             ->label('Name')
                             ->disabled()
@@ -51,17 +65,17 @@ class ContactResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->label('Name')
+                Tables\Columns\TextColumn::make('division.name')
+                    ->label('Division Name')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->label('Email')
-                    ->searchable()
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Created At')
+                    ->dateTime()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('message')
-                    ->label('Message')
-                    ->searchable()
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Updated At')
+                    ->dateTime()
                     ->sortable(),
             ])
             ->filters([
@@ -79,17 +93,15 @@ class ContactResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListContacts::route('/'),
-            'create' => Pages\CreateContact::route('/create'),
-            'edit' => Pages\EditContact::route('/{record}/edit'),
+            'index' => Pages\ListDivisionContacts::route('/'),
+            'create' => Pages\CreateDivisionContact::route('/create'),
+            'edit' => Pages\EditDivisionContact::route('/{record}/edit'),
         ];
     }
 }
