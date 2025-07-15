@@ -63,17 +63,23 @@ class WorkResource extends Resource
                                     ->label('Highlight this campaign')
                                     ->helperText('Only one campaign can be highlighted at a time.')
                                     ->disabled(function (?Work $record) {
-                                        // cheeck if there is already one highlighted campaign but not including the current record
-                                        $highlighted = Work::where('is_highlighted', true);
+                                        if (!$record || !$record->division_id) {
+                                            // Disable jika tidak ada record atau division_id belum di-set
+                                            return true;
+                                        }
 
-                                        // if edit, don't count yourself
-                                        if ($record) {
+                                        // Cari campaign lain dari divisi yang sama yang sudah di-highlight
+                                        $highlighted = Work::where('division_id', $record->division_id)
+                                            ->where('is_highlighted', true);
+
+                                        if ($record->exists) {
                                             $highlighted->where('id', '!=', $record->id);
                                         }
 
                                         return $highlighted->exists();
                                     })
-                                    ->dehydrated(true),
+                                    ->dehydrated(true)
+                                    ->default(false),
                                 FileUpload::make('campaign_image')
                                     ->label('Campaign Image')
                                     ->acceptedFileTypes(['image/*'])
