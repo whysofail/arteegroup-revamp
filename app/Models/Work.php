@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use App\Models\Division;
+use Illuminate\Validation\ValidationException;
 
 class Work extends Model implements HasMedia
 {
@@ -14,7 +15,7 @@ class Work extends Model implements HasMedia
     protected $casts = [
         'blocks' => 'array',
     ];
-    
+
     protected static function booted()
     {
         static::saving(function ($model) {
@@ -27,7 +28,9 @@ class Work extends Model implements HasMedia
                 }
 
                 if ($query->exists()) {
-                    throw new \Exception('Another campaign is already highlighted for this division. Please uncheck it first.');
+                    throw ValidationException::withMessages([
+                        'is_highlighted' => 'Another campaign is already highlighted for this division.',
+                    ]);
                 }
             }
         });
