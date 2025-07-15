@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use App\Models\Work;
+use App\Models\DivisionContact;
 
 class Division extends Model implements HasMedia
 {
@@ -19,6 +20,11 @@ class Division extends Model implements HasMedia
     public function works()
     {
         return $this->hasMany(Work::class);
+    }
+
+    public function divisionContact()
+    {
+        return $this->hasMany(DivisionContact::class);
     }
 
     public function getRouteKeyName(): string
