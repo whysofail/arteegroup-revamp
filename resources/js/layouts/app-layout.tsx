@@ -8,6 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import { type BreadcrumbItem } from '@/types';
 import { ISiteSettings, NavbarLink } from '@/types/global';
 import { type ReactNode } from 'react';
+import { Toaster } from '@/components/ui/toaster';
 
 interface AppLayoutProps {
     children: ReactNode;
@@ -50,6 +51,7 @@ export default ({ children, ...props }: AppLayoutProps) => {
                 <Separator />
                 <Footer />
             </div>
+            <Toaster />
         </>
     );
 };
