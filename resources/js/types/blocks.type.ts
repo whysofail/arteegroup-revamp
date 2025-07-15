@@ -51,7 +51,23 @@ export interface IWysiwygBlock {
 
 export interface IImageMarqueeBlock {
     data?: {
-        images?: { image: string; }[]; // Array of image URLs
+        images?: { image: string }[]; // Array of image URLs
         speed?: number; // scroll duration in seconds, default 20
     };
+}
+
+export interface IWork {
+    id: number;
+    division_id?: number;
+    name?: string;
+    campaign?: string;
+    campaign_name?: string;
+    campaign_description?: string;
+    is_highlighted?: boolean;
+    campaign_image?: string;
+    title?: string;
+    slug?: string;
+    seo_title?: string;
+    seo_description?: string;
+    seo_image?: string;
 }

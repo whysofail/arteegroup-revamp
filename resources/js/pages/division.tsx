@@ -2,7 +2,7 @@ import HeroDivisionSection from '@/components/block/hero-division-block';
 import OurWorks from '@/components/division/our-works';
 import Project from '@/components/division/project';
 import AppLayout from '@/layouts/app-layout';
-import { IBlock } from '@/types/blocks.type';
+import { IBlock, IWork } from '@/types/blocks.type';
 import { Head } from '@inertiajs/react';
 
 interface DivisionProps {
@@ -14,13 +14,7 @@ interface DivisionProps {
         image?: string | null;
     };
     blocks: IBlock[];
-    works: {
-        campaign_image?: string;
-        name?: string;
-        campaign?: string;
-        campaign_name?: string;
-        campaign_description?: string;
-    }[];
+    works: IWork[];
 }
 
 const Division = ({ seo, blocks, color, name, works }: DivisionProps) => {

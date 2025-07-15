@@ -5,7 +5,7 @@ import DivisionBlock from '@/components/block/division-block';
 import SectionParagraphBlock from '@/components/block/sectionparagraph-block';
 import OurWorks from '@/components/homepage/OurWorks';
 import AppLayout from '@/layouts/app-layout';
-import { IBlock } from '@/types/blocks.type';
+import { IBlock, IWork } from '@/types/blocks.type';
 import { Head } from '@inertiajs/react';
 
 interface HomepageProps {
@@ -15,13 +15,7 @@ interface HomepageProps {
         image?: string | null;
     };
     blocks: IBlock[];
-    works: {
-        campaign_image?: string;
-        name?: string;
-        campaign?: string;
-        campaign_name?: string;
-        campaign_description?: string;
-    }[];
+    works: IWork[];
     divisions?: {
         name?: string;
         slug?: string;

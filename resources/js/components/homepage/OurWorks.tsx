@@ -1,16 +1,11 @@
 import { getRelativePath } from '@/lib/get-relative-path';
+import { IWork } from '@/types/blocks.type';
 import { Link } from '@inertiajs/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 interface OurWorksProps {
-    works: {
-        campaign_image?: string;
-        name?: string;
-        campaign?: string;
-        campaign_name?: string;
-        campaign_description?: string;
-    }[];
+    works: IWork[];
 }
 
 const OurWorks: React.FC<OurWorksProps> = ({ works }) => {
@@ -56,21 +51,36 @@ const OurWorks: React.FC<OurWorksProps> = ({ works }) => {
                             <motion.div
                                 key={work.campaign_name ?? '' + idx}
                                 layout
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: 20 }}
-                                transition={{ duration: 1, ease: 'easeInOut' }}
+                                initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0, y: 30, scale: 0.95 }}
+                                transition={{
+                                    duration: 0.6,
+                                    ease: [0.25, 1, 0.5, 1],
+                                    delay: idx * 0.05,
+                                }}
+                                className="transform transition-transform hover:scale-[1.015]"
                             >
-                                <img
+                                <motion.img
                                     src={getRelativePath(work.campaign_image ?? '')}
                                     alt={work.name}
                                     className="mb-3 h-[165px] w-full rounded-xl md:h-[329.85px]"
+                                    initial={{ opacity: 0, scale: 1.05 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
                                 />
                                 <div className="mb-1 text-xs font-light text-white">
                                     {work.name} <span className="ml-2 text-zinc-400">{work.campaign}</span>
                                 </div>
                                 <h3 className="mb-1 font-bold text-white">{work.campaign_name}</h3>
-                                <p className="text-sm text-zinc-400">{work.campaign_description}</p>
+                                <motion.p
+                                    className="text-sm text-zinc-400"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.2, duration: 0.6 }}
+                                >
+                                    {work.campaign_description}
+                                </motion.p>
                             </motion.div>
                         );
                     })}

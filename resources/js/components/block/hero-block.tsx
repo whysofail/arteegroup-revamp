@@ -103,7 +103,7 @@ const HeroBlock: React.FC<IHeroBlock> = ({ data }) => {
 
             {/* Main text container */}
             <motion.div
-                className="absolute z-10 w-full px-4 will-change-transform sm:px-0"
+                className="absolute z-10 w-full will-change-transform"
                 initial={animations.containerInitial}
                 animate={startTransition ? animations.containerFinal : {}}
                 transition={sharedTransition}
