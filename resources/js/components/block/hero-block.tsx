@@ -113,7 +113,7 @@ const HeroBlock: React.FC<IHeroBlock> = ({ data }) => {
                         className="mb-4 text-white drop-shadow-md"
                         initial={animations.h1Initial}
                         animate={startTransition ? animations.h1Final : {}}
-                        transition={{ delay: 0, duration: 2 }}
+                        transition={{ delay: 0, duration: 1 }}
                     >
                         <TextGenerateEffect words={title ?? fallback.title} className="text-3xl md:text-4xl lg:text-5xl" filter duration={0.8} />
                     </motion.h1>
