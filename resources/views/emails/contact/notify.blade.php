@@ -1,20 +1,37 @@
 @component('mail::message')
 # Kontak Baru dari Website
 
-Seseorang baru saja mengirim pesan melalui formulir **Get in Touch**.
+Seseorang baru saja mengirim pesan.
 
 ---
 
-**Nama:** {{ $contact->name }}
+@isset ($data['division'])
+**Divisi:** {{ $data['division'] }}
+@endisset
 
-**Email:** {{ $contact->email }}
+@isset ($data['service'])
+**Layanan:** {{ $data['service'] }}
+@endisset
+
+@isset ($data['budget'])
+**Budget:** {{ $data['budget'] }}
+@endisset
+
+**Nama:** {{ $data['name'] }}
+
+**Email:** {{ $data['email'] }}
 
 **Pesan:**  
-{{ $contact->message }}
+{{ $data['message'] }}
 
 ---
 
-@component('mail::button', ['url' => 'mailto:' . $contact->email])
+@php
+    $truncatedMessage = Str::limit($data['message'], 60);
+    $subject = "Balasan untuk pesan '" . $truncatedMessage . "'";
+@endphp
+
+@component('mail::button', ['url' => 'mailto:' . $data['email'] . '?subject=' . urlencode($subject)])
 Balas Email
 @endcomponent
 

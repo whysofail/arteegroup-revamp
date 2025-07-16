@@ -17,13 +17,14 @@ class NotifyAdminOfContact extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public Contact $contact) {}
+    public function __construct(public array $data) {}
 
     public function build()
     {
         return $this
-            ->subject('New Contact From ' . $this->contact->name . 'Through Website Form')
-            ->markdown('emails.contact.notify');
+            ->subject('New Contact From ' . $this->data['name'] . 'Through Website Form')
+            ->markdown('emails.contact.notify')
+            ->with(['data' => $this->data]);
     }
     /**
      * Get the message envelope.

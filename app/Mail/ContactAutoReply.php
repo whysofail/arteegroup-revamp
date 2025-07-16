@@ -17,13 +17,14 @@ class ContactAutoReply extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public Contact $contact) {}
+    public function __construct(public array $data) {}
 
     public function build()
     {
         return $this->from(config('mail.from.address'), 'Artee Team')
             ->subject('Thanks for getting in touch!')
-            ->markdown('emails.contact.reply');
+            ->markdown('emails.contact.reply')
+            ->with(['data' => $this->data]);
     }
 
     /**
