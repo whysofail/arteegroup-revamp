@@ -9,7 +9,6 @@ import { Toaster } from '@/components/ui/toaster';
 import { type BreadcrumbItem } from '@/types';
 import { ISiteSettings, NavbarLink } from '@/types/global';
 import { type ReactNode } from 'react';
-import { Toaster } from '@/components/ui/toaster';
 
 interface AppLayoutProps {
     children: ReactNode;
@@ -43,12 +42,9 @@ export default ({ children, customCSS }: AppLayoutProps) => {
                 <Separator />
                 <Footer />
             </div>
-<<<<<<< HEAD
-=======
 
             {customCSS && <style dangerouslySetInnerHTML={{ __html: customCSS }} />}
 
->>>>>>> origin/dev
             <Toaster />
         </>
     );

@@ -1,37 +1,13 @@
 'use client';
 
 import { getRelativePath } from '@/lib/get-relative-path';
-<<<<<<< HEAD
 import { HeroDivisionProps } from '@/types/blocks.type';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
-=======
-import { IDivision, IHeroBlock } from '@/types/blocks.type';
-import { AnimatePresence, motion } from 'motion/react';
-import { useEffect, useState } from 'react';
-
-interface HeroDivisionProps {
-    data: IHeroBlock['data'] & IDivision['data'];
-    color?: string;
-    name?: string;
-}
->>>>>>> origin/dev
 
 const HeroDivisionBlock: React.FC<HeroDivisionProps> = ({ data, color, name }) => {
     const { title, subtitle, cta_text, cta_url, background_url } = data || {};
     const [animateText, setAnimateText] = useState(false);
-<<<<<<< HEAD
-=======
-
-    useEffect(() => {
-        const timeout = setTimeout(() => setAnimateText(true), 1000);
-        return () => clearTimeout(timeout);
-    }, []);
-
-    console.log('HeroDivisionBlock', data, color, name);
-
-    console.log('HeroDivisionBlock', data, color, name);
->>>>>>> origin/dev
 
     useEffect(() => {
         const timeout = setTimeout(() => setAnimateText(true), 1000);

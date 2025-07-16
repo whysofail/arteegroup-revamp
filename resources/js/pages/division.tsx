@@ -17,15 +17,9 @@ interface DivisionProps {
     };
     blocks: IBlock[];
     works: IWork[];
-<<<<<<< HEAD
-}
-
-const Division = ({ seo, blocks, divisionId, color, name, works }: DivisionProps) => {
-=======
     custom_css?: string;
 }
 const Division = ({ seo, blocks, divisionId, color, name, works, custom_css }: DivisionProps) => {
->>>>>>> origin/dev
     return (
         <>
             <Head title={seo?.title || 'Arteegroup - Division'}>
