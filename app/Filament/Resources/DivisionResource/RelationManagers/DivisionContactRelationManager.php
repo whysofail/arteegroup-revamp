@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\DivisionResource\RelationManagers;
 
+use App\Filament\Resources\DivisionContactResource;
 use App\Models\DivisionContact;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -20,13 +21,12 @@ class DivisionContactRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
-        return DivisionContact::form($form);
+        return DivisionContactResource::form($form);
     }
 
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('name')
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Name')
@@ -51,6 +51,8 @@ class DivisionContactRelationManager extends RelationManager
             ->actions([
                 // Tables\Actions\EditAction::make(),
                 // Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ViewAction::make()
+                    ->modalHeading(fn ($record) => " Detail Contact to {$record->division->name} from {$record->name}"),
             ])
             ->bulkActions([
                 // Tables\Actions\BulkActionGroup::make([

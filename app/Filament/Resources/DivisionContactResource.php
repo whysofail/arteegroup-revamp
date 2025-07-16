@@ -31,33 +31,31 @@ class DivisionContactResource extends Resource
     {
         return $form
             ->schema([
-                Group::make(
-                    [
+                Forms\Components\Grid::make(2)
+                    ->schema([
+
+                        Forms\Components\TextInput::make('name')
+                            ->label('Name')
+                            ->disabled(),
                         Forms\Components\Placeholder::make('service')
                             ->label('Service')
                             ->content(fn($record) => implode(', ', $record->service ?? [])),
-                        Forms\Components\TextInput::make('Budget')
-                            ->label('Budget')
-                            ->disabled()
-                            ->required(),
-                        Forms\Components\TextInput::make('name')
-                            ->label('Name')
-                            ->disabled()
-                            ->required(),
                         Forms\Components\TextInput::make('email')
                             ->label('Email')
-                            ->disabled()
-                            ->required(),
-                        Forms\Components\Textarea::make('message')
-                            ->label('Message')
-                            ->disabled()
-                            ->required(),
-                        Forms\Components\Checkbox::make('agreed')
-                            ->label('Agree to the terms and conditions')
-                            ->disabled()
-                            ->required(),
-                    ]
-                )
+                            ->disabled(),
+                        Forms\Components\TextInput::make('budget')
+                            ->label('Budget')
+                            ->disabled(),
+                    ]),
+
+                Forms\Components\Textarea::make('message')
+                    ->label('Message')
+                    ->disabled()
+                    ->rows(5),
+
+                Forms\Components\Checkbox::make('agreed')
+                    ->label('Agree to the privacy policy')
+                    ->disabled(),
             ]);
     }
 
@@ -100,8 +98,8 @@ class DivisionContactResource extends Resource
     {
         return [
             'index' => Pages\ListDivisionContacts::route('/'),
-            'create' => Pages\CreateDivisionContact::route('/create'),
-            'edit' => Pages\EditDivisionContact::route('/{record}/edit'),
+            // 'create' => Pages\CreateDivisionContact::route('/create'),
+            // 'edit' => Pages\EditDivisionContact::route('/{record}/edit'),
         ];
     }
 }

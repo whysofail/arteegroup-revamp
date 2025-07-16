@@ -28,7 +28,7 @@ Seseorang baru saja mengirim pesan.
 
 @php
     $truncatedMessage = Str::limit($data['message'], 60);
-    $subject = "Balasan untuk pesan '" . $truncatedMessage . "'";
+    $subject = "Balasan untuk pesan '" . $truncatedMessage . "...'";
 @endphp
 
 @component('mail::button', ['url' => 'mailto:' . $data['email'] . '?subject=' . urlencode($subject)])

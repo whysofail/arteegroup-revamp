@@ -6,6 +6,7 @@ use App\Filament\Resources\ContactResource\Pages;
 use App\Filament\Resources\ContactResource\RelationManagers;
 use App\Models\Contact;
 use Filament\Forms;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -22,29 +23,30 @@ class ContactResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Group::make(
-                    [
-                        Forms\Components\TextInput::make('name')
-                            ->label('Name')
-                            ->disabled()
-                            ->required(),
-                        Forms\Components\TextInput::make('email')
-                            ->label('Email')
-                            ->disabled()
-                            ->required(),
-                        Forms\Components\Textarea::make('message')
-                            ->label('Message')
-                            ->disabled()
-                            ->required(),
-                        Forms\Components\Checkbox::make('agreed')
-                            ->label('Agree to the terms and conditions')
-                            ->disabled()
-                            ->required(),
-                    ]
-                )
-            ]);
+        return $form->schema([
+            Grid::make()
+                ->schema([
+                    Forms\Components\TextInput::make('name')
+                        ->label('Name')
+                        ->disabled()
+                        ->columnSpanFull(),
+
+                    Forms\Components\TextInput::make('email')
+                        ->label('Email')
+                        ->disabled()
+                        ->columnSpanFull(),
+
+                    Forms\Components\Textarea::make('message')
+                        ->label('Message')
+                        ->disabled()
+                        ->rows(5)
+                        ->columnSpanFull(),
+
+                    Forms\Components\Checkbox::make('agreed')
+                        ->label('Agree to the privacy policy')
+                        ->disabled()
+                ])
+        ]);
     }
 
     public static function table(Table $table): Table
@@ -69,6 +71,8 @@ class ContactResource extends Resource
             ])
             ->actions([
                 // Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
+                    ->modalHeading(fn($record) => "Detail Contact from {$record->name}"),
             ])
             ->bulkActions([
                 // Tables\Actions\BulkActionGroup::make([
@@ -87,9 +91,7 @@ class ContactResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListContacts::route('/'),
-            'create' => Pages\CreateContact::route('/create'),
-            'edit' => Pages\EditContact::route('/{record}/edit'),
+            'index' => Pages\ListContacts::route('/')
         ];
     }
 }
