@@ -16,25 +16,6 @@ class Work extends Model implements HasMedia
         'blocks' => 'array',
     ];
 
-    protected static function booted()
-    {
-        static::saving(function ($model) {
-            if ($model->is_highlighted) {
-                $query = Work::where('is_highlighted', true)
-                    ->where('division_id', $model->division_id);
-
-                if ($model->id) {
-                    $query->where('id', '!=', $model->id);
-                }
-
-                if ($query->exists()) {
-                    throw ValidationException::withMessages([
-                        'is_highlighted' => 'Another campaign is already highlighted for this division.',
-                    ]);
-                }
-            }
-        });
-    }
 
     protected static function booted()
     {
