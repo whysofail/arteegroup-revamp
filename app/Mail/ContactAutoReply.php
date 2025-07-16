@@ -17,7 +17,13 @@ class ContactAutoReply extends Mailable
     /**
      * Create a new message instance.
      */
+<<<<<<< HEAD
     public function __construct(public array $data) {}
+=======
+    public function __construct(public array $data)
+    {
+    }
+>>>>>>> origin/dev
 
     public function build()
     {

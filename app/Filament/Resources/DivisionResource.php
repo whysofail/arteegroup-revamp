@@ -13,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Z3d0X\FilamentFabricator\Forms\Components\PageBuilder;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
@@ -42,23 +43,25 @@ class DivisionResource extends Resource
                                     ->label('Division Name')
                                     ->required()
                                     ->maxLength(255),
+
                                 ColorPicker::make('color')
                                     ->label('Division Color')
                                     ->required()
                                     ->helperText('Choose a color for this division, it will be used in various places.'),
+
                                 PageBuilder::make('blocks')
                                     ->label('Content Blocks')
                                     ->blocks(FilamentFabricator::getPageBlocks()),
                             ]),
 
-                        // Right sidebar with SEO settings
                         Group::make()
                             ->columnSpan(1)
                             ->schema([
                                 Section::make('SEO & Page Settings')
                                     ->schema([
                                         ...FormSchemaHelper::getSlugAndSeoSchema(),
-                                    ]),
+                                    ])
+                                    ->collapsible(),
                             ]),
                     ]),
             ]);

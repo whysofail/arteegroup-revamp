@@ -125,18 +125,18 @@ class WorkResource extends Resource
                     ->dateTime()
                     ->sortable(),
             ])->filters([
-                //
-            ])->headerActions([
-                Tables\Actions\CreateAction::make(),
-            ])->filters([
-                //
-            ])->actions([
-                Tables\Actions\EditAction::make(),
-            ])->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+                    //
+                ])->headerActions([
+                    Tables\Actions\CreateAction::make(),
+                ])->filters([
+                    //
+                ])->actions([
+                    Tables\Actions\EditAction::make(),
+                ])->bulkActions([
+                    Tables\Actions\BulkActionGroup::make([
+                        Tables\Actions\DeleteBulkAction::make(),
+                    ]),
+                ]);
     }
 
     public static function getRelations(): array

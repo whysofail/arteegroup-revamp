@@ -113,7 +113,7 @@ const HeroBlock: React.FC<IHeroBlock> = ({ data }) => {
                         className="mb-4 text-white drop-shadow-md"
                         initial={animations.h1Initial}
                         animate={startTransition ? animations.h1Final : {}}
-                        transition={{ delay: 0, duration: 2 }}
+                        transition={{ delay: 0, duration: 1 }}
                     >
                         <TextGenerateEffect words={title ?? fallback.title} className="text-3xl md:text-4xl lg:text-5xl" filter duration={0.8} />
                     </motion.h1>
@@ -134,7 +134,7 @@ const HeroBlock: React.FC<IHeroBlock> = ({ data }) => {
                         className="bg-brand inline-block rounded-full px-6 py-3 text-white transition hover:bg-white hover:text-black"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 5.8, duration: 0.8 }}
+                        transition={{ delay: 5, duration: 0.8 }}
                     >
                         {cta_text ?? fallback.cta_text}
                     </motion.a>

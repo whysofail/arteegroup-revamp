@@ -70,4 +70,8 @@ export interface IWork {
     seo_title?: string;
     seo_description?: string;
     seo_image?: string;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/dev
