@@ -17,6 +17,7 @@ interface DivisionProps {
     };
     blocks: IBlock[];
     works: IWork[];
+    custom_css?: string;
 }
 const Division = ({ seo, blocks, divisionId, color, name, works, custom_css }: DivisionProps) => {
     return (
