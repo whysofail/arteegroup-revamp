@@ -48,3 +48,8 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: public/build/
           server-dir: staging.arteegroup/public/build/
+
+      - name: Check directory before deploy
+        run: |
+          echo "Local dir content:"
+          ls -lah public/build/
