@@ -3,7 +3,7 @@ name: Build and Deploy Vite to cPanel
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build-and-deploy:
