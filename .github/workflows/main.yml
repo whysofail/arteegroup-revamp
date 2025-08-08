@@ -3,7 +3,7 @@ name: Build and Deploy Vite to cPanel
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build-and-deploy:
@@ -13,18 +13,29 @@ jobs:
       - name: 📥 Checkout code
         uses: actions/checkout@v3
 
+      - name: 🧰 Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, bcmath, openssl, pdo, tokenizer, xml
+          tools: composer
+
+      - name: 📦 Install PHP dependencies
+        run: composer install --no-dev --prefer-dist --no-interaction
+
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20 # atau versi lain sesuai project-mu
+          node-version: 20
+          cache: 'pnpm'
 
       - name: 🟢 Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 8 # atau versi pnpm yang kamu pakai
+          version: 8
           run_install: false
 
-      - name: 📦 Install dependencies
+      - name: 📦 Install Node dependencies
         run: pnpm install
 
       - name: ⚒️ Build Vite project
