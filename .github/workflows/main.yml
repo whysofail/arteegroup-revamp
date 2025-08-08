@@ -20,17 +20,16 @@ jobs:
           extensions: mbstring, bcmath, openssl, pdo, tokenizer, xml
           tools: composer
 
+      - name: 🟢 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'pnpm'
-
-      - name: 🟢 Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-          run_install: false
 
       - name: 📦 Install PHP dependencies
         run: composer install --no-dev --prefer-dist --no-interaction
