@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: 📥 Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🧰 Setup PHP
         uses: shivammathur/setup-php@v2
@@ -19,9 +19,6 @@ jobs:
           php-version: '8.3'
           extensions: mbstring, bcmath, openssl, pdo, tokenizer, xml
           tools: composer
-
-      - name: 📦 Install PHP dependencies
-        run: composer install --no-dev --prefer-dist --no-interaction
 
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
@@ -32,8 +29,11 @@ jobs:
       - name: 🟢 Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: 9
           run_install: false
+
+      - name: 📦 Install PHP dependencies
+        run: composer install --no-dev --prefer-dist --no-interaction
 
       - name: 📦 Install Node dependencies
         run: pnpm install
