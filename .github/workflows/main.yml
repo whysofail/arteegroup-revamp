@@ -13,15 +13,22 @@ jobs:
       - name: 📥 Checkout code
         uses: actions/checkout@v3
 
-      - name: 🟢 Setup Node.js, Bun
-        uses: oven-sh/setup-bun@v2
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          bun-version: latest
+          node-version: 20 # atau versi lain sesuai project-mu
+
+      - name: 🟢 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8 # atau versi pnpm yang kamu pakai
+          run_install: false
+
       - name: 📦 Install dependencies
-        run: bun install
+        run: pnpm install
 
       - name: ⚒️ Build Vite project
-        run: bun run build
+        run: pnpm run build
 
       - name: 🚀 Upload dist to cPanel via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
