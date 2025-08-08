@@ -40,6 +40,15 @@ jobs:
       - name: ⚒️ Build Vite project
         run: pnpm run build
 
+      - name: 📁 Check directory before deploy
+        run: |
+          echo "Root dir content:"
+          ls -lah
+          echo "Public dir content:"
+          ls -lah public
+          echo "Build dir content:"
+          ls -lah public/build
+
       - name: 🚀 Upload dist to cPanel via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -47,9 +56,4 @@ jobs:
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: public/build/
-          server-dir: staging.arteegroup/public/build/
-
-      - name: Check directory before deploy
-        run: |
-          echo "Local dir content:"
-          ls -lah public/build/
+          server-dir: /public_html/staging.arteegroup/public/build/
