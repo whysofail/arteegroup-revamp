@@ -6,13 +6,13 @@ import Navigation from '@/components/homepage/Navbar';
 import { NavItemsProps } from '@/components/ui/resizable-navbar';
 import { Separator } from '@/components/ui/separator';
 import { Toaster } from '@/components/ui/toaster';
-import { type BreadcrumbItem } from '@/types';
+// import { type BreadcrumbItem } from '@/types';
 import { ISiteSettings, NavbarLink } from '@/types/global';
 import { type ReactNode } from 'react';
 
 interface AppLayoutProps {
     children: ReactNode;
-    breadcrumbs?: BreadcrumbItem[];
+    // breadcrumbs?: BreadcrumbItem[];
     customCSS?: string; // Optional custom CSS from division
 }
 
@@ -42,7 +42,6 @@ export default ({ children, customCSS }: AppLayoutProps) => {
                 <Separator />
                 <Footer />
             </div>
-
             {customCSS && <style dangerouslySetInnerHTML={{ __html: customCSS }} />}
 
             <Toaster />

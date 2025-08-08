@@ -24,7 +24,7 @@ export function isColorLight(hexColor: string): boolean {
     return luminance > 186; // higher = lighter
 }
 
-export default function Navigation({ logo, item, backgroundColor }: NavbarProps) {
+export default function Navigation({ logo, item }: NavbarProps) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     // Define the navigation items
@@ -64,7 +64,7 @@ export default function Navigation({ logo, item, backgroundColor }: NavbarProps)
 
     // State to track which mobile dropdowns are open
     const [openDropdowns, setOpenDropdowns] = useState<{ [key: number]: boolean }>({});
-    const isLight = isColorLight(backgroundColor || '#ffffff');
+    // const isLight = isColorLight(backgroundColor || '#ffffff');
     return (
         <Navbar className="navbar">
             {/* Desktop Navigation */}
