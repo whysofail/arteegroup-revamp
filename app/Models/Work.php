@@ -14,6 +14,7 @@ class Work extends Model implements HasMedia
     protected $guarded = [];
     protected $casts = [
         'blocks' => 'array',
+        'is_highlighted' => 'boolean',
     ];
 
     protected static function booted()
