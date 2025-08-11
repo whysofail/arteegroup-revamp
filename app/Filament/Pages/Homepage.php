@@ -43,9 +43,6 @@ class Homepage extends Page
             seo_image) : null;
 
         $this->form->fill([
-            'seo_title' => 'Welcome to Our Site',
-            'seo_description' => 'Company profile site description...',
-            'hero_title' => 'We Build Awesome Things',
         ]);
 
     }

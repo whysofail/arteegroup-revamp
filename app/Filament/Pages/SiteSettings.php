@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Filament\Pages;
 
 use Filament\Pages\Page;
@@ -31,8 +32,29 @@ class SiteSettings extends Page implements Forms\Contracts\HasForms
     public function mount(): void
     {
         $settings = SiteSettingsModel::firstOrNew();
-        $this->form->fill($settings->toArray());
+        $data = $settings->toArray();
+
+        // Convert children inside navbar_links to navbar_dropdowns
+        $dropdowns = [];
+        if (!empty($data['navbar_links'])) {
+            foreach ($data['navbar_links'] as $link) {
+                if (!empty($link['children'])) {
+                    foreach ($link['children'] as $child) {
+                        $dropdowns[] = [
+                            'parent_label' => $link['label'],
+                            'label'        => $child['label'] ?? '',
+                            'url'          => $child['url'] ?? '',
+                        ];
+                    }
+                }
+            }
+        }
+
+        $data['navbar_dropdowns'] = $dropdowns;
+
+        $this->form->fill($data);
     }
+
 
     protected function getFormSchema(): array
     {

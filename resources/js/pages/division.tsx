@@ -27,7 +27,7 @@ const Division = ({ seo, blocks, divisionId, color, name, works, custom_css }: D
                 {seo?.image && <meta property="og:image" content={seo.image} />}
             </Head>
             {custom_css && <style dangerouslySetInnerHTML={{ __html: custom_css }} />}
-            <div className="division-page font-gotham bg-black">
+            <div className="division-page font-gotham">
                 <HeroDivisionSection data={blocks.find((block) => block.type === 'hero')?.data || {}} color={color} name={name} />
                 <OurWorks color={color} works={works} />
                 <Project color={color} divisionId={divisionId} />
