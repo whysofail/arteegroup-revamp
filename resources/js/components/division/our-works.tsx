@@ -60,7 +60,7 @@ const OurWorks: React.FC<OurWorksProps> = ({ color, works }) => {
             <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
                 <AnimatePresence>
                     {displayedWorks.map((work, idx) => {
-                        const isHighlight = !isMobile && work.is_highlighted;
+                        const isHighlight = !isMobile && Boolean(Number(work.is_highlighted));
 
                         return (
                             <motion.div
