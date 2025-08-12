@@ -33,6 +33,7 @@ export interface HeroDivisionProps {
             background_url?: string;
         };
     }[];
+    custom?: { [key: string]: string };
 }
 
 export interface ISectionParagraphBlock {

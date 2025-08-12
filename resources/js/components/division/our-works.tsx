@@ -7,9 +7,13 @@ import { useEffect, useState } from 'react';
 interface OurWorksProps {
     works: IWork[];
     color?: string;
+    custom?: { [key: string]: string };
 }
 
-const OurWorks: React.FC<OurWorksProps> = ({ color, works }) => {
+const OurWorks: React.FC<OurWorksProps> = ({ color, works, custom }) => {
+    const { ourworks_title, ourworks_backgroundviewmore, ourworks_textviewmore } = custom || {};
+    const [bgCta, setBgCta] = useState(ourworks_backgroundviewmore || color);
+    const [textCta, setTextCta] = useState(ourworks_textviewmore || color);
     const [isMobile, setIsMobile] = useState(false);
     const [showAll, setShowAll] = useState(false);
 
@@ -38,7 +42,7 @@ const OurWorks: React.FC<OurWorksProps> = ({ color, works }) => {
     if (displayedWorks.length === 0) {
         return (
             <section className="mx-auto mb-20 mt-20 max-w-7xl px-8">
-                <div className="mb-6 text-sm font-medium" style={{ color }}>
+                <div className="mb-6 text-sm font-medium" style={{ color: ourworks_title }}>
                     Our works
                 </div>
                 <div className="flex flex-col items-center justify-center rounded-xl border border-zinc-700 bg-zinc-900 py-16 text-center">
@@ -52,7 +56,7 @@ const OurWorks: React.FC<OurWorksProps> = ({ color, works }) => {
     return (
         <section className="mx-auto mb-20 mt-20 max-w-7xl px-8" id="#work">
             <div className="mb-6">
-                <Link href="/our-works" className="text-sm font-medium hover:underline" style={{ color }}>
+                <Link href="/our-works" className="text-sm font-medium hover:underline" style={{ color: ourworks_title }}>
                     Our works
                 </Link>
             </div>
@@ -106,8 +110,16 @@ const OurWorks: React.FC<OurWorksProps> = ({ color, works }) => {
                 {shouldShowButton && (
                     <button
                         onClick={() => setShowAll(!showAll)}
-                        className="rounded-full px-6 py-2 text-sm font-medium text-white transition hover:bg-white hover:text-black"
-                        style={{ backgroundColor: color }}
+                        className="rounded-full px-6 py-2 text-sm font-medium text-white transition"
+                        style={{ backgroundColor: bgCta, color: textCta }}
+                        onMouseEnter={() => {
+                            setBgCta('#FFFFFF');
+                            setTextCta('#000000');
+                        }}
+                        onMouseLeave={() => {
+                            setBgCta(ourworks_backgroundviewmore || color);
+                            setTextCta(ourworks_textviewmore || color);
+                        }}
                     >
                         {showAll ? 'Show less' : 'View more'}
                     </button>

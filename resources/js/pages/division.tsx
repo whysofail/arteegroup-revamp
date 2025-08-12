@@ -5,6 +5,7 @@ import AppLayout from '@/layouts/app-layout';
 import { IBlock, IWork } from '@/types/blocks.type';
 import { Head } from '@inertiajs/react';
 import { type ReactNode } from 'react';
+import { getBlockCustom } from '@/lib/get-custom-rich-text';
 
 interface DivisionProps {
     divisionId: number;
@@ -17,20 +18,20 @@ interface DivisionProps {
     };
     blocks: IBlock[];
     works: IWork[];
-    custom_css?: string;
 }
-const Division = ({ seo, blocks, divisionId, color, name, works, custom_css }: DivisionProps) => {
+const Division = ({ seo, blocks, divisionId, color, name, works }: DivisionProps) => {
+    const custom = getBlockCustom(blocks);
+
     return (
         <>
             <Head title={seo?.title || 'Arteegroup - Division'}>
                 <meta name="description" content={seo?.description || 'Dummy description'} />
                 {seo?.image && <meta property="og:image" content={seo.image} />}
             </Head>
-            {custom_css && <style dangerouslySetInnerHTML={{ __html: custom_css }} />}
             <div className="division-page font-gotham">
-                <HeroDivisionSection data={blocks.find((block) => block.type === 'hero')?.data || {}} color={color} name={name} />
-                <OurWorks color={color} works={works} />
-                <Project color={color} divisionId={divisionId} />
+                <HeroDivisionSection data={blocks.find((block) => block.type === 'hero')?.data || {}} color={color} name={name} custom={custom} />
+                <OurWorks color={color} works={works} custom={custom} />
+                <Project color={color} divisionId={divisionId} custom={custom} />
             </div>
         </>
     );

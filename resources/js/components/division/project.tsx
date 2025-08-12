@@ -20,11 +20,24 @@ const services = [
 interface ProjectProps {
     color?: string;
     divisionId: number;
+    custom?: { [key: string]: string };
 }
 
 const budgets = ['10K - 20K', '20K - 50K', 'more than 50K'];
 
-const Project: React.FC<ProjectProps> = ({ color, divisionId }) => {
+const Project: React.FC<ProjectProps> = ({ color, divisionId, custom }) => {
+    const {
+        project_backgroundservice,
+        project_textservice,
+        project_backgroundbudget,
+        project_textbudget,
+        project_privacypolicy,
+        project_backgroundcta,
+        project_textcta,
+    } = custom || {};
+    const [hovered, setHovered] = useState<string | null>(null);
+    const [bgCta, setBgCta] = useState(project_backgroundcta || color);
+    const [textCta, setTextCta] = useState(project_textcta || color);
     const [selectedServices, setSelectedServices] = useState<string[]>([]);
     const [selectedBudget, setSelectedBudget] = useState<string | null>(null);
 
@@ -83,52 +96,63 @@ const Project: React.FC<ProjectProps> = ({ color, divisionId }) => {
                     <h1 className="mb-5 text-center text-xl md:text-3xl">Please tell us about your project</h1>
                     <div className="text-sm">Service</div>
                     <div className="flex flex-wrap gap-2">
-                        {services.map((service) => (
-                            <button
-                                key={service}
-                                type="button"
-                                onClick={() => {
-                                    toggleService(service);
-                                    setData('service', [
-                                        ...(selectedServices.includes(service)
-                                            ? selectedServices.filter((s) => s !== service)
-                                            : [...selectedServices, service]),
-                                    ]);
-                                }}
-                                className={clsx(
-                                    'rounded-full border px-4 py-2 text-sm transition',
-                                    selectedServices.includes(service)
-                                        ? 'bg-brand border-brand text-white'
-                                        : 'border-white text-white hover:bg-white hover:text-black',
-                                )}
-                                style={{ backgroundColor: selectedServices.includes(service) ? color : 'transparent' }}
-                            >
-                                {service}
-                            </button>
-                        ))}
+                        {services.map((service) => {
+                            const isSelected = selectedServices.includes(service);
+                            const isHovered = hovered === service;
+
+                            return (
+                                <button
+                                    key={service}
+                                    type="button"
+                                    onClick={() => {
+                                        toggleService(service);
+                                        setData(
+                                            'service',
+                                            isSelected ? selectedServices.filter((s) => s !== service) : [...selectedServices, service],
+                                        );
+                                    }}
+                                    onMouseEnter={() => setHovered(service)}
+                                    onMouseLeave={() => setHovered(null)}
+                                    className={clsx('rounded-full border px-4 py-2 text-sm transition', isSelected ? '' : 'border-white')}
+                                    style={{
+                                        backgroundColor: isSelected ? project_backgroundservice || color : isHovered ? '#FFFFFF' : 'transparent',
+                                        color: isSelected ? project_textservice || color : isHovered ? '#000000' : '#FFFFFF',
+                                    }}
+                                >
+                                    {service}
+                                </button>
+                            );
+                        })}
+
                         {errors.service && <p className="mt-2.5 text-xs text-red-400">{errors.service}</p>}
                     </div>
                     <div className="text-sm">Budget in Rupiah</div>
                     <div className="flex flex-wrap gap-2">
-                        {budgets.map((budget) => (
-                            <button
-                                key={budget}
-                                type="button"
-                                onClick={() => {
-                                    setSelectedBudget(budget);
-                                    setData('budget', budget);
-                                }}
-                                className={clsx(
-                                    'rounded-full border px-4 py-2 text-sm transition',
-                                    selectedBudget === budget
-                                        ? 'bg-brand border-brand text-white'
-                                        : 'border-white text-white hover:bg-white hover:text-black',
-                                )}
-                                style={{ backgroundColor: selectedBudget === budget ? color : 'transparent' }}
-                            >
-                                {budget}
-                            </button>
-                        ))}
+                        {budgets.map((budget) => {
+                            const isSelected = selectedBudget === budget;
+                            const isHovered = hovered === budget;
+
+                            return (
+                                <button
+                                    key={budget}
+                                    type="button"
+                                    onClick={() => {
+                                        setSelectedBudget(budget);
+                                        setData('budget', budget);
+                                    }}
+                                    onMouseEnter={() => setHovered(budget)}
+                                    onMouseLeave={() => setHovered(null)}
+                                    className={clsx('rounded-full border px-4 py-2 text-sm transition', isSelected ? '' : 'border-white')}
+                                    style={{
+                                        backgroundColor: isSelected ? project_backgroundbudget || color : isHovered ? '#FFFFFF' : 'transparent',
+                                        color: isSelected ? project_textbudget || color : isHovered ? '#000000' : '#FFFFFF',
+                                    }}
+                                >
+                                    {budget}
+                                </button>
+                            );
+                        })}
+
                         {errors.budget && <p className="mt-2.5 text-xs text-red-400">{errors.budget}</p>}
                     </div>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -168,7 +192,7 @@ const Project: React.FC<ProjectProps> = ({ color, divisionId }) => {
                             />
                             <label htmlFor="agree" className="leading-relaxed text-white">
                                 I confirm that I have read and agree to the{' '}
-                                <a href="/privacy-policy" className="text-brand hover:underline" style={{ color: color }}>
+                                <a href="/privacy-policy" className="text-brand hover:underline" style={{ color: project_privacypolicy }}>
                                     privacy policy
                                 </a>
                                 {errors.agreed && <p className="mt-1 text-xs text-red-400">{errors.agreed}</p>}
@@ -178,7 +202,15 @@ const Project: React.FC<ProjectProps> = ({ color, divisionId }) => {
                             <Button
                                 className="bg-brand w-full rounded-full text-white transition hover:bg-white hover:text-black"
                                 disabled={processing}
-                                style={{ backgroundColor: color }}
+                                style={{ backgroundColor: bgCta, color: textCta }}
+                                onMouseEnter={() => {
+                                    setBgCta('#FFFFFF');
+                                    setTextCta('#000000');
+                                }}
+                                onMouseLeave={() => {
+                                    setBgCta(project_backgroundcta || color);
+                                    setTextCta(project_textcta || color);
+                                }}
                             >
                                 {processing ? 'Sending...' : "Let's discuss"}
                             </Button>

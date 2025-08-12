@@ -5,9 +5,12 @@ import { HeroDivisionProps } from '@/types/blocks.type';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 
-const HeroDivisionBlock: React.FC<HeroDivisionProps> = ({ data, color, name }) => {
+const HeroDivisionBlock: React.FC<HeroDivisionProps> = ({ data, color, name, custom }) => {
     const { title, subtitle, cta_text, cta_url, background_url } = data || {};
+    const { hero_title, hero_subtitle, hero_backgroundcta, hero_textcta } = custom || {};
     const [animateText, setAnimateText] = useState(false);
+    const [bgCta, setBgCta] = useState(hero_backgroundcta || color);
+    const [textCta, setTextCta] = useState(hero_textcta || color);
 
     useEffect(() => {
         const timeout = setTimeout(() => setAnimateText(true), 1000);
@@ -44,7 +47,8 @@ const HeroDivisionBlock: React.FC<HeroDivisionProps> = ({ data, color, name }) =
             >
                 {title && (
                     <motion.p
-                        className="text-md mb-12 leading-relaxed text-[#1E2738]"
+                        className="text-md mb-12 leading-relaxed"
+                        style={{ color: hero_title || color }}
                         initial={{ opacity: 0, y: 20 }}
                         animate={animateText ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 1.2, delay: 0.3 }}
@@ -55,7 +59,8 @@ const HeroDivisionBlock: React.FC<HeroDivisionProps> = ({ data, color, name }) =
 
                 {subtitle && (
                     <motion.p
-                        className="text-md mb-12 leading-relaxed text-[#1E2738]"
+                        className="text-md mb-12 leading-relaxed"
+                        style={{ color: hero_subtitle || color }}
                         initial={{ opacity: 0, y: 20 }}
                         animate={animateText ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 1.2, delay: 0.6 }}
@@ -67,7 +72,16 @@ const HeroDivisionBlock: React.FC<HeroDivisionProps> = ({ data, color, name }) =
                 {cta_text && cta_url && (
                     <motion.a
                         href={cta_url}
-                        className="text-md inline-block rounded-full bg-[#1E2738] px-6 py-3 text-white transition hover:bg-white hover:text-black"
+                        className="text-md inline-block rounded-full px-6 py-3 transition"
+                        style={{ backgroundColor: bgCta, color: textCta }}
+                        onMouseEnter={() => {
+                            setBgCta('#FFFFFF');
+                            setTextCta('#000000');
+                        }}
+                        onMouseLeave={() => {
+                            setBgCta(hero_backgroundcta || color);
+                            setTextCta(hero_textcta || color);
+                        }}
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={animateText ? { opacity: 1, scale: 1 } : {}}
                         transition={{ duration: 1.1, delay: 1 }}
