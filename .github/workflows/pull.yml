@@ -3,7 +3,7 @@ name: Deploy via Git Pull on Server
 on:
   push:
     branches:
-      - main
+      - dev
 
 jobs:
   deploy:
@@ -19,7 +19,7 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /public_html/staging.arteegroup
+            cd /repositories/staging.arteegroup
             git pull origin main
             # Optional: restart services if needed
             # php artisan config:cache
