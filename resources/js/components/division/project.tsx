@@ -192,7 +192,7 @@ const Project: React.FC<ProjectProps> = ({ color, divisionId, custom }) => {
                             />
                             <label htmlFor="agree" className="leading-relaxed text-white">
                                 I confirm that I have read and agree to the{' '}
-                                <a href="/privacy-policy" className="text-brand hover:underline" style={{ color: project_privacypolicy }}>
+                                <a href="/privacy-policy" className="hover:underline" style={{ color: project_privacypolicy || color }}>
                                     privacy policy
                                 </a>
                                 {errors.agreed && <p className="mt-1 text-xs text-red-400">{errors.agreed}</p>}

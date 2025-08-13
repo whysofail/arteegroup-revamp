@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@/lib/utils';
+import { cn, isColorLight } from '@/lib/utils';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 
 import { Link } from '@inertiajs/react';
@@ -17,6 +17,7 @@ interface NavBodyProps {
     children: React.ReactNode;
     className?: string;
     visible?: boolean;
+    textColor?: string;
 }
 
 export interface NavItemsProps {
@@ -27,6 +28,7 @@ export interface NavItemsProps {
         children?: { label: string; url?: string }[];
     }[];
     className?: string;
+    textColor?: string;
     onItemClick?: () => void;
 }
 
@@ -73,7 +75,12 @@ export const Navbar = ({ children, className }: NavbarProps) => {
     );
 };
 
-export const NavBody = ({ children, className, visible }: NavBodyProps) => {
+export const NavBody = ({ children, className, visible, textColor }: NavBodyProps) => {
+    const isHomepage = '#FFFFFF';
+    const effectiveTextColor = textColor || isHomepage;
+
+    const isLightText = isColorLight(effectiveTextColor);
+
     return (
         <motion.div
             animate={{
@@ -93,8 +100,11 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
                 minWidth: '800px',
             }}
             className={cn(
-                'relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex dark:bg-transparent',
-                visible && 'bg-white/80 dark:bg-neutral-950/80',
+                'relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 dark:bg-transparent lg:flex',
+                visible &&
+                    (isLightText
+                        ? 'bg-white/100 dark:bg-neutral-900/70'
+                        : 'bg-black/20 dark:bg-white/40'),
                 className,
             )}
         >
@@ -103,9 +113,14 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
     );
 };
 
-export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
+export const NavItems = ({ items, className, textColor, onItemClick }: NavItemsProps) => {
     const [hovered, setHovered] = useState<number | null>(null);
     const [active, setActive] = useState<string | null>(null);
+
+    const homepageColor = '#FFFFFF';
+
+    const effectiveTextColor = textColor || homepageColor;
+    const isLightText = isColorLight(effectiveTextColor);
 
     return (
         <motion.div
@@ -132,25 +147,22 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
                     }}
                 >
                     {item.link ? (
-                        <Link
-                            onClick={onItemClick}
-                            className="hover:text-brand relative cursor-pointer px-4 py-2 text-white dark:text-neutral-300"
-                            href={item.link}
-                        >
+                        <Link onClick={onItemClick} className="relative cursor-pointer px-4 py-2" style={{ color: effectiveTextColor }} href={item.link}>
                             {hovered === idx && (
                                 <motion.div
                                     layoutId="hovered"
-                                    className="absolute inset-0 h-full w-full rounded-full bg-gray-100 dark:bg-neutral-800"
+                                    className={`absolute inset-0 h-full w-full rounded-full ${isLightText ? 'bg-neutral-800' : 'bg-neutral-100'}`}
                                 />
                             )}
+
                             <span className="relative z-20">{item.name}</span>
                         </Link>
                     ) : (
-                        <div className="relative cursor-pointer px-4 py-2 text-neutral-600 dark:text-neutral-300">
+                        <div className="relative cursor-pointer px-4 py-2" style={{ color: effectiveTextColor }}>
                             {hovered === idx && (
                                 <motion.div
                                     layoutId="hovered"
-                                    className="absolute inset-0 h-full w-full rounded-full bg-gray-100 dark:bg-neutral-800"
+                                    className={`absolute inset-0 h-full w-full rounded-full ${isLightText ? 'bg-neutral-800' : 'bg-neutral-100'}`}
                                 />
                             )}
                             <span className="group:text relative z-20">{item.name}</span>
@@ -159,7 +171,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
 
                     {/* Dropdown */}
                     {item.hasDropdown && (item.children?.length ?? 0) > 0 && (
-                        <NavDropdown active={active === item.name} items={item.children ?? []} />
+                        <NavDropdown active={active === item.name} items={item.children ?? []} textColor={textColor} />
                     )}
                 </div>
             ))}

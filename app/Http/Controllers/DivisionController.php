@@ -19,6 +19,7 @@ class DivisionController extends Controller
             'slug' => $divisions->slug ?? '',
             'name' => $divisions->name ?? '',
             'color' => $divisions->color ?? '',
+            'custom' => $divisions->custom ?? '',
             'seo' => [
                 'title' => $divisions->seo_title ?? 'Arteegroup - Division',
                 'description' => $divisions->seo_description ?? 'Explore our divisions and their unique offerings.',

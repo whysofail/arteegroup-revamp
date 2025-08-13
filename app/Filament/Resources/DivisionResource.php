@@ -65,8 +65,9 @@ class DivisionResource extends Resource
                                             ->label('Custom CSS')
                                             ->afterStateHydrated(function ($component, $state) {
                                                 if (blank($state)) {
-                                                    $component->state(<<<'TEXT'
-hero_title: ,
+                                                    $component->state(
+                                                        <<<'TEXT'
+hero_title: , 
 hero_subtitle: , 
 hero_backgroundcta: , 
 hero_textcta: , 
@@ -79,7 +80,8 @@ project_backgroundbudget: ,
 project_textbudget: , 
 project_privacypolicy: , 
 project_backgroundcta: , 
-project_textcta:
+project_textcta: ,
+navbar: 
 TEXT
                                                     );
                                                 }

@@ -1,5 +1,6 @@
 'use client';
 
+import { isColorLight } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
 import { useState } from 'react';
 import { Button } from '../ui/button';
@@ -10,21 +11,10 @@ type NavbarProps = {
     logo?: string;
     item?: NavItemsProps['items'];
     backgroundColor?: string;
+    custom?: { [key: string]: string }; // Custom colors or styles
 };
 
-// utils/isColorLight.ts
-export function isColorLight(hexColor: string): boolean {
-    const hex = hexColor.replace('#', '');
-    const r = parseInt(hex.substring(0, 2), 16);
-    const g = parseInt(hex.substring(2, 4), 16);
-    const b = parseInt(hex.substring(4, 6), 16);
-
-    // Calculate luminance
-    const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
-    return luminance > 186; // higher = lighter
-}
-
-export default function Navigation({ logo, item }: NavbarProps) {
+export default function Navigation({ logo, item, custom }: NavbarProps) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     // Define the navigation items
@@ -64,19 +54,42 @@ export default function Navigation({ logo, item }: NavbarProps) {
 
     // State to track which mobile dropdowns are open
     const [openDropdowns, setOpenDropdowns] = useState<{ [key: number]: boolean }>({});
-    // const isLight = isColorLight(backgroundColor || '#ffffff');
+
+    const textColor = custom?.navbar || '';
+    const isLightText = isColorLight(textColor);
+    const isHomepage = 'border-brand text-brand';
+
+    const defaultText = !custom?.navbar ? isHomepage : `border-[${textColor}] text-[${textColor}]`;
+
+    const hoverBg = !custom?.navbar
+        ? 'hover:border-none hover:bg-white'
+        : isLightText
+          ? 'hover:border-none hover:bg-white'
+          : 'hover:border-none hover:bg-black';
+
     return (
         <Navbar className="navbar">
             {/* Desktop Navigation */}
-            <NavBody>
+            <NavBody textColor={textColor}>
                 <NavbarLogo logo={logo} />
-                <NavItems items={navItems} />
+                <NavItems items={navItems} textColor={textColor} />
                 <div className="z-20 hidden md:block">
                     <Button
                         variant="outline"
-                        className="border-brand text-brand rounded-full bg-transparent transition hover:bg-white hover:text-black"
+                        className={`rounded-full bg-transparent transition ${defaultText} ${hoverBg}`}
+                        style={!custom?.navbar ? {} : { borderColor: textColor }}
+                        onMouseEnter={(e) => {
+                            const link = e.currentTarget.querySelector('a') as HTMLElement;
+                            link.style.color = !custom?.navbar ? 'black' : isLightText ? 'black' : 'white';
+                        }}
+                        onMouseLeave={(e) => {
+                            const link = e.currentTarget.querySelector('a') as HTMLElement;
+                            link.style.color = textColor;
+                        }}
                     >
-                        <Link href="#get-in-touch">Get in Touch</Link>
+                        <Link href="#get-in-touch" style={!custom?.navbar ? {} : { color: textColor }}>
+                            Get in Touch
+                        </Link>
                     </Button>
                 </div>
             </NavBody>
