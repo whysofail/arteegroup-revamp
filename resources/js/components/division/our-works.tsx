@@ -37,7 +37,7 @@ const OurWorks: React.FC<OurWorksProps> = ({ color, works, custom }) => {
     const maxVisible = isMobile ? (showAll ? 5 : 2) : showAll ? (hasHighlight ? 9 : 10) : hasHighlight ? 5 : 4;
     const displayedWorks = sortedWorks.slice(0, Math.min(maxVisible, sortedWorks.length));
 
-    const shouldShowButton = isMobile ? sortedWorks.length > 2 : sortedWorks.length > 5;
+    const shouldShowButton = isMobile ? sortedWorks.length > 2 : sortedWorks.length > (hasHighlight ? 5 : 4);
 
     if (displayedWorks.length === 0) {
         return (
@@ -106,11 +106,11 @@ const OurWorks: React.FC<OurWorksProps> = ({ color, works, custom }) => {
                 </AnimatePresence>
             </div>
 
-            <div className="mt-12 grid justify-center">
+            <div className="grid justify-center">
                 {shouldShowButton && (
                     <button
                         onClick={() => setShowAll(!showAll)}
-                        className="rounded-full px-6 py-2 text-sm font-medium text-white transition"
+                        className="mt-12 rounded-full px-6 py-2 text-sm font-medium text-white transition"
                         style={{ backgroundColor: bgCta, color: textCta }}
                         onMouseEnter={() => {
                             setBgCta('#FFFFFF');
