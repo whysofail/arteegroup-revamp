@@ -60,6 +60,32 @@ class DivisionResource extends Resource
                                 Section::make('SEO & Page Settings')
                                     ->schema([
                                         ...FormSchemaHelper::getSlugAndSeoSchema(),
+                                        TextArea::make('custom')
+                                            ->name('Custom CSS')
+                                            ->label('Custom CSS')
+                                            ->afterStateHydrated(function ($component, $state) {
+                                                if (blank($state)) {
+                                                    $component->state(<<<'TEXT'
+hero_title: ,
+hero_subtitle: , 
+hero_backgroundcta: , 
+hero_textcta: , 
+ourworks_title: , 
+ourworks_backgroundviewmore: , 
+ourworks_textviewmore: , 
+project_backgroundservice: , 
+project_textservice: , 
+project_backgroundbudget: , 
+project_textbudget: , 
+project_privacypolicy: , 
+project_backgroundcta: , 
+project_textcta:
+TEXT
+                                                    );
+                                                }
+                                            })
+
+
                                     ])
                                     ->collapsible(),
                             ]),
