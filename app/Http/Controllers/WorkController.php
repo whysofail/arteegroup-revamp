@@ -18,4 +18,29 @@ class WorkController extends Controller
             'work' => $work,
         ]);
     }
+
+    public function show($division, $slug)
+    {
+        $work = Work::where('slug', $slug)
+            ->whereHas('division', fn($q) => $q->where('slug', $division))
+            ->firstOrFail();
+
+        return Inertia::render('work', [
+            'divisionId' => $work->division_id ?? '',
+            'division' => $work->division ?? '',
+            'name' => $work->name ?? '',
+            'campaign' => $work->campaign ?? '',
+            'campaignName' => $work->campaign_name ?? '',
+            'campaignDescription' => $work->campaign_description ?? '',
+            'campaignImage' => $work->campaign_image ?? '',
+            'title' => $work->title ?? '',
+            'slug' => $work->slug ?? '',
+            'seo' => [
+                'title' => $work->seo_title ?? '',
+                'description' => $work->seo_description ?? '',
+                'image' => $work->seo_image ?? '',
+            ],
+            'blocks' => $work->blocks ?? [],
+        ]);
+    }
 }

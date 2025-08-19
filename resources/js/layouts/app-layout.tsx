@@ -39,10 +39,10 @@ export default ({ children, custom }: AppLayoutProps) => {
 
     return (
         <>
-            <div className="">
+            <div>
                 <Navigation logo={siteSettings?.navbar_logo} item={navbarLinks} custom={customColor} />
                 {children}
-                <Separator />
+                <Separator className='bg-neutral-500 mt-8' />
                 <Footer />
             </div>
 

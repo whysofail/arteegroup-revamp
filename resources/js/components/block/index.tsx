@@ -8,6 +8,7 @@ import SectionWithTitleBlock from './sectionparagraph-block';
 import ImageMarqueeBlock from './imagemarquee-block';
 import SeparatorBlock from './separator-block';
 import WysiwygBlock from './wyswyg-block';
+import CollageImageBlock from './imagecollage-block';
 
 // Add all other blocks here...
 
@@ -17,6 +18,7 @@ const components: Record<string, React.ComponentType<any>> = {
     hero: HeroBlock,
     heroDivision: HeroDivisionBlock,
     'section-paragraph': SectionWithTitleBlock,
+    'collage-image': CollageImageBlock,
     'image-marquee': ImageMarqueeBlock,
     separator: SeparatorBlock,
     wysiwyg: WysiwygBlock,

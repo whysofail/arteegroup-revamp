@@ -7,10 +7,11 @@ import { useEffect, useState } from 'react';
 interface OurWorksProps {
     works: IWork[];
     color?: string;
+    slug?: string;
     custom?: { [key: string]: string };
 }
 
-const OurWorks: React.FC<OurWorksProps> = ({ color, works, custom }) => {
+const OurWorks: React.FC<OurWorksProps> = ({ color, works, custom, slug }) => {
     const { ourworks_title, ourworks_backgroundviewmore, ourworks_textviewmore } = custom || {};
     const [bgCta, setBgCta] = useState(ourworks_backgroundviewmore || color);
     const [textCta, setTextCta] = useState(ourworks_textviewmore || color);
@@ -66,6 +67,7 @@ const OurWorks: React.FC<OurWorksProps> = ({ color, works, custom }) => {
                     {displayedWorks.map((work, idx) => {
                         const isHighlight = !isMobile && Boolean(Number(work.is_highlighted));
 
+                        const workUrl = `/${slug ?? ''}/${work.slug ?? ''}`;
                         return (
                             <motion.div
                                 key={work.campaign_name ?? '' + idx}
@@ -78,28 +80,35 @@ const OurWorks: React.FC<OurWorksProps> = ({ color, works, custom }) => {
                                     ease: [0.25, 1, 0.5, 1],
                                     delay: idx * 0.05,
                                 }}
-                                className={`${isHighlight ? 'md:col-span-2' : ''} transform transition-transform hover:scale-[1.015]`}
+                                className={`${isHighlight ? 'md:col-span-2' : ''}`}
                             >
-                                <motion.img
-                                    src={getRelativePath(work.campaign_image ?? '')}
-                                    alt={work.name}
-                                    className={`mb-3 w-full rounded-xl ${isHighlight ? 'h-[660px]' : 'h-[165px] md:h-[330px]'}`}
-                                    initial={{ opacity: 0, scale: 1.05 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-                                />
-                                <div className="mb-1 text-xs font-light text-white">
-                                    {work.name} <span className="ml-2 text-zinc-400">{work.campaign}</span>
-                                </div>
-                                <h3 className="mb-1 font-bold text-white">{work.campaign_name}</h3>
-                                <motion.p
-                                    className="text-sm text-zinc-400"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: 0.2, duration: 0.6 }}
-                                >
-                                    {work.campaign_description}
-                                </motion.p>
+                                <Link href={workUrl} className="group block">
+                                    <div className="relative overflow-hidden rounded-xl">
+                                        <motion.img
+                                            src={getRelativePath(work.campaign_image ?? '')}
+                                            alt={work.name}
+                                            className={`mb-3 w-full rounded-xl transition-transform duration-500 group-hover:scale-105 ${isHighlight ? 'h-[600px]' : 'h-[165px] md:h-[300px]'}`}
+                                            initial={{ opacity: 0, scale: 1.05 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                                    </div>
+                                    <div className="mb-1 text-xs font-light text-white">
+                                        {work.name} <span className="ml-2 text-zinc-400">{work.campaign}</span>
+                                    </div>
+                                    <h3 className="group-hover:text-brand mb-1 font-bold text-white transition-colors duration-300">
+                                        {work.campaign_name}
+                                    </h3>
+                                    <motion.p
+                                        className="text-sm text-zinc-400"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ delay: 0.2, duration: 0.6 }}
+                                    >
+                                        {work.campaign_description}
+                                    </motion.p>
+                                </Link>
                             </motion.div>
                         );
                     })}

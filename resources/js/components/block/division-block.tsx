@@ -11,12 +11,12 @@ const DivisionBlock: React.FC<DivisionBlockProps> = ({ divisions }) => {
     
     return (
         <section className="text-white">
-            <div className="mx-auto max-w-7xl px-8 mb-16 md:mb-24">
+            <div className="mx-auto max-w-7xl px-8 mb-16">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-5">
                     {divisions?.map((division, i) => (
                         <Link
                             key={i}
-                            href={`/division/${division.slug}`}
+                            href={`/${division.slug}`}
                             className="flex h-36 items-center justify-center rounded-xl grayscale transition hover:scale-95 hover:grayscale-0 sm:aspect-square sm:h-auto"
                             style={{ backgroundColor: division.color ?? '' }}
                         >

@@ -38,8 +38,14 @@ export interface HeroDivisionProps {
 
 export interface ISectionParagraphBlock {
     data?: {
-        title?: string; // Used for the left anchor/link
-        content?: string; // HTML string for the right column content
+        content_type?: 'title' | 'image';
+        title?: string;
+        title_color?: string;
+        custom_css?: string;
+        custom_padding?: string;
+        url?: string;
+        image?: string;
+        content?: string;
         direction: 'ltr' | 'rtl'; // Text direction, default is 'ltr'
     };
 }
@@ -52,14 +58,23 @@ export interface IWysiwygBlock {
 
 export interface IImageMarqueeBlock {
     data?: {
-        images?: { image: string }[]; // Array of image URLs
-        speed?: number; // scroll duration in seconds, default 20
+        images?: { image: string }[];
+        speed?: number;
+    };
+}
+
+export interface ICollageImageBlock {
+    data?: {
+        images: { image: string; }[];
     };
 }
 
 export interface IWork {
     id: number;
     division_id?: number;
+    division?: {
+        slug?: string;
+    };
     name?: string;
     campaign?: string;
     campaign_name?: string;

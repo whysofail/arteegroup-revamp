@@ -10,6 +10,7 @@ interface DivisionProps {
     divisionId: number;
     name?: string;
     color?: string;
+    slug?: string;
     custom: string;
     seo?: {
         title?: string;
@@ -19,7 +20,7 @@ interface DivisionProps {
     blocks: IBlock[];
     works: IWork[];
 }
-const Division = ({ seo, blocks, divisionId, color, name, works, custom }: DivisionProps) => {
+const Division = ({ seo, blocks, divisionId, color, slug, name, works, custom }: DivisionProps) => {
     const customColor = getCustomColor(custom);
 
     return (
@@ -28,14 +29,9 @@ const Division = ({ seo, blocks, divisionId, color, name, works, custom }: Divis
                 <meta name="description" content={seo?.description || 'Dummy description'} />
                 {seo?.image && <meta property="og:image" content={seo.image} />}
             </Head>
-            <div className="division-page font-gotham">
-                <HeroDivisionSection
-                    data={blocks.find((block) => block.type === 'hero')?.data || {}}
-                    color={color}
-                    name={name}
-                    custom={customColor}
-                />
-                <OurWorks color={color} works={works} custom={customColor} />
+            <HeroDivisionSection data={blocks.find((block) => block.type === 'hero')?.data || {}} color={color} name={name} custom={customColor} />
+            <div className="mx-auto max-w-7xl md:px-12 font-gotham">
+                <OurWorks color={color} slug={slug} works={works} custom={customColor} />
                 <Project color={color} divisionId={divisionId} custom={customColor} />
             </div>
         </>
@@ -46,6 +42,5 @@ Division.layout = (page: React.ReactNode) => {
     const element = page as React.ReactElement<{ custom: string }>;
     return <AppLayout custom={element.props.custom}>{page}</AppLayout>;
 };
-
 
 export default Division;

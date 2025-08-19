@@ -1,3 +1,4 @@
+import { getRelativePath } from '@/lib/get-relative-path';
 import { ISectionParagraphBlock } from '@/types/blocks.type';
 import { Link } from '@inertiajs/react';
 import React from 'react';
@@ -17,32 +18,56 @@ const SectionParagraphBlock: React.FC<ISectionParagraphBlock> = ({ data }) => {
     `;
     const fallbackDirection = 'ltr';
 
+    const contentType = data?.content_type || 'title';
     const title = data?.title?.trim() || fallbackTitle;
+    const titleColor = data?.title_color || '#ffffff';
+    const customCss = data?.custom_css || 'text-sm';
+    const url = data?.url || '';
+    const image = data?.image || '';
     const content = data?.content?.trim() || fallbackContent;
     const direction = data?.direction || fallbackDirection;
+    const customPadding = data?.custom_padding ?? 'py-4 md:py-8';
 
     const isRTL = direction === 'rtl';
 
     return (
-        <section className={`py-8 md:py-16 text-white ${isRTL ? 'text-right' : 'text-left'}`}>
-        <div className="mx-auto max-w-7xl px-8">
-            <div dir={direction} className="mb-10 gap-4 md:grid md:grid-cols-5">
-                {/* Title */}
-                <div className={`md:col-span-1 ${isRTL ? 'justify-end md:order-2' : 'justify-start md:order-1'}`}>
-                    <Link href="#" className="text-brand whitespace-nowrap text-sm font-medium hover:underline">
-                        {title}
-                    </Link>
-                </div>
+        <section className={`text-white ${isRTL ? 'text-right' : 'text-left'}`}>
+            <div className={`mx-auto max-w-7xl px-8 ${customPadding}`}>
+                <div dir={direction} className="gap-4 md:grid md:grid-cols-5">
+                    {/* Title or Image */}
+                    <div className={`md:col-span-1 ${isRTL ? 'justify-end md:order-2' : 'justify-start md:order-1'}`}>
+                        {contentType === 'title' ? (
+                            url ? (
+                                <Link
+                                    href={url}
+                                    className={`whitespace-nowrap ${customCss} font-medium hover:underline`}
+                                    style={{ color: titleColor }}
+                                >
+                                    {title}
+                                </Link>
+                            ) : (
+                                <span className={`whitespace-nowrap ${customCss} font-medium`} style={{ color: titleColor }}>
+                                    {title}
+                                </span>
+                            )
+                        ) : image ? (
+                            <img
+                                src={getRelativePath(image)}
+                                alt={title || 'Section Image'}
+                                className="max-h-8 w-auto mb-4 md:mb-0 justify-self-center object-contain md:justify-self-start"
+                            />
+                        ) : null}
+                    </div>
 
-                {/* Content */}
-                <div className={`md:col-span-4 ${isRTL ? 'md:order-1 md:text-right' : 'md:order-2 md:text-justify'}`}>
-                    <div
-                        className="prose prose-invert max-w-none leading-snug tracking-tight text-white"
-                        dangerouslySetInnerHTML={{ __html: content }}
-                    />
+                    {/* Content */}
+                    <div className={`py-4 md:py-0 md:col-span-4 ${isRTL ? 'md:order-1 md:text-right' : 'md:order-2 md:text-justify'}`}>
+                        <div
+                            className="prose prose-invert max-w-none leading-snug tracking-tight text-white"
+                            dangerouslySetInnerHTML={{ __html: content }}
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
         </section>
     );
 };

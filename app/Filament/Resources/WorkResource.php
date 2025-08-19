@@ -2,7 +2,8 @@
 
 namespace App\Filament\Resources;
 
-
+use App\Filament\Fabricator\PageBlocks\CollageImage;
+use App\Filament\Fabricator\PageBlocks\SectionParagaph;
 use App\Filament\Resources\WorkResource\Pages;
 use App\Models\Work;
 use Faker\Provider\Image;
@@ -15,6 +16,7 @@ use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Forms\Components\PageBuilder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Builder;
 use App\Filament\Resources\WorkResource\RelationManagers\WorksRelationManager;
 use Filament\Forms\Components\Group;
 use App\Helpers\FormSchemaHelper;
@@ -88,9 +90,15 @@ class WorkResource extends Resource
                                     ->visibility('public')
                                     ->openable()
                                     ->helperText('Upload an image for the campaign.'),
-                                PageBuilder::make('blocks')
-                                    ->label('Content Blocks')
-                                    ->blocks(FilamentFabricator::getPageBlocks()),
+                                Section::make('Page Blocks')
+                                    ->schema([
+                                        Builder::make('blocks')
+                                            ->blocks([
+                                                SectionParagaph::getBlockSchema(),
+                                                CollageImage::getBlockSchema(),
+                                                // Add more blocks...
+                                            ]),
+                                    ])
                             ]),
 
                         Group::make()

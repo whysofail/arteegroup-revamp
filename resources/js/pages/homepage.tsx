@@ -2,7 +2,6 @@
 
 import { RenderBlock } from '@/components/block';
 import DivisionBlock from '@/components/block/division-block';
-import SectionParagraphBlock from '@/components/block/sectionparagraph-block';
 import OurWorks from '@/components/homepage/OurWorks';
 import AppLayout from '@/layouts/app-layout';
 import { IBlock, IWork } from '@/types/blocks.type';
@@ -41,15 +40,13 @@ const Homepage = ({ seo, blocks, works, divisions }: HomepageProps) => {
 
                 <RenderBlock type="hero" data={blocks.find((block) => block.type === 'hero')?.data || {}} />
                 <div className="mx-auto max-w-7xl md:px-12">
-                    {blocks
-                        .filter((block) => block.type !== 'hero' && block.type !== 'image-marquee')
-                        .map((block, i) => (
-                            <div key={i}>
-                                <RenderBlock type={block.type} data={block.data} />
-                            </div>
-                        ))}
-
-                    {!blocks.some((block) => block.type === 'section-paragraph') && <SectionParagraphBlock />}
+                    <RenderBlock
+                        type="section-paragraph"
+                        data={{
+                            ...(blocks.find((block) => block.type === 'section-paragraph')?.data || {}),
+                            custom_padding: 'py-16',
+                        }}
+                    />
                     <DivisionBlock divisions={divisions} />
                     <RenderBlock type="image-marquee" data={blocks.find((block) => block.type === 'image-marquee')?.data || {}} />
                     <OurWorks works={works} />
