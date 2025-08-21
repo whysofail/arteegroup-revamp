@@ -1,7 +1,6 @@
 'use client';
 
 import { isColorLight } from '@/lib/utils';
-import { Link } from '@inertiajs/react';
 import { useState } from 'react';
 import { Button } from '../ui/button';
 import type { NavItemsProps } from '../ui/resizable-navbar';
@@ -87,9 +86,18 @@ export default function Navigation({ logo, item, custom }: NavbarProps) {
                             link.style.color = textColor;
                         }}
                     >
-                        <Link href="#get-in-touch" style={!custom?.navbar ? {} : { color: textColor }}>
+                        <span
+                            role="button"
+                            tabIndex={0}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                const section = document.getElementById('get-in-touch');
+                                section?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                            }}
+                            style={!custom?.navbar ? {} : { color: textColor }}
+                        >
                             Get in Touch
-                        </Link>
+                        </span>
                     </Button>
                 </div>
             </NavBody>

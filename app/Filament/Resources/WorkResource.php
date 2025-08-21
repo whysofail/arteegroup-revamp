@@ -40,7 +40,7 @@ class WorkResource extends Resource
     {
         return $form
             ->schema([
-                Grid::make(3)
+                Grid::make(2)
                     ->columns(2)
                     ->schema([
                         Group::make()
@@ -90,25 +90,25 @@ class WorkResource extends Resource
                                     ->visibility('public')
                                     ->openable()
                                     ->helperText('Upload an image for the campaign.'),
-                                Section::make('Page Blocks')
-                                    ->schema([
-                                        Builder::make('blocks')
-                                            ->blocks([
-                                                SectionParagaph::getBlockSchema(),
-                                                CollageImage::getBlockSchema(),
-                                                // Add more blocks...
-                                            ]),
-                                    ])
                             ]),
 
                         Group::make()
-                            ->columnSpan(1)
                             ->schema([
                                 Section::make('SEO & Page Settings')
                                     ->schema([
                                         ...FormSchemaHelper::getSlugAndSeoSchema(),
                                     ]),
                             ]),
+
+                        Section::make('Page Blocks')
+                            ->schema([
+                                Builder::make('blocks')
+                                    ->blocks([
+                                        SectionParagaph::getBlockSchema(),
+                                        CollageImage::getBlockSchema(),
+                                        // Add more blocks...
+                                    ]),
+                            ])
                     ]),
             ]);
     }

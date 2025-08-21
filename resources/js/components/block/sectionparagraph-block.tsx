@@ -30,8 +30,9 @@ const SectionParagraphBlock: React.FC<ISectionParagraphBlock> = ({ data }) => {
 
     const isRTL = direction === 'rtl';
 
+    const safeId = title.toLowerCase().replace(/\s+/g, '-');
     return (
-        <section className={`text-white ${isRTL ? 'text-right' : 'text-left'}`}>
+        <section id={safeId} className={`text-white ${isRTL ? 'text-right' : 'text-left'}`}>
             <div className={`mx-auto max-w-7xl px-8 ${customPadding}`}>
                 <div dir={direction} className="gap-4 md:grid md:grid-cols-5">
                     {/* Title or Image */}

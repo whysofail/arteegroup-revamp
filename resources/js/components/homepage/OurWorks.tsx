@@ -37,7 +37,7 @@ const OurWorks: React.FC<OurWorksProps> = ({ works }) => {
     }
 
     return (
-        <section className="mx-auto mb-20 max-w-7xl px-8" id="#work">
+        <section className="mx-auto mb-20 max-w-7xl px-8" id="work">
             <div className="mb-6">
                 <Link href="/our-works" className="text-brand text-sm font-medium hover:underline">
                     Our works

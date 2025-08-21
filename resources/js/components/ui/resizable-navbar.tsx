@@ -101,10 +101,7 @@ export const NavBody = ({ children, className, visible, textColor }: NavBodyProp
             }}
             className={cn(
                 'relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 dark:bg-transparent lg:flex',
-                visible &&
-                    (isLightText
-                        ? 'bg-white/100 dark:bg-neutral-900/70'
-                        : 'bg-black/20 dark:bg-white/40'),
+                visible && (isLightText ? 'bg-white/100 dark:bg-neutral-900/70' : 'bg-black/20 dark:bg-white/40'),
                 className,
             )}
         >
@@ -133,48 +130,78 @@ export const NavItems = ({ items, className, textColor, onItemClick }: NavItemsP
                 className,
             )}
         >
-            {items.map((item, idx) => (
-                <div
-                    key={`link-${idx}`}
-                    className="relative"
-                    onMouseEnter={() => {
-                        setHovered(idx);
-                        if (item.hasDropdown && (item.children?.length ?? 0) > 0) {
-                            setActive(item.name);
-                        } else {
-                            setActive(null);
-                        }
-                    }}
-                >
-                    {item.link ? (
-                        <Link onClick={onItemClick} className="relative cursor-pointer px-4 py-2" style={{ color: effectiveTextColor }} href={item.link}>
-                            {hovered === idx && (
-                                <motion.div
-                                    layoutId="hovered"
-                                    className={`absolute inset-0 h-full w-full rounded-full ${isLightText ? 'bg-neutral-800' : 'bg-neutral-100'}`}
-                                />
-                            )}
+            {items.map((item, idx) => {
+                const isAnchor = item.link?.startsWith('#') ?? false;;
 
-                            <span className="relative z-20">{item.name}</span>
-                        </Link>
-                    ) : (
-                        <div className="relative cursor-pointer px-4 py-2" style={{ color: effectiveTextColor }}>
-                            {hovered === idx && (
-                                <motion.div
-                                    layoutId="hovered"
-                                    className={`absolute inset-0 h-full w-full rounded-full ${isLightText ? 'bg-neutral-800' : 'bg-neutral-100'}`}
-                                />
-                            )}
-                            <span className="group:text relative z-20">{item.name}</span>
-                        </div>
-                    )}
+                return (
+                    <div
+                        key={`link-${idx}`}
+                        className="relative"
+                        onMouseEnter={() => {
+                            setHovered(idx);
+                            if (item.hasDropdown && (item.children?.length ?? 0) > 0) {
+                                setActive(item.name);
+                            } else {
+                                setActive(null);
+                            }
+                        }}
+                    >
+                        {isAnchor ? (
+                            // 🔗 Jika anchor, handle scroll manual
+                            <span
+                                role="button"
+                                tabIndex={0}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    const section = document.getElementById(item.link!.substring(1)); // remove #
+                                    section?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                }}
+                                className="relative cursor-pointer px-4 py-2"
+                                style={{ color: effectiveTextColor }}
+                            >
+                                {hovered === idx && (
+                                    <motion.div
+                                        layoutId="hovered"
+                                        className={`absolute inset-0 h-full w-full rounded-full ${isLightText ? 'bg-neutral-800' : 'bg-neutral-100'}`}
+                                    />
+                                )}
+                                <span className="relative z-20">{item.name}</span>
+                            </span>
+                        ) : item.link ? (
+                            // 🌐 Jika normal link
+                            <Link
+                                onClick={onItemClick}
+                                className="relative cursor-pointer px-4 py-2"
+                                style={{ color: effectiveTextColor }}
+                                href={item.link}
+                            >
+                                {hovered === idx && (
+                                    <motion.div
+                                        layoutId="hovered"
+                                        className={`absolute inset-0 h-full w-full rounded-full ${isLightText ? 'bg-neutral-800' : 'bg-neutral-100'}`}
+                                    />
+                                )}
+                                <span className="relative z-20">{item.name}</span>
+                            </Link>
+                        ) : (
+                            <div className="relative cursor-pointer px-4 py-2" style={{ color: effectiveTextColor }}>
+                                {hovered === idx && (
+                                    <motion.div
+                                        layoutId="hovered"
+                                        className={`absolute inset-0 h-full w-full rounded-full ${isLightText ? 'bg-neutral-800' : 'bg-neutral-100'}`}
+                                    />
+                                )}
+                                <span className="group:text relative z-20">{item.name}</span>
+                            </div>
+                        )}
 
-                    {/* Dropdown */}
-                    {item.hasDropdown && (item.children?.length ?? 0) > 0 && (
-                        <NavDropdown active={active === item.name} items={item.children ?? []} textColor={textColor} />
-                    )}
-                </div>
-            ))}
+                        {/* Dropdown */}
+                        {item.hasDropdown && (item.children?.length ?? 0) > 0 && (
+                            <NavDropdown active={active === item.name} items={item.children ?? []} textColor={textColor} />
+                        )}
+                    </div>
+                );
+            })}
         </motion.div>
     );
 };
