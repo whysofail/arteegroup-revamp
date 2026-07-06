@@ -11,7 +11,7 @@ use Inertia\Inertia;
 
 Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 
-Route::get('/{slug}', [DivisionController::class, 'show'])
+Route::get('/division/{slug}', [DivisionController::class, 'show'])
     ->name('division')
     ->where('slug', '[a-zA-Z0-9\-]+');
 

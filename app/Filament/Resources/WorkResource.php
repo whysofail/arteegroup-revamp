@@ -28,12 +28,11 @@ use Filament\Forms\Components\Grid;
 class WorkResource extends Resource
 {
     protected static ?string $model = Work::class;
-    public static ?string $navigationGroup = 'Organization';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     public static function shouldRegisterNavigation(): bool
     {
-        return false; // hide from sidebar
+        return true; // hide from sidebar
     }
 
     public static function form(Form $form): Form
@@ -133,18 +132,18 @@ class WorkResource extends Resource
                     ->dateTime()
                     ->sortable(),
             ])->filters([
-                //
-            ])->headerActions([
-                Tables\Actions\CreateAction::make(),
-            ])->filters([
-                //
-            ])->actions([
-                Tables\Actions\EditAction::make(),
-            ])->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+                    //
+                ])->headerActions([
+
+                ])->filters([
+                    //
+                ])->actions([
+                    Tables\Actions\EditAction::make(),
+                ])->bulkActions([
+                    Tables\Actions\BulkActionGroup::make([
+                        Tables\Actions\DeleteBulkAction::make(),
+                    ]),
+                ]);
     }
 
     public static function getRelations(): array

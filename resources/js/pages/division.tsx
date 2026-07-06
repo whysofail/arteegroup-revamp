@@ -30,7 +30,7 @@ const Division = ({ seo, blocks, divisionId, color, slug, name, works, custom }:
                 {seo?.image && <meta property="og:image" content={seo.image} />}
             </Head>
             <HeroDivisionSection data={blocks.find((block) => block.type === 'hero')?.data || {}} color={color} name={name} custom={customColor} />
-            <div className="mx-auto max-w-7xl md:px-12 font-gotham">
+            <div className="font-gotham mx-auto max-w-7xl md:px-12">
                 <OurWorks color={color} slug={slug} works={works} custom={customColor} />
                 <Project color={color} divisionId={divisionId} custom={customColor} />
             </div>

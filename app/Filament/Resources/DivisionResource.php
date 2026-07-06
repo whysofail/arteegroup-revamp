@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\DivisionResource\Pages;
 use App\Filament\Resources\DivisionResource\RelationManagers;
-use App\Filament\Resources\DivisionResource\RelationManagers\WorksRelationManager;
 use App\Models\Division;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -27,77 +26,76 @@ use App\Filament\Fabricator\PageBlocks\Hero;
 class DivisionResource extends Resource
 {
     protected static ?string $model = Division::class;
-    public static ?string $navigationGroup = 'Organization';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Grid::make(3)
-                    ->columns(2)
+
+                Group::make()
+                    ->columnSpanFull()
                     ->schema([
-                        Group::make()
-                            ->columnSpan(1)
+                        Section::make('Division Details')
                             ->schema([
                                 TextInput::make('name')
                                     ->label('Division Name')
                                     ->required()
                                     ->maxLength(255),
-
                                 ColorPicker::make('color')
                                     ->label('Division Color')
                                     ->required()
                                     ->helperText('Choose a color for this division, it will be used in various places.'),
-
-                                Section::make('Page Blocks')
-                                    ->schema([
-                                        Builder::make('blocks')
-                                            ->blocks([
-                                                Hero::getBlockSchema(),
-                                                // Add more blocks...
-                                            ]),
-                                    ])
                             ]),
 
-                        Group::make()
-                            ->columnSpan(1)
+                        Section::make('Page Blocks')
                             ->schema([
-                                Section::make('SEO & Page Settings')
-                                    ->schema([
-                                        ...FormSchemaHelper::getSlugAndSeoSchema(),
-                                        TextArea::make('custom')
-                                            ->name('Custom CSS')
-                                            ->label('Custom CSS')
-                                            ->afterStateHydrated(function ($component, $state) {
-                                                if (blank($state)) {
-                                                    $component->state(
-                                                        <<<'TEXT'
-hero_title: , 
-hero_subtitle: , 
-hero_backgroundcta: , 
-hero_textcta: , 
-ourworks_title: , 
-ourworks_backgroundviewmore: , 
-ourworks_textviewmore: , 
-project_backgroundservice: , 
-project_textservice: , 
-project_backgroundbudget: , 
-project_textbudget: , 
-project_privacypolicy: , 
-project_backgroundcta: , 
-project_textcta: ,
-navbar: 
-TEXT
-                                                    );
-                                                }
-                                            })
-
-
-                                    ])
-                                    ->collapsible(),
-                            ]),
+                                Builder::make('blocks')
+                                    ->blocks([
+                                        Hero::getBlockSchema(),
+                                        // Add more blocks...
+                                    ]),
+                            ])
                     ]),
+
+                Group::make()
+                    ->columnSpanFull()
+                    ->schema([
+                        Section::make('SEO & Page Settings')
+                            ->schema([
+                                ...FormSchemaHelper::getSlugAndSeoSchema(),
+                                TextArea::make('custom')
+                                    ->name('Custom CSS')
+                                    ->label('Custom CSS')
+                                    ->afterStateHydrated(function ($component, $state) {
+                                        if (blank($state)) {
+                                            $component->state(
+                                                <<<'TEXT'
+                                                            hero_title: , 
+                                                            hero_subtitle: , 
+                                                            hero_backgroundcta: , 
+                                                            hero_textcta: , 
+                                                            ourworks_title: , 
+                                                            ourworks_backgroundviewmore: , 
+                                                            ourworks_textviewmore: , 
+                                                            project_backgroundservice: , 
+                                                            project_textservice: , 
+                                                            project_backgroundbudget: , 
+                                                            project_textbudget: , 
+                                                            project_privacypolicy: , 
+                                                            project_backgroundcta: , 
+                                                            project_textcta: ,
+                                                            navbar: 
+                                                            TEXT
+                                            );
+                                        }
+                                    })
+
+
+                            ])
+                            ->collapsible(),
+                    ]),
+
             ]);
     }
 
@@ -136,7 +134,6 @@ TEXT
     public static function getRelations(): array
     {
         return [
-            RelationManagers\WorksRelationManager::class,
             RelationManagers\DivisionContactRelationManager::class,
         ];
     }

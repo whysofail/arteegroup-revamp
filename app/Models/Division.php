@@ -13,15 +13,13 @@ class Division extends Model implements HasMedia
     use InteractsWithMedia;
     protected $guarded = [];
     protected $casts = [
-        'blocks' => 'array', // 👈 THIS is required
+        'blocks' => 'array',
     ];
-
 
     public function works()
     {
-        return $this->hasMany(Work::class);
+        return $this->belongsToMany(Work::class);
     }
-
     public function divisionContact()
     {
         return $this->hasMany(DivisionContact::class);
