@@ -9,9 +9,17 @@ class WorkController extends Controller
 {
     public function homepage()
     {
-        $work = Work::get(['campaign_image', 'name', 'campaign', 'campaign_name', 'campaign_description'])
-            ->orderByDesc('updated_at')
-            ->take(10)
+        $work = Work::query()
+            ->select([
+                'campaign_image',
+                'name',
+                'campaign',
+                'campaign_name',
+                'campaign_description',
+                'slug',
+            ])
+            ->latest('updated_at')
+            ->limit(10)
             ->get();
 
         return Inertia::render('homepage', [
@@ -19,15 +27,13 @@ class WorkController extends Controller
         ]);
     }
 
-    public function show($division, $slug)
+    public function show($slug)
     {
         $work = Work::where('slug', $slug)
-            ->whereHas('division', fn($q) => $q->where('slug', $division))
             ->firstOrFail();
 
         return Inertia::render('work', [
-            'divisionId' => $work->division_id ?? '',
-            'division' => $work->division ?? '',
+            'division' => $work->divisions->pluck('name')->join(', ') ?? '',
             'name' => $work->name ?? '',
             'campaign' => $work->campaign ?? '',
             'campaignName' => $work->campaign_name ?? '',

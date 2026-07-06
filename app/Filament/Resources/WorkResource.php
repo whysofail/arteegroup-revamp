@@ -49,21 +49,30 @@ class WorkResource extends Resource
                             ->schema([
                                 Section::make('Work Details')
                                     ->schema([
-
                                         TextInput::make('name')
                                             ->label('Brand Name')
                                             ->required()
                                             ->maxLength(255),
-                                        TextInput::make('campaign')
-                                            ->label('Work Category')
-                                            ->required()
-                                            ->maxLength(255),
+                                        Select::make('divisions')
+                                            ->label('Divisions')
+                                            ->relationship('divisions', 'name')
+                                            ->multiple()
+                                            ->preload()
+                                            ->searchable()
+                                            ->required(),
                                         TextInput::make('campaign_name')
                                             ->label('Work Name')
                                             ->required()
                                             ->maxLength(255),
                                         TextInput::make('campaign_description')
                                             ->label('Work Description')
+                                            ->required(),
+                                        Select::make('categories')
+                                            ->label('Categories')
+                                            ->relationship('categories', 'name')
+                                            ->multiple()
+                                            ->preload()
+                                            ->searchable()
                                             ->required(),
                                         Placeholder::make('current_highlight')
                                             ->label('Current Highlighted Work')
@@ -94,7 +103,7 @@ class WorkResource extends Resource
                                                             target='_blank'
                                                             class='text-primary-600 underline'
                                                         >
-                                                            Open campaign
+                                                            Open work
                                                         </a>
                                                     </div>
                                                 ");

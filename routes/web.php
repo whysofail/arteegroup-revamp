@@ -15,6 +15,14 @@ Route::get('/division/{slug}', [DivisionController::class, 'show'])
     ->name('division')
     ->where('slug', '[a-zA-Z0-9\-]+');
 
+// TODO
+Route::get('/works', [WorkController::class, 'homepage'])->name('works');
+
+//Todo
+Route::get('/works/{slug}', [WorkController::class, 'show'])
+    ->name('work')
+    ->where('slug', '[a-zA-Z0-9\-]+');
+
 Route::get('/{division}/{slug}', [WorkController::class, 'show'])
     ->name('work')
     ->where('slug', '[a-zA-Z0-9\-]+');

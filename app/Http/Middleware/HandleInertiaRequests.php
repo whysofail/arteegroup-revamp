@@ -53,7 +53,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'sidebarOpen' => !$request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'works' => Cache::remember('shared_works', 60, function () {
-                return Work::with('division')
+                return Work::with('divisions')
                     ->orderByDesc('updated_at')
                     ->take(10)
                     ->get();
