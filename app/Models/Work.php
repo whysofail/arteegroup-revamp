@@ -17,6 +17,7 @@ class Work extends Model implements HasMedia
         'is_highlighted' => 'boolean',
     ];
 
+
     public function divisions()
     {
         return $this->belongsToMany(Division::class);

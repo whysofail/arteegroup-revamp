@@ -24,6 +24,8 @@ use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Placeholder;
+use Illuminate\Support\HtmlString;
 
 class WorkResource extends Resource
 {
@@ -40,73 +42,95 @@ class WorkResource extends Resource
         return $form
             ->schema([
                 Grid::make(3)
-                    ->columns(2)
+                    ->columnSpanFull()
                     ->schema([
                         Group::make()
-                            ->columnSpan(1)
+                            ->columnSpanFull()
                             ->schema([
-                                TextInput::make('name')
-                                    ->label('Brand Name')
-                                    ->required()
-                                    ->maxLength(255),
-                                TextInput::make('campaign')
-                                    ->label('Campaign Category')
-                                    ->required()
-                                    ->maxLength(255),
-                                TextInput::make('campaign_name')
-                                    ->label('Campaign Name')
-                                    ->required()
-                                    ->maxLength(255),
-                                TextInput::make('campaign_description')
-                                    ->label('Campaign Description')
-                                    ->required(),
-                                Checkbox::make('is_highlighted')
-                                    ->label('Highlight this campaign')
-                                    ->helperText('Only one campaign can be highlighted at a time.')
-                                    ->disabled(function (?Work $record) {
-                                        if (!$record || !$record->division_id) {
-                                            // Disable jika tidak ada record atau division_id belum di-set
-                                            return true;
-                                        }
-
-                                        // Cari campaign lain dari divisi yang sama yang sudah di-highlight
-                                        $highlighted = Work::where('division_id', $record->division_id)
-                                            ->where('is_highlighted', true);
-
-                                        if ($record->exists) {
-                                            $highlighted->where('id', '!=', $record->id);
-                                        }
-
-                                        return $highlighted->exists();
-                                    })
-                                    ->dehydrated(true)
-                                    ->default(false),
-                                FileUpload::make('campaign_image')
-                                    ->label('Campaign Image')
-                                    ->acceptedFileTypes(['image/*'])
-                                    ->required()
-                                    ->directory('/video')
-                                    ->visibility('public')
-                                    ->openable()
-                                    ->helperText('Upload an image for the campaign.'),
-                                Section::make('Page Blocks')
+                                Section::make('Work Details')
                                     ->schema([
-                                        Builder::make('blocks')
-                                            ->blocks([
-                                                SectionParagaph::getBlockSchema(),
-                                                CollageImage::getBlockSchema(),
-                                                // Add more blocks...
-                                            ]),
-                                    ])
+
+                                        TextInput::make('name')
+                                            ->label('Brand Name')
+                                            ->required()
+                                            ->maxLength(255),
+                                        TextInput::make('campaign')
+                                            ->label('Work Category')
+                                            ->required()
+                                            ->maxLength(255),
+                                        TextInput::make('campaign_name')
+                                            ->label('Work Name')
+                                            ->required()
+                                            ->maxLength(255),
+                                        TextInput::make('campaign_description')
+                                            ->label('Work Description')
+                                            ->required(),
+                                        Placeholder::make('current_highlight')
+                                            ->label('Current Highlighted Work')
+                                            ->visible(function (?Work $record) {
+                                                return Work::query()
+                                                    ->where('is_highlighted', true)
+                                                    ->when($record, fn($q) => $q->whereKeyNot($record->id))
+                                                    ->exists();
+                                            })
+                                            ->content(function (?Work $record) {
+                                                $campaign = Work::query()
+                                                    ->where('is_highlighted', true)
+                                                    ->when($record, fn($q) => $q->whereKeyNot($record->id))
+                                                    ->first();
+
+                                                if (!$campaign) {
+                                                    return 'No highlighted work.';
+                                                }
+
+                                                $url = route('filament.admin.resources.works.edit', $campaign);
+
+                                                return new HtmlString("
+                                                    <div class='space-y-1'>
+                                                        <div><strong>{$campaign->title}</strong></div>
+                                                        <div>{$campaign->campaign_name}</div>
+                                                        <a
+                                                            href='{$url}'
+                                                            target='_blank'
+                                                            class='text-primary-600 underline'
+                                                        >
+                                                            Open campaign
+                                                        </a>
+                                                    </div>
+                                                ");
+                                            }),
+
+                                        Checkbox::make('is_highlighted')
+                                            ->label('Highlight this work')
+                                            ->helperText('Enabling this will replace the currently highlighted work.')
+                                            ->default(false),
+                                        FileUpload::make('campaign_image')
+                                            ->label('Work Image')
+                                            ->acceptedFileTypes(['image/*'])
+                                            ->required()
+                                            ->directory('/video')
+                                            ->visibility('public')
+                                            ->openable()
+                                            ->helperText('Upload an image for the campaign.'),
+                                        Section::make('Page Blocks')
+                                            ->schema([
+                                                Builder::make('blocks')
+                                                    ->blocks([
+                                                        SectionParagaph::getBlockSchema(),
+                                                        CollageImage::getBlockSchema(),
+                                                        // Add more blocks...
+                                                    ]),
+                                            ])
+                                    ]),
                             ]),
 
                         Group::make()
-                            ->columnSpan(1)
+                            ->columnSpanFull()
                             ->schema([
                                 Section::make('SEO & Page Settings')
                                     ->schema([
                                         ...FormSchemaHelper::getSlugAndSeoSchema(),
-                                    ]),
+                                    ])->collapsible(),
                             ]),
                     ]),
             ]);
