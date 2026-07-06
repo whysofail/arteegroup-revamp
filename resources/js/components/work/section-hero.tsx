@@ -1,7 +1,6 @@
-import React from 'react';
 import { getRelativePath } from '@/lib/get-relative-path';
 import { Link } from '@inertiajs/react';
-
+import React from 'react';
 
 interface SectionHeroProps {
     name: string;
@@ -19,10 +18,7 @@ const SectionHeroWork: React.FC<SectionHeroProps> = ({ name, campaignDescription
                 <div className="mx-auto mb-10 max-w-7xl gap-4 px-8 md:grid md:grid-cols-5">
                     {/* Title di kiri (1 kolom penuh) */}
                     <div className="flex items-start md:col-span-1">
-                        <Link
-                            href={`/${division?.slug}`}
-                            className="text-brand whitespace-nowrap text-sm font-medium hover:underline"
-                        >
+                        <Link href={`/works`} className="text-brand whitespace-nowrap text-sm font-medium hover:underline">
                             ← View all other projects
                         </Link>
                     </div>
@@ -34,7 +30,7 @@ const SectionHeroWork: React.FC<SectionHeroProps> = ({ name, campaignDescription
                     </div>
                 </div>
             </div>
-            <div className="relative flex h-64 md:h-screen items-center justify-center">
+            <div className="relative flex h-64 items-center justify-center md:h-screen">
                 <img
                     src={getRelativePath(campaignImage)}
                     alt="Background Animation"
