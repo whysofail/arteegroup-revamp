@@ -26,6 +26,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Placeholder;
 use Illuminate\Support\HtmlString;
+use App\Models\Category;
 
 class WorkResource extends Resource
 {
@@ -67,13 +68,28 @@ class WorkResource extends Resource
                                         TextInput::make('campaign_description')
                                             ->label('Work Description')
                                             ->required(),
-                                        Select::make('categories')
-                                            ->label('Categories')
-                                            ->relationship('categories', 'name')
+                                        Select::make('sub_categories')
+                                            ->label('Sub Categories')
+                                            ->relationship('subCategories', 'name')
                                             ->multiple()
-                                            ->preload()
                                             ->searchable()
-                                            ->required(),
+                                            ->preload()
+                                            ->required()
+                                            ->options(function () {
+                                                return Category::with('subCategories')
+                                                    ->get()
+                                                    ->mapWithKeys(function ($category) {
+                                                        return [
+                                                            $category->name => $category->subCategories
+                                                                ->pluck('name', 'id')
+                                                                ->toArray(),
+                                                        ];
+                                                    })
+                                                    ->toArray();
+                                            })
+                                            ->saveRelationshipsUsing(function ($record, $state) {
+                                                $record->subCategories()->sync($state);
+                                            }),
                                         Placeholder::make('current_highlight')
                                             ->label('Current Highlighted Work')
                                             ->visible(function (?Work $record) {
@@ -165,18 +181,16 @@ class WorkResource extends Resource
                     ->dateTime()
                     ->sortable(),
             ])->filters([
-                    //
-                ])->headerActions([
-
-                ])->filters([
-                    //
-                ])->actions([
-                    Tables\Actions\EditAction::make(),
-                ])->bulkActions([
-                    Tables\Actions\BulkActionGroup::make([
-                        Tables\Actions\DeleteBulkAction::make(),
-                    ]),
-                ]);
+                //
+            ])->headerActions([])->filters([
+                //
+            ])->actions([
+                Tables\Actions\EditAction::make(),
+            ])->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
     }
 
     public static function getRelations(): array

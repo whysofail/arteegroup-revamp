@@ -13,8 +13,8 @@ class Category extends Model
         'name',
     ];
 
-    public function works()
+    public function subCategories()
     {
-        return $this->belongsToMany(Work::class);
+        return $this->hasMany(SubCategory::class);
     }
 }

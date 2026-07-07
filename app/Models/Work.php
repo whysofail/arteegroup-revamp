@@ -23,9 +23,14 @@ class Work extends Model implements HasMedia
         return $this->belongsToMany(Division::class);
     }
 
-    public function categories()
+    public function subCategories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(
+            SubCategory::class,
+            'category_work',
+            'work_id',
+            'sub_category_id'
+        );
     }
 
     public function getRouteKeyName(): string
