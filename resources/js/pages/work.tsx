@@ -1,47 +1,37 @@
-import { RenderBlock } from '@/components/block';
-import SectionHeroWork from '@/components/work/section-hero';
 import AppLayout from '@/layouts/app-layout';
-import { IBlock } from '@/types/blocks.type';
+import { IBlock, IWork } from '@/types/blocks.type';
 import { Head } from '@inertiajs/react';
 
 interface WorkProps {
-    divisionId: number;
-    division: {
-        slug: string;
-    };
-    name: string;
-    campaign: string;
-    campaignName: string;
-    campaignDescription: string;
-    campaignImage: string;
-    title: string;
-    slug: string;
-    seo: {
+    seo?: {
         title?: string;
         description?: string;
         image?: string | null;
     };
     blocks: IBlock[];
+    works: IWork[];
+    divisions?: {
+        name?: string;
+        slug?: string;
+        color?: string;
+        background_url?: string;
+    }[];
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const Work = ({ divisionId, division, name, campaign, campaignName, campaignDescription, campaignImage, title, slug, seo, blocks }: WorkProps) => {
-    console.log(blocks);
+const Work = ({ seo, blocks, works, divisions }: WorkProps) => {
+    console.log(works);
     return (
         <>
-            <Head title={seo?.title || 'Arteegroup - Work'}>
+            <Head title={seo?.title || 'Arteegroup - Homepage'}>
                 <meta name="description" content={seo?.description || 'Welcome to Arteegroup, your partner in digital innovation.'} />
                 {seo?.image && <meta property="og:image" content={seo.image} />}
             </Head>
-
-            <main className="font-gotham">
-                <SectionHeroWork name={name} campaignDescription={campaignDescription} campaignImage={campaignImage} division={division} />
-                <div className="mx-auto max-w-7xl md:px-12">
-                    {blocks?.map((block, index) => (
-                        <RenderBlock key={index} type={block.type} data={block.data} />
-                    ))}
-                </div>
-            </main>
+            <div className="font-gotham mx-auto max-w-7xl px-8 py-20 pt-32 md:px-12 md:py-12 md:pt-48">
+                <h1 className="whitespace-pre-line text-7xl">
+                    {`The work we do and
+                        the people we help`}
+                </h1>
+            </div>
         </>
     );
 };

@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Work;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
+
 
 class WorkController extends Controller
 {
-    public function homepage()
+    public function homepage(Request $request)
     {
         $work = Work::query()
             ->select([
+                'id',
                 'campaign_image',
                 'name',
                 'campaign',
@@ -18,15 +21,34 @@ class WorkController extends Controller
                 'campaign_description',
                 'slug',
             ])
+            ->with([
+                'subCategories:id,category_id,name,slug,description',
+                'subCategories.category:id,name',
+            ])
+            ->when($request->filled('category'), function ($query) use ($request) {
+                $query->whereHas('subCategories.category', function ($q) use ($request) {
+                    $q->where('slug', $request->category);
+                    // or ->where('id', $request->category)
+                });
+            })
+            ->when($request->filled('subcategory'), function ($query) use ($request) {
+                $query->whereHas('subCategories', function ($q) use ($request) {
+                    $q->where('slug', $request->subcategory);
+                    // or ->where('id', $request->subcategory)
+                });
+            })
             ->latest('updated_at')
-            ->limit(10)
-            ->get();
+            ->paginate(10)
+            ->withQueryString();
 
-        return Inertia::render('homepage', [
+        return Inertia::render('work', [
             'work' => $work,
+            'filters' => $request->only([
+                'category',
+                'subcategory',
+            ]),
         ]);
     }
-
     public function show($slug)
     {
         $work = Work::where('slug', $slug)
