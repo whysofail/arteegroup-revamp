@@ -6,27 +6,92 @@ interface SectionHeroProps {
     name: string;
     campaignDescription: string;
     campaignImage: string;
-    division?: {
-        slug: string;
-    };
+    division: string;
+    subCategories: string;
+    category: string;
+    campaign: string;
+    campaignName: string;
 }
 
-const SectionHeroWork: React.FC<SectionHeroProps> = ({ name, campaignDescription, campaignImage, division }) => {
+const SectionHeroWork: React.FC<SectionHeroProps> = ({ name, campaignDescription, campaignImage, division, subCategories, category, campaign, campaignName }) => {
     return (
         <section className="py-16 text-white md:mt-24 md:py-8">
-            <div className="mx-auto max-w-7xl md:px-12">
-                <div className="mx-auto mb-10 max-w-7xl gap-4 px-8 md:grid md:grid-cols-5">
-                    {/* Title di kiri (1 kolom penuh) */}
-                    <div className="flex items-start md:col-span-1">
-                        <Link href={`/works`} className="text-brand whitespace-nowrap text-sm font-medium hover:underline">
-                            ← View all other projects
-                        </Link>
+            <div className="mx-auto max-w-7xl md:px-20 px-8 pb-16">
+                {/* Back Button */}
+                <Link
+                    href="/works"
+                    className="mb-12 inline-flex items-center text-sm font-medium text-brand transition hover:opacity-80"
+                >
+                    ← View all projects
+                </Link>
+
+                {/* Header */}
+                <div className="grid gap-16 lg:grid-cols-5">
+                    {/* Left */}
+                    <div className="lg:col-span-2 space-y-4">
+                        <span className="text-sm uppercase tracking-[0.25em] text-zinc-500">
+                            {name}
+                        </span>
+
+                        <h1 className="text-4xl font-bold leading-tight md:text-6xl">
+                            {campaignName}
+                        </h1>
                     </div>
 
-                    {/* Deskripsi sejajar mulai dari kolom ke-2 */}
-                    <div className="mt-4 md:col-span-4 md:mt-0 md:text-justify">
-                        <h1 className="prose prose-invert max-w-none text-xl font-bold leading-relaxed tracking-tight md:text-3xl">{name}</h1>
-                        <p className="prose prose-invert mt-4 max-w-none text-xs leading-snug tracking-tight md:text-base">{campaignDescription}</p>
+                    {/* Right */}
+                    <div className="space-y-8 lg:col-span-3">
+                        <div className="grid gap-8 md:grid-cols-3">
+                            {/* Category */}
+                            <div>
+                                <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
+                                    Service
+                                </h4>
+
+                                <div className="flex flex-wrap gap-2">
+                                    <span
+                                        className="rounded-full border border-zinc-700 px-3 py-1 text-sm"
+                                    >
+                                        {campaign}
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* Sub Category */}
+                            <div>
+                                <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
+                                    industry
+                                </h4>
+
+                                <div className="flex flex-wrap gap-2">
+                                    <span
+                                        className="rounded-full border border-zinc-700 px-3 py-1 text-sm"
+                                    >
+                                        {subCategories}
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* Division */}
+                            <div>
+                                <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
+                                    Division
+                                </h4>
+
+                                <div className="flex flex-wrap gap-2">
+                                    <span
+                                        className="rounded-full border border-zinc-700 px-3 py-1 text-sm"
+                                    >
+                                        {division}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="max-w-3xl">
+                            <p className="text-base leading-8 text-zinc-300 md:text-lg">
+                                {campaignDescription}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

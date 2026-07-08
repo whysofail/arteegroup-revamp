@@ -54,8 +54,10 @@ class WorkController extends Controller
         $work = Work::where('slug', $slug)
             ->firstOrFail();
 
-        return Inertia::render('work', [
+        return Inertia::render('work.bak', [
             'division' => $work->divisions->pluck('name')->join(', ') ?? '',
+            'subCategories' => $work->subCategories->pluck('name')->join(', ') ?? '',
+            'category' => $work->subCategories->pluck('category.name')->join(', ') ?? '',
             'name' => $work->name ?? '',
             'campaign' => $work->campaign ?? '',
             'campaignName' => $work->campaign_name ?? '',

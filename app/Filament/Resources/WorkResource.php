@@ -65,6 +65,10 @@ class WorkResource extends Resource
                                             ->label('Work Name')
                                             ->required()
                                             ->maxLength(255),
+                                        TextInput::make('campaign')
+                                            ->label('Work Service')
+                                            ->required()
+                                            ->maxLength(255),
                                         TextInput::make('campaign_description')
                                             ->label('Work Description')
                                             ->required(),
@@ -168,7 +172,7 @@ class WorkResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('division.name')
+                Tables\Columns\TextColumn::make('divisions.name')
                     ->label('Division Name')
                     ->searchable()
                     ->sortable(),

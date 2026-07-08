@@ -6,9 +6,9 @@ import { Head } from '@inertiajs/react';
 
 interface WorkProps {
     divisionId: number;
-    division: {
-        slug: string;
-    };
+    division: string;
+    subCategories: string;
+    category: string;
     name: string;
     campaign: string;
     campaignName: string;
@@ -25,8 +25,8 @@ interface WorkProps {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const Work = ({ divisionId, division, name, campaign, campaignName, campaignDescription, campaignImage, title, slug, seo, blocks }: WorkProps) => {
-    console.log(blocks);
+const Work = ({ divisionId, division, subCategories, category, name, campaign, campaignName, campaignDescription, campaignImage, title, slug, seo, blocks }: WorkProps) => {
+    console.log(subCategories, category, division);
     return (
         <>
             <Head title={seo?.title || 'Arteegroup - Work'}>
@@ -35,7 +35,7 @@ const Work = ({ divisionId, division, name, campaign, campaignName, campaignDesc
             </Head>
 
             <main className="font-gotham">
-                <SectionHeroWork name={name} campaignDescription={campaignDescription} campaignImage={campaignImage} division={division} />
+                <SectionHeroWork name={name} campaignDescription={campaignDescription} campaignImage={campaignImage} division={division} subCategories={subCategories} category={category} campaign={campaign} campaignName={campaignName} />
                 <div className="mx-auto max-w-7xl md:px-12">
                     {blocks?.map((block, index) => (
                         <RenderBlock key={index} type={block.type} data={block.data} />
