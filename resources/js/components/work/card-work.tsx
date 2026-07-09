@@ -1,3 +1,4 @@
+import { getRelativePath } from '@/lib/get-relative-path';
 import { IWork } from '@/types/data.type';
 import { Link } from '@inertiajs/react';
 import { motion, useInView } from 'motion/react';
@@ -61,7 +62,10 @@ export default function WorkCard({ work }: WorkCardProps) {
     const isInView = useInView(ref, { once: true });
 
     return (
-        <Link className="group/card relative z-0 transition-all hover:z-20 hover:!opacity-100 group-hover/works:opacity-50">
+        <Link
+            className="group/card relative z-0 transition-all hover:z-20 hover:!opacity-100 group-hover/works:opacity-50"
+            href={`/works/${work.slug ?? ''}`}
+        >
             {' '}
             <motion.div
                 ref={ref}
@@ -76,7 +80,7 @@ export default function WorkCard({ work }: WorkCardProps) {
                     className="relative z-0 aspect-square overflow-hidden transition-all duration-300 hover:z-20 hover:-translate-y-2"
                 >
                     <img
-                        src={work.campaign_image}
+                        src={getRelativePath(work.campaign_image ?? undefined)}
                         alt={work.name}
                         className="group-hover/works:brightness-40 group-hover/card:saturate-125 absolute inset-0 h-full w-full object-cover transition-all duration-500 group-hover/card:scale-[1.03] group-hover/card:brightness-100 group-hover/card:contrast-100"
                     />

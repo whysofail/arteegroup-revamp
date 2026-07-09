@@ -3,6 +3,8 @@ import { IWork } from '@/types/blocks.type';
 import { Link } from '@inertiajs/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { route } from 'ziggy-js';
+import { Button } from '../ui/button';
 
 interface OurWorksProps {
     works: IWork[];
@@ -66,7 +68,7 @@ const OurWorks: React.FC<OurWorksProps> = ({ works }) => {
                                         <motion.img
                                             src={getRelativePath(work.campaign_image ?? '')}
                                             alt={work.name}
-                                            className="mb-3 h-[165px] w-full rounded-xl transition-transform duration-500 group-hover:scale-105 md:h-[300px]"
+                                            className="mb-3 h-[165px] w-full rounded-xl object-cover transition-transform duration-500 group-hover:scale-105 md:h-[300px]"
                                             initial={{ opacity: 0, scale: 1.05 }}
                                             animate={{ opacity: 1, scale: 1 }}
                                             transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
@@ -94,16 +96,13 @@ const OurWorks: React.FC<OurWorksProps> = ({ works }) => {
                 </AnimatePresence>
             </div>
 
-            {shouldShowButton && (
-                <div className="grid justify-center">
-                    <button
-                        onClick={() => setShowAll(!showAll)}
-                        className="mt-12 bg-brand rounded-full px-6 py-2 text-sm font-medium text-white transition hover:bg-white hover:text-black"
-                    >
-                        {showAll ? 'Show less' : 'View more'}
-                    </button>
-                </div>
-            )}
+            <div className="grid justify-center">
+                <Link href={route('work')}>
+                    <Button className="bg-brand mt-12 rounded-full px-6 py-2 text-sm font-medium text-white transition hover:bg-white hover:text-black">
+                        View More
+                    </Button>
+                </Link>
+            </div>
         </section>
     );
 };
