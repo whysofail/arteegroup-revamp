@@ -16,15 +16,15 @@ Route::get('/division/{slug}', [DivisionController::class, 'show'])
     ->where('slug', '[a-zA-Z0-9\-]+');
 
 // TODO
-Route::get('/works', [WorkController::class, 'homepage'])->name('works');
+Route::get('/works', [WorkController::class, 'homepage'])->name('work');
 
 //Todo
 Route::get('/works/{slug}', [WorkController::class, 'show'])
-    ->name('work')
+    ->name('work.show')
     ->where('slug', '[a-zA-Z0-9\-]+');
 
 Route::get('/{division}/{slug}', [WorkController::class, 'show'])
-    ->name('work')
+    ->name('division.show')
     ->where('slug', '[a-zA-Z0-9\-]+');
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');

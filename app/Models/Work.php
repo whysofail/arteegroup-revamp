@@ -17,10 +17,23 @@ class Work extends Model implements HasMedia
         'is_highlighted' => 'boolean',
     ];
 
+    protected $appends = [
+        'categories',
+    ];
+
 
     public function divisions()
     {
         return $this->belongsToMany(Division::class);
+    }
+
+    public function getCategoriesAttribute()
+    {
+        return $this->subCategories
+            ->loadMissing('category')
+            ->pluck('category')
+            ->unique('id')
+            ->values();
     }
 
     public function subCategories()

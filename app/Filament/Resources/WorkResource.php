@@ -137,7 +137,6 @@ class WorkResource extends Resource
                                             ->label('Work Image')
                                             ->acceptedFileTypes(['image/*'])
                                             ->required()
-                                            ->directory('/video')
                                             ->visibility('public')
                                             ->openable()
                                             ->helperText('Upload an image for the campaign.'),
@@ -185,16 +184,16 @@ class WorkResource extends Resource
                     ->dateTime()
                     ->sortable(),
             ])->filters([
-                //
-            ])->headerActions([])->filters([
-                //
-            ])->actions([
-                Tables\Actions\EditAction::make(),
-            ])->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+                    //
+                ])->headerActions([])->filters([
+                    //
+                ])->actions([
+                    Tables\Actions\EditAction::make(),
+                ])->bulkActions([
+                    Tables\Actions\BulkActionGroup::make([
+                        Tables\Actions\DeleteBulkAction::make(),
+                    ]),
+                ]);
     }
 
     public static function getRelations(): array

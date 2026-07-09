@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Work;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-
+use App\Models\Category;
 
 class WorkController extends Controller
 {
@@ -28,21 +28,28 @@ class WorkController extends Controller
             ->when($request->filled('category'), function ($query) use ($request) {
                 $query->whereHas('subCategories.category', function ($q) use ($request) {
                     $q->where('slug', $request->category);
-                    // or ->where('id', $request->category)
                 });
             })
             ->when($request->filled('subcategory'), function ($query) use ($request) {
                 $query->whereHas('subCategories', function ($q) use ($request) {
                     $q->where('slug', $request->subcategory);
-                    // or ->where('id', $request->subcategory)
                 });
             })
             ->latest('updated_at')
-            ->paginate(10)
+            ->paginate(100)
             ->withQueryString();
+
+        $categories = Category::query()
+            ->orderBy('name')
+            ->get([
+                'id',
+                'name',
+                'slug',
+            ]);
 
         return Inertia::render('work', [
             'work' => $work,
+            'categories' => $categories,
             'filters' => $request->only([
                 'category',
                 'subcategory',

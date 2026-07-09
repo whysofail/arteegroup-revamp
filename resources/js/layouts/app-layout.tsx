@@ -1,5 +1,6 @@
 import Footer from '@/components/homepage/Footer';
 import { usePage } from '@inertiajs/react';
+import '../../css/app.css';
 // import Navbar from '@/components/homepage/Navbar';
 
 import Navigation from '@/components/homepage/Navbar';
@@ -7,9 +8,9 @@ import { NavItemsProps } from '@/components/ui/resizable-navbar';
 import { Separator } from '@/components/ui/separator';
 import { Toaster } from '@/components/ui/toaster';
 // import { type BreadcrumbItem } from '@/types';
+import { getCustomColor } from '@/lib/get-custom-color';
 import { ISiteSettings, NavbarLink } from '@/types/global';
 import { type ReactNode } from 'react';
-import { getCustomColor } from '@/lib/get-custom-color';
 
 interface AppLayoutProps {
     children: ReactNode;
@@ -42,7 +43,7 @@ export default ({ children, custom }: AppLayoutProps) => {
             <div>
                 <Navigation logo={siteSettings?.navbar_logo} item={navbarLinks} custom={customColor} />
                 {children}
-                <Separator className='bg-neutral-500 mt-8' />
+                <Separator className="mt-8 bg-neutral-500" />
                 <Footer />
             </div>
 
