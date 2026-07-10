@@ -63,8 +63,10 @@ class WorkController extends Controller
 
         return Inertia::render('work.bak', [
             'division' => $work->divisions->pluck('name')->join(', ') ?? '',
+            'divisionSlug' => $work->divisions->pluck('slug')->join(', ') ?? '',
             'subCategories' => $work->subCategories->pluck('name')->join(', ') ?? '',
             'category' => $work->subCategories->pluck('category.name')->join(', ') ?? '',
+            'categorySlug' => $work->subCategories->pluck('category.slug')->join(', ') ?? '',
             'name' => $work->name ?? '',
             'campaign' => $work->campaign ?? '',
             'campaignName' => $work->campaign_name ?? '',

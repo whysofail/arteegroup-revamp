@@ -9,6 +9,8 @@ import ImageMarqueeBlock from './imagemarquee-block';
 import SeparatorBlock from './separator-block';
 import WysiwygBlock from './wyswyg-block';
 import CollageImageBlock from './imagecollage-block';
+import CampaignResultBlock from './campaignresult-block';
+import CampaignShowcaseBlock from './campaignshowcase-block';
 
 // Add all other blocks here...
 
@@ -22,7 +24,8 @@ const components: Record<string, React.ComponentType<any>> = {
     'image-marquee': ImageMarqueeBlock,
     separator: SeparatorBlock,
     wysiwyg: WysiwygBlock,
-
+    'campaign_result': CampaignResultBlock,
+    'campaign-showcase': CampaignShowcaseBlock,
     // Add more as needed...
 };
 

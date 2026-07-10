@@ -7,13 +7,15 @@ interface SectionHeroProps {
     campaignDescription: string;
     campaignImage: string;
     division: string;
+    divisionSlug: string;
     subCategories: string;
     category: string;
+    categorySlug: string;
     campaign: string;
     campaignName: string;
 }
 
-const SectionHeroWork: React.FC<SectionHeroProps> = ({ name, campaignDescription, campaignImage, division, subCategories, category, campaign, campaignName }) => {
+const SectionHeroWork: React.FC<SectionHeroProps> = ({ name, campaignDescription, campaignImage, division, divisionSlug, category, categorySlug, subCategories, campaign, campaignName }) => {
     return (
         <section className="py-16 text-white md:mt-24 md:py-8">
             <div className="mx-auto max-w-7xl md:px-20 px-8 pb-16">
@@ -40,7 +42,7 @@ const SectionHeroWork: React.FC<SectionHeroProps> = ({ name, campaignDescription
 
                     {/* Right */}
                     <div className="space-y-8 lg:col-span-3">
-                        <div className="grid gap-8 md:grid-cols-3">
+                        <div className="grid gap-8 md:grid-cols-4">
                             {/* Category */}
                             <div>
                                 <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
@@ -71,6 +73,22 @@ const SectionHeroWork: React.FC<SectionHeroProps> = ({ name, campaignDescription
                                 </div>
                             </div>
 
+                            {/* Category */}
+                            <div>
+                                <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
+                                    Category
+                                </h4>
+
+                                <div className="flex flex-wrap gap-2">
+                                    <Link
+                                        href={`/works?category=${categorySlug}`}
+                                        className="rounded-full border border-zinc-700 px-3 py-1 text-sm transition hover:bg-zinc-700"
+                                    >
+                                        {category}
+                                    </Link>
+                                </div>
+                            </div>
+
                             {/* Division */}
                             <div>
                                 <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
@@ -78,11 +96,12 @@ const SectionHeroWork: React.FC<SectionHeroProps> = ({ name, campaignDescription
                                 </h4>
 
                                 <div className="flex flex-wrap gap-2">
-                                    <span
-                                        className="rounded-full border border-zinc-700 px-3 py-1 text-sm"
+                                    <Link
+                                        href={`/division/${divisionSlug}`}
+                                        className="rounded-full border border-zinc-700 px-3 py-1 text-sm transition hover:bg-zinc-700"
                                     >
                                         {division}
-                                    </span>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

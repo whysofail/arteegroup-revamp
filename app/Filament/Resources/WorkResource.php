@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Filament\Fabricator\PageBlocks\CollageImage;
 use App\Filament\Fabricator\PageBlocks\SectionParagaph;
+use App\Filament\Fabricator\PageBlocks\CampaignResult;
+use App\Filament\Fabricator\PageBlocks\CampaignShowcase;
 use App\Filament\Resources\WorkResource\Pages;
 use App\Models\Work;
 use Faker\Provider\Image;
@@ -146,6 +148,8 @@ class WorkResource extends Resource
                                                     ->blocks([
                                                         SectionParagaph::getBlockSchema(),
                                                         CollageImage::getBlockSchema(),
+                                                        CampaignResult::getBlockSchema(),
+                                                        CampaignShowcase::getBlockSchema(),
                                                         // Add more blocks...
                                                     ]),
                                             ])

@@ -65,7 +65,7 @@ export interface IImageMarqueeBlock {
 
 export interface ICollageImageBlock {
     data?: {
-        images: { image: string; }[];
+        images: { image: string }[];
     };
 }
 
@@ -86,4 +86,20 @@ export interface IWork {
     seo_title?: string;
     seo_description?: string;
     seo_image?: string;
+}
+
+export interface ICampaignResultBlock {
+    data: {
+        title?: string;
+        description: string;
+        results?: { title: string; value: string }[];
+    };
+}
+
+export interface ICampaignShowcaseBlock {
+    data: {
+        title?: string;
+        description: string;
+        items?: { media_type: 'image' | 'video'; media: string[]; number?: string; title?: string; caption?: string }[];
+    };
 }

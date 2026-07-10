@@ -35,7 +35,7 @@ const SectionParagraphBlock: React.FC<ISectionParagraphBlock> = ({ data }) => {
             <div className={`mx-auto max-w-7xl px-8 ${customPadding}`}>
                 <div dir={direction} className="gap-4 md:grid md:grid-cols-5">
                     {/* Title or Image */}
-                    <div className={`md:col-span-1 ${isRTL ? 'justify-end md:order-2' : 'justify-start md:order-1'}`}>
+                    <div className={`${contentType === 'title' ? 'md:col-span-1' : 'md:col-span-2'} ${isRTL ? 'justify-end md:order-2' : 'justify-start md:order-1'}`}>
                         {contentType === 'title' ? (
                             url ? (
                                 <Link
@@ -54,13 +54,13 @@ const SectionParagraphBlock: React.FC<ISectionParagraphBlock> = ({ data }) => {
                             <img
                                 src={getRelativePath(image)}
                                 alt={title || 'Section Image'}
-                                className="max-h-8 w-auto mb-4 md:mb-0 justify-self-center object-contain md:justify-self-start"
+                                className="mb-4 md:mb-0 justify-self-center object-contain md:justify-self-start"
                             />
                         ) : null}
                     </div>
 
                     {/* Content */}
-                    <div className={`py-4 md:py-0 md:col-span-4 ${isRTL ? 'md:order-1 md:text-right' : 'md:order-2 md:text-justify'}`}>
+                    <div className={`py-4 md:py-0 md:flex md:items-center ${contentType === 'title' ? 'md:col-span-4' : 'md:col-span-3 md:pl-8'} ${isRTL ? 'md:order-1 md:text-right' : 'md:order-2 md:text-left'}`}>
                         <div
                             className="prose prose-invert max-w-none leading-snug tracking-tight text-white"
                             dangerouslySetInnerHTML={{ __html: content }}
