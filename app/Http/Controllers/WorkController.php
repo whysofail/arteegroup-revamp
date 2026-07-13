@@ -82,9 +82,9 @@ class WorkController extends Controller
             'blocks' => $work->blocks ?? [],
         ])->withViewData([
                     'seo' => [
-                        'title' => $work->title,
-                        'description' => $work->description,
-                        'image' => $work->image,
+                        'title' => $work->seo_title,
+                        'description' => $work->seo_description,
+                        'image' => $work->seo_image,
                     ],
                 ]);
     }
