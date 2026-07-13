@@ -38,7 +38,7 @@
 
     <meta name="description" content="{{ $seo['description'] ?? '' }}">
 
-    <meta property="og:title" content="{{ $seo['title'] ?? '' }}">
+    <meta property="og:title" content="{{ $seo['title'] ?? '' }} - Arteegroup">
 
     <meta property="og:description" content="{{ $seo['description'] ?? '' }}">
 
