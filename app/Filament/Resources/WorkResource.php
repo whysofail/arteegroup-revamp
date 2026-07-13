@@ -175,8 +175,12 @@ class WorkResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('divisions.name')
-                    ->label('Division Name')
+                Tables\Columns\TextColumn::make('campaign_name')
+                    ->label('Work Name')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Client Name')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
