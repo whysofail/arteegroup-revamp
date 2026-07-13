@@ -50,9 +50,9 @@ const config: Config = {
                 },
                 brand: 'var(--brand)',
             },
-        },
-        screens: {
-            desktop: '1440px',
+            screens: {
+                desktop: '1440px',
+            },
         },
     },
     plugins: [
