@@ -74,6 +74,8 @@ const Work = ({ seo, work, categories, filters }: WorkProps) => {
 
                 <meta property="og:title" content={seo?.title ?? ''} />
                 <meta property="og:description" content={seo?.description ?? ''} />
+                <meta property="og:image" content={seo?.image ?? ''} />
+                <meta property="og:type" content="website" />
             </Head>
 
             <div className="font-gotham mx-auto max-w-7xl py-20 pt-32 md:py-12 md:pt-48">

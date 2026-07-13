@@ -80,6 +80,12 @@ class WorkController extends Controller
                 'image' => $work->seo_image ?? '',
             ],
             'blocks' => $work->blocks ?? [],
-        ]);
+        ])->withViewData([
+                    'seo' => [
+                        'title' => $work->title,
+                        'description' => $work->description,
+                        'image' => $work->image,
+                    ],
+                ]);
     }
 }
