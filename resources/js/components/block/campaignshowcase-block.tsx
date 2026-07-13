@@ -8,6 +8,8 @@ const isVideo = (file: string) => {
 
 const CampaignShowcaseBlock: React.FC<ICampaignShowcaseBlock> = ({ data }) => {
     if (!data) return null;
+    const mediaClass =
+        'transition-transform duration-700 group-hover:scale-[1.02] lg:h-[140px] lg:w-auto lg:object-contain xl:h-[235px] desktop:h-[355px] 2xl:h-[400px]';
 
     return (
         <section className="text-white">
@@ -42,12 +44,7 @@ const CampaignShowcaseBlock: React.FC<ICampaignShowcaseBlock> = ({ data }) => {
                                                 )}
 
                                                 {video ? (
-                                                    <video
-                                                        className="transition-transform duration-700 group-hover:scale-[1.02] lg:h-[140px] lg:w-auto lg:object-contain xl:h-[235px]"
-                                                        controls
-                                                        playsInline
-                                                        preload="metadata"
-                                                    >
+                                                    <video className={mediaClass} controls playsInline preload="metadata">
                                                         <source src={getRelativePath(media)} type="video/mp4" />
                                                     </video>
                                                 ) : (
@@ -55,7 +52,7 @@ const CampaignShowcaseBlock: React.FC<ICampaignShowcaseBlock> = ({ data }) => {
                                                         src={getRelativePath(media)}
                                                         alt={item.title ?? `media-${mediaIndex}`}
                                                         loading="lazy"
-                                                        className="transition-transform duration-700 group-hover:scale-[1.02] lg:h-[140px] lg:w-auto lg:object-contain xl:h-[355px] 2xl:h-[400px]"
+                                                        className={mediaClass}
                                                     />
                                                 )}
                                             </div>
