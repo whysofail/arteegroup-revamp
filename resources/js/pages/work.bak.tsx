@@ -1,6 +1,7 @@
 import { RenderBlock } from '@/components/block';
 import SectionHeroWork from '@/components/work/section-hero';
 import AppLayout from '@/layouts/app-layout';
+import { getRelativePath } from '@/lib/get-relative-path';
 import { IBlock } from '@/types/blocks.type';
 import { Head } from '@inertiajs/react';
 
@@ -27,16 +28,46 @@ interface WorkProps {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const Work = ({ divisionId, division, divisionSlug, subCategories, category, categorySlug, name, campaign, campaignName, campaignDescription, campaignImage, title, slug, seo, blocks }: WorkProps) => {
+const Work = ({
+    divisionId,
+    division,
+    divisionSlug,
+    subCategories,
+    category,
+    categorySlug,
+    name,
+    campaign,
+    campaignName,
+    campaignDescription,
+    campaignImage,
+    title,
+    slug,
+    seo,
+    blocks,
+}: WorkProps) => {
     return (
         <>
-            <Head title={seo?.title || 'Arteegroup - Work'}>
-                <meta name="description" content={seo?.description || 'Welcome to Arteegroup, your partner in digital innovation.'} />
-                {seo?.image && <meta property="og:image" content={seo.image} />}
+            <Head title={seo?.title || 'Arteegroup - Homepage'}>
+                <meta name="description" content={seo?.description ?? ''} />
+                <meta property="og:title" content={seo?.title ?? ''} />
+                <meta property="og:description" content={seo?.description ?? ''} />
+                <meta property="og:image" content={getRelativePath(seo?.image ?? '')} />
+                <meta property="og:type" content="website" />
             </Head>
 
             <main className="font-gotham">
-                <SectionHeroWork name={name} campaignDescription={campaignDescription} campaignImage={campaignImage} division={division} divisionSlug={divisionSlug} subCategories={subCategories} category={category} categorySlug={categorySlug} campaign={campaign} campaignName={campaignName} />
+                <SectionHeroWork
+                    name={name}
+                    campaignDescription={campaignDescription}
+                    campaignImage={campaignImage}
+                    division={division}
+                    divisionSlug={divisionSlug}
+                    subCategories={subCategories}
+                    category={category}
+                    categorySlug={categorySlug}
+                    campaign={campaign}
+                    campaignName={campaignName}
+                />
                 <div className="mx-auto max-w-7xl md:px-12">
                     {blocks?.map((block, index) => (
                         <RenderBlock key={index} type={block.type} data={block.data} />

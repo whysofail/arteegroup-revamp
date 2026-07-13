@@ -71,14 +71,13 @@ const Work = ({ seo, work, categories, filters }: WorkProps) => {
         <>
             <Head title={seo?.title || 'Arteegroup - Homepage'}>
                 <meta name="description" content={seo?.description ?? ''} />
-
                 <meta property="og:title" content={seo?.title ?? ''} />
                 <meta property="og:description" content={seo?.description ?? ''} />
                 <meta property="og:image" content={seo?.image ?? ''} />
                 <meta property="og:type" content="website" />
             </Head>
 
-            <div className="font-gotham mx-auto max-w-7xl py-20 pt-32 md:py-12 md:pt-48">
+            <div className="font-gotham mx-auto max-w-7xl px-4 py-20 pt-32 md:py-12 md:pt-48 lg:px-4">
                 <h1 className="whitespace-pre-line text-7xl">
                     {`The work we do and
                     the people we help`}
