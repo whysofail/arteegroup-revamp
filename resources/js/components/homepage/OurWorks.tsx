@@ -49,7 +49,7 @@ const OurWorks: React.FC<OurWorksProps> = ({ works }) => {
             <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
                 <AnimatePresence>
                     {displayedWorks.map((work, idx) => {
-                        const workUrl = `/${work.division?.slug ?? ''}/${work.slug ?? ''}`;
+                        const workUrl = `/works/${work.slug ?? ''}`;
                         return (
                             <motion.div
                                 key={work.campaign_name ?? '' + idx}

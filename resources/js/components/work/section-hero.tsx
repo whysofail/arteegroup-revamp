@@ -15,7 +15,7 @@ interface SectionHeroProps {
     campaignName: string;
 }
 
-const SectionHeroWork: React.FC<SectionHeroProps> = ({ name, campaignDescription, campaignImage, division, divisionSlug, category, categorySlug, subCategories, campaign, campaignName }) => {
+const SectionHeroWork: React.FC<SectionHeroProps> = ({ name, campaignDescription, campaignImage, division, divisionSlug, category, subCategories, campaign, campaignName }) => {
     return (
         <section className="py-16 text-white md:mt-24 md:py-8">
             <div className="mx-auto max-w-7xl md:px-20 px-8 pb-16">
@@ -51,7 +51,7 @@ const SectionHeroWork: React.FC<SectionHeroProps> = ({ name, campaignDescription
 
                                 <div className="flex flex-wrap gap-2">
                                     <span
-                                        className="rounded-full border border-zinc-700 px-3 py-1 text-sm"
+                                        className="py-1 text-sm"
                                     >
                                         {campaign}
                                     </span>
@@ -66,7 +66,7 @@ const SectionHeroWork: React.FC<SectionHeroProps> = ({ name, campaignDescription
 
                                 <div className="flex flex-wrap gap-2">
                                     <span
-                                        className="rounded-full border border-zinc-700 px-3 py-1 text-sm"
+                                        className="py-1 text-sm"
                                     >
                                         {subCategories}
                                     </span>
@@ -80,12 +80,11 @@ const SectionHeroWork: React.FC<SectionHeroProps> = ({ name, campaignDescription
                                 </h4>
 
                                 <div className="flex flex-wrap gap-2">
-                                    <Link
-                                        href={`/works?category=${categorySlug}`}
-                                        className="rounded-full border border-zinc-700 px-3 py-1 text-sm transition hover:bg-zinc-700"
+                                    <span
+                                        className="py-1 text-sm"
                                     >
                                         {category}
-                                    </Link>
+                                    </span>
                                 </div>
                             </div>
 

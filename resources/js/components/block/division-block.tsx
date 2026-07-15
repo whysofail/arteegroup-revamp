@@ -16,7 +16,7 @@ const DivisionBlock: React.FC<DivisionBlockProps> = ({ divisions }) => {
                     {divisions?.map((division, i) => (
                         <Link
                             key={i}
-                            href={`/${division.slug}`}
+                            href={`/division/${division.slug}`}
                             className="flex h-36 items-center justify-center rounded-xl grayscale transition hover:scale-95 hover:grayscale-0 sm:aspect-square sm:h-auto"
                             style={{ backgroundColor: division.color ?? '' }}
                         >

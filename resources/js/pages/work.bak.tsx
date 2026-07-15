@@ -27,9 +27,7 @@ interface WorkProps {
     blocks: IBlock[];
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Work = ({
-    divisionId,
     division,
     divisionSlug,
     subCategories,
@@ -40,8 +38,6 @@ const Work = ({
     campaignName,
     campaignDescription,
     campaignImage,
-    title,
-    slug,
     seo,
     blocks,
 }: WorkProps) => {
