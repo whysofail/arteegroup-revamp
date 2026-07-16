@@ -1,5 +1,6 @@
 import React from 'react';
 import { ICampaignResultBlock } from '@/types/blocks.type';
+import AnimatedCounter from '@/components/animated-counter';
 
 const CampaignResultBlock: React.FC<ICampaignResultBlock> = ({ data }) => {
     const totalResults = data?.results?.length || 0;
@@ -86,7 +87,7 @@ const CampaignResultBlock: React.FC<ICampaignResultBlock> = ({ data }) => {
                                                 tracking-tight
                                             "
                                     >
-                                        {item.value}
+                                        <AnimatedCounter value={item.value} />
                                     </h2>
 
                                     <div className="mt-8">
